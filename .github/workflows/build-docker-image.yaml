@@ -38,9 +38,14 @@ jobs:
       matrix:
 
         include:
-          - dockerfile: Dockerfile
+          - dockerfile: Dockerfile.foxglove
             platforms: "linux/amd64, linux/arm64"
             ros_distro: "humble"
+            repo_name: foxglove
+          - dockerfile: Dockerfile.rosbridge
+            platforms: "linux/amd64, linux/arm64"
+            ros_distro: "humble"
+            repo_name: rosbridge
 
     steps:
 
@@ -52,8 +57,8 @@ jobs:
         with:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerhub_token:  ${{ secrets.DOCKERHUB_TOKEN }}
-          # dockerfile: ${{ matrix.dockerfile }}
-          # repo_name: ${{ matrix.repo_name }}
+          dockerfile: ${{ matrix.dockerfile }}
+          repo_name: ${{ matrix.repo_name }}
           build_type: ${{ inputs.build_type }}
           ros_distro: ${{ matrix.ros_distro }}
           platforms: ${{ matrix.platforms }}
