@@ -1,0 +1,10 @@
+# Listen on localhost on port 8080
+:8080 {
+    root * /src
+    file_server
+
+    header {
+        # Disable caching
+        Cache-Control "no-cache, no-store, must-revalidate"
+    }
+}
