@@ -41,6 +41,10 @@ FROM caddy:2.5.2-alpine
 
 ARG FOXGLOVE_VERSION
 
+RUN apk update && apk add bash
+
+SHELL ["/bin/bash", "-c"]
+
 WORKDIR /src
 COPY --from=build /src/studio/web/.webpack ./
 COPY ./Default.json ./

@@ -1,0 +1,13 @@
+services:
+  foxglove:
+    image: husarion/foxglove:humble-nightly
+    volumes:
+      - ./RosbotTeleop.json:/src/RosbotTeleop.json
+    ports:
+      - 8080:8080
+
+  rosbridge:
+    image: husarion/rosbridge:humble-nightly
+    ports:
+      - 9090:9090
+    command: ros2 launch rosbridge_server rosbridge_websocket_launch.xml  
