@@ -44,7 +44,7 @@ SHELL ["/bin/bash", "-c"]
 WORKDIR /src
 COPY --from=build /src/studio/web/.webpack ./
 # COPY ./Default.json ./
-COPY RosbotTeleop.json ./
+COPY FoxgloveDefaultLayout.json ./
 
 COPY Caddyfile /etc/caddy/Caddyfile
 COPY caddy_entrypoint.sh /caddy_entrypoint.sh

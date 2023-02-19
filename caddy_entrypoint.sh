@@ -29,8 +29,8 @@ echo "rosbot IP is: ${ROSBOT_IP}"
 # replace file:///ros2_ws with http://ROSBOT_IP:FOXGLOVE_PORT/ros2_ws in /src/rosbot_xl.urdf and /src/rosbot.urdf files
 sed -i "s|file:///ros2_ws|http://$ROSBOT_IP:$FOXGLOVE_PORT/ros2_ws|g" /src/rosbot_xl.urdf /src/rosbot.urdf
 
-# replace localhost:8080 with ROSBOT_IP:FOXGLOVE_PORT in /src/RosbotTeleop.json file
-sed -i "s|localhost:8080|$ROSBOT_IP:$FOXGLOVE_PORT|g" /src/RosbotTeleop.json
+# replace localhost:8080 with ROSBOT_IP:FOXGLOVE_PORT in /src/FoxgloveDefaultLayout.json file
+sed -i "s|localhost:8080|$ROSBOT_IP:$FOXGLOVE_PORT|g" /src/FoxgloveDefaultLayout.json
 
 # run the command passed as arguments to the script
 exec "$@"

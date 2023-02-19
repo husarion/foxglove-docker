@@ -3,10 +3,10 @@ services:
     build:
       dockerfile: Dockerfile.foxglove
     environment:
-      - ROSBOT_ADDR=legion-y540
-      # - ROSBOT_ADDR=10.5.10.27
       # - ROSBOT_ADDR=localhost
-      - FOXGLOVE_PORT=8088
+      - ROSBOT_ADDR=10.5.10.27
+      # - ROSBOT_ADDR=localhost
+      - FOXGLOVE_PORT=8090
     # ports:
     #   - 8081:8081
     network_mode: host

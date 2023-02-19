@@ -18,7 +18,7 @@ const fetchJSON = (url: string): Promise<LayoutData> => {
     .catch(error => error);
 };
 
-let url = "/RosbotTeleop.json?timestamp=" + Date.now();
+let url = "/FoxgloveDefaultLayout.json?timestamp=" + Date.now();
 let defaultLayout: LayoutData;
 fetchJSON(url)
   .then(data => {
