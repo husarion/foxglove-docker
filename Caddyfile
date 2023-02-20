@@ -14,6 +14,10 @@
         Content-Type "text/plain"
     }
 
+    # respond /get-default-ws "{{.Host}}{{env 'FOXGLOVE_PORT'}}" 200 {
+    #     close
+    # }
+
     header {
         # get rid of CORS error
         Access-Control-Allow-Origin *

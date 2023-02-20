@@ -21,8 +21,10 @@ WORKDIR /src
 RUN git clone --branch $FOXGLOVE_VERSION https://github.com/foxglove/studio
 WORKDIR /src/studio
 
-COPY defaultLayout.ts ./packages/studio-base/src/providers/CurrentLayoutProvider/defaultLayout.ts
-COPY Start.tsx ./packages/studio-base/src/components/OpenDialog/Start.tsx
+COPY studio-files/defaultLayout.ts ./packages/studio-base/src/providers/CurrentLayoutProvider/defaultLayout.ts
+COPY studio-files/Start.tsx ./packages/studio-base/src/components/OpenDialog/Start.tsx
+COPY studio-files/Root.tsx ./web/src/Root.tsx
+COPY studio-files/RosbridgeDataSourceFactory.ts ./packages/studio-base/src/dataSources/RosbridgeDataSourceFactory.ts
 RUN grep -rl 'showOpenDialogOnStartup = true' ./packages/studio-base/src/Workspace.tsx \
     | xargs sed -i 's/showOpenDialogOnStartup = true/showOpenDialogOnStartup = false/g'
 
@@ -45,6 +47,7 @@ WORKDIR /src
 
 COPY --from=build /src/studio/web/.webpack .
 COPY FoxgloveDefaultLayout.json .
+COPY default-url.txt .
 
 COPY Caddyfile /etc/caddy/
 COPY caddy_entrypoint.sh /
@@ -66,6 +69,7 @@ EXPOSE 8080
 RUN echo $(echo $FOXGLOVE_VERSION | sed -r 's/v([0-9]+.[0-9]+.[0-9]+)/\1/g') > /version.txt
 
 ENV FOXGLOVE_PORT=8080
+ENV ROSBRIDGE_PORT=9090
 
 # ENTRYPOINT [ "/bin/bash", "/caddy_entrypoint.sh" ]
 CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
