@@ -33,7 +33,7 @@ ENV FOXGLOVE_DISABLE_SIGN_IN=true
 RUN yarn run web:build:prod
 
 # Release stage
-FROM caddy:2.5.2-alpine
+FROM caddy:2.6.2-alpine
 
 ARG FOXGLOVE_VERSION
 
@@ -42,17 +42,23 @@ RUN apk update && apk add bash
 SHELL ["/bin/bash", "-c"]
 
 WORKDIR /src
-COPY --from=build /src/studio/web/.webpack ./
-# COPY ./Default.json ./
-COPY FoxgloveDefaultLayout.json ./
 
-COPY Caddyfile /etc/caddy/Caddyfile
-COPY caddy_entrypoint.sh /caddy_entrypoint.sh
+COPY --from=build /src/studio/web/.webpack .
+COPY FoxgloveDefaultLayout.json .
+
+COPY Caddyfile /etc/caddy/
+COPY caddy_entrypoint.sh /
 
 # copy URDFs
-COPY --from=urdf_builder /ros2_ws /src/ros2_ws
-COPY --from=urdf_builder /rosbot.urdf /src/rosbot.urdf
-COPY --from=urdf_builder /rosbot_xl.urdf /src/rosbot_xl.urdf
+COPY --from=urdf_builder /ros2_ws ./ros2_ws
+COPY --from=urdf_builder /rosbot.urdf .
+COPY --from=urdf_builder /rosbot_xl.urdf .
+
+# replace file:///ros2_ws with http://{{.Host}}:FOXGLOVE_PORT/ros2_ws in /src/rosbot_xl.urdf and /src/rosbot.urdf files
+RUN sed -i 's|file:///ros2_ws|http://{{.Host}}:{{env "FOXGLOVE_PORT"}}/ros2_ws|g' /src/rosbot_xl.urdf /src/rosbot.urdf
+
+# replace localhost:8080 with {{.Host}}:FOXGLOVE_PORT in /src/FoxgloveDefaultLayout.json file
+RUN sed -i 's|localhost:8080|{{.Host}}:{{env "FOXGLOVE_PORT"}}|g' /src/FoxgloveDefaultLayout.json
 
 EXPOSE 8080
 # CMD ["caddy", "file-server", "--listen", ":8080"]
@@ -61,5 +67,5 @@ RUN echo $(echo $FOXGLOVE_VERSION | sed -r 's/v([0-9]+.[0-9]+.[0-9]+)/\1/g') > /
 
 ENV FOXGLOVE_PORT=8080
 
-ENTRYPOINT [ "/bin/bash", "/caddy_entrypoint.sh" ]
+# ENTRYPOINT [ "/bin/bash", "/caddy_entrypoint.sh" ]
 CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]

@@ -4,9 +4,9 @@ services:
       dockerfile: Dockerfile.foxglove
     environment:
       # - ROSBOT_ADDR=localhost
-      - ROSBOT_ADDR=10.5.10.27
+      # - ROSBOT_ADDR=10.5.10.27
       # - ROSBOT_ADDR=localhost
-      - FOXGLOVE_PORT=8090
+      - FOXGLOVE_PORT=8082
     # ports:
     #   - 8081:8081
     network_mode: host

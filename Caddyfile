@@ -1,7 +1,18 @@
-# Listen on localhost on port 8081
+# Listen on localhost on the specified port
 :{$FOXGLOVE_PORT} {
     root * /src
-    file_server
+
+	templates {
+		mime "application/json" "text/plain"
+	}
+
+    file_server browse
+
+	@urdf path /*.urdf
+
+    header @urdf {
+        Content-Type "text/plain"
+    }
 
     header {
         # get rid of CORS error
