@@ -1,1 +1,1 @@
-http://{{.Host}}:{{env "ROSBRIDGE_PORT"}}
+ws://{{.Host}}:{{env "ROSBRIDGE_PORT"}}
