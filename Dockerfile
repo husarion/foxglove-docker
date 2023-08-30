@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get update -y && apt-get install -y ros-$ROS_DISTRO-xacro && \
     source install/setup.bash && \
     xacro /ros2_ws/src/rosbot_ros/rosbot_description/urdf/rosbot.urdf.xacro > /rosbot.urdf && \
-    xacro /ros2_ws/src/rosbot_xl_ros/rosbot_xl_description/urdf/rosbot_xl.urdf.xacro > /rosbot_xl.urdf && \
+    xacro /ros2_ws/src/rosbot_xl_ros/rosbot_xl_description/urdf/rosbot_xl.urdf.xacro use_sim:=false simulation_controllers_config_file:=None > /rosbot_xl.urdf && \
     xacro /ros2_ws/src/panther_ros/panther_description/urdf/panther.urdf.xacro > /panther.urdf && \
     # Changing rotation is cause by .stl files in rosbot_ros/rosbot_description. We will change it to the .dae files.
     sed -i 's/rpy=\"1.5707963267948966 0.0 1.5707963267948966\"/rpy=\"0.0 0.0 1.5707963267948966\"/g' /rosbot.urdf
