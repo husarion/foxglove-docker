@@ -38,14 +38,10 @@ jobs:
       matrix:
 
         include:
-          - dockerfile: Dockerfile.foxglove
+          - dockerfile: Dockerfile
             platforms: "linux/amd64, linux/arm64"
             ros_distro: "humble"
             repo_name: foxglove
-          - dockerfile: Dockerfile.rosbridge
-            platforms: "linux/amd64, linux/arm64"
-            ros_distro: "humble"
-            repo_name: rosbridge
 
     steps:
 

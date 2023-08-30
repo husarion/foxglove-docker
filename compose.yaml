@@ -10,7 +10,7 @@ services:
     #   - 8080:8080
 
   rosbridge:
-    image: husarion/rosbridge:humble-nightly
+    image: husarion/rosbridge-server:humble
     network_mode: host
     # ports:
     #   - 9090:9090

@@ -1,6 +1,6 @@
 services:
   foxglove:
-    image: husarion/foxglove:humble-nightly
+    image: husarion/foxglove:humble
     volumes:
       - ./RosbotTeleop.json:/src/FoxgloveDefaultLayout.json
     environment:
@@ -9,7 +9,7 @@ services:
       - 8080:8080
 
   rosbridge:
-    image: husarion/rosbridge:humble-nightly
+    image: husarion/rosbridge-server:humble
     ports:
       - 9090:9090
     command: ros2 launch rosbridge_server rosbridge_websocket_launch.xml  
