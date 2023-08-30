@@ -10,11 +10,11 @@ RUN apt-get update && apt-get install -y \
         python3-vcstool \
         git && \
     git clone -b ros2-control https://github.com/husarion/panther_ros.git /ros2_ws/src/panther_ros && \
-    rm -rf /ros2_ws/src/panther && \
-    rm -rf /ros2_ws/src/panther_battery && \
-    rm -rf /ros2_ws/src/panther_controller && \
-    rm -rf /ros2_ws/src/panther_hardware_interfaces && \
-    rm -rf /ros2_ws/src/panther_utils && \
+    rm -rf /ros2_ws/src/panther_ros/panther && \
+    rm -rf /ros2_ws/src/panther_ros/panther_battery && \
+    rm -rf /ros2_ws/src/panther_ros/panther_controller && \
+    rm -rf /ros2_ws/src/panther_ros/panther_hardware_interfaces && \
+    rm -rf /ros2_ws/src/panther_ros/panther_utils && \
     cd /ros2_ws && \
     colcon build
 
