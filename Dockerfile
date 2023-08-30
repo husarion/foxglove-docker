@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     rm -rf /ros2_ws/src/panther_ros/panther_hardware_interfaces && \
     rm -rf /ros2_ws/src/panther_ros/panther_utils && \
     cd /ros2_ws && \
+    source install/setup.bash && \
     colcon build
 
 RUN apt-get update -y && apt-get install -y ros-$ROS_DISTRO-xacro && \
