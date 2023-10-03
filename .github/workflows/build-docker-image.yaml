@@ -44,9 +44,9 @@ jobs:
         build-args: |
           FOXGLOVE_VERSION=${{ env.FOXGLOVE_VERSION }}
         tags: |
-          husarnet/foxglove:${{ env.FOXGLOVE_VERSION }}-${{ env.SHORT_DATE }}
-          husarnet/foxglove:${{ env.FOXGLOVE_VERSION }}
-          husarnet/foxglove:nightly
+          husarion/foxglove:${{ env.FOXGLOVE_VERSION }}-${{ env.SHORT_DATE }}
+          husarion/foxglove:${{ env.FOXGLOVE_VERSION }}
+          husarion/foxglove:nightly
         # cache-from: type=registry,ref=husarnet/dds-router
         cache-to: type=inline
 
@@ -60,7 +60,7 @@ jobs:
         build-args: |
           FOXGLOVE_VERSION=${{ env.FOXGLOVE_VERSION }}
         tags: |
-          husarnet/foxglove:${{ github.head_ref || github.ref_name }}-${{ env.FOXGLOVE_VERSION }}
-          husarnet/foxglove:nightly
+          husarion/foxglove:${{ github.head_ref || github.ref_name }}-${{ env.FOXGLOVE_VERSION }}
+          husarion/foxglove:nightly
         # cache-from: type=registry,ref=husarnet/dds-router-${{ github.head_ref || github.ref_name }}
         cache-to: type=inline
