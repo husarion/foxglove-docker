@@ -1,64 +1,66 @@
-name: Build/Publish Docker Image 
+name: Build a Docker Image
 
-on: 
+on:
+  push:
   workflow_dispatch:
-    inputs:
-      build_type:
-        description: "Is it a \"development\" or a \"stable\" release?"
-        required: true
-        default: 'development'
-        type: choice
-        options:
-          - development
-          - stable
-      target_distro:
-        description: "In case of \"stable\" release specify the ROS distro of the existing docker image (eg. humble)"
-        type: string
-        default: "ardent"
-      target_release:
-        description: "In case of \"stable\" release specify the version of the existing docker image (eg. 1.0.12)"
-        type: string
-        default: "0.0.0"
-      target_date:
-        description: "In case of \"stable\" release specify the date of the existing docker image in format YYYYMMDD (eg. 20220124)"
-        type: string
-        default: "20131206"
-  repository_dispatch:
-    types: [rebuild]
-  pull_request:
-    types:
-      - closed
-      - opened
-
+  
 jobs:
   build:
     runs-on: ubuntu-20.04
-    strategy:
-      fail-fast: false
-      matrix:
-
-        include:
-          - dockerfile: Dockerfile
-            platforms: "linux/amd64, linux/arm64"
-            ros_distro: "humble"
-            repo_name: foxglove
 
     steps:
+    - name: Checkout
+      uses: actions/checkout@v3
 
-      - name: Checkout
-        uses: actions/checkout@v2
+    - name: Set FOXGLOVE_VERSION env
+      run: echo "FOXGLOVE_VERSION=v1.39.1" >> $GITHUB_ENV
+      shell: bash
 
-      - name: Build Docker Image
-        uses: husarion-ci/ros-docker-img-action@v0.2
-        with:
-          dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
-          dockerhub_token:  ${{ secrets.DOCKERHUB_TOKEN }}
-          dockerfile: ${{ matrix.dockerfile }}
-          repo_name: ${{ matrix.repo_name }}
-          build_type: ${{ inputs.build_type }}
-          ros_distro: ${{ matrix.ros_distro }}
-          platforms: ${{ matrix.platforms }}
-          # variables important only for stable release
-          target_distro: ${{ inputs.target_distro }}
-          target_release: ${{ inputs.target_release }}
-          target_date: ${{ inputs.target_date }}
+    - name: Set SHORT_DATE env
+      run: echo "SHORT_DATE=$(date +%Y%m%d)" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v2
+      
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+      with:
+        version: latest
+    
+    - name: Login to Docker Registry
+      uses: docker/login-action@v2
+      with:
+        registry: docker.io
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+          
+    - name: Build and push (production)
+      if: github.ref_name == 'main'
+      uses: docker/build-push-action@v3
+      with:
+        platforms: linux/amd64, linux/arm64
+        push: true
+        build-args: |
+          FOXGLOVE_VERSION=${{ env.FOXGLOVE_VERSION }}
+        tags: |
+          husarnet/foxglove:${{ env.FOXGLOVE_VERSION }}-${{ env.SHORT_DATE }}
+          husarnet/foxglove:${{ env.FOXGLOVE_VERSION }}
+          husarnet/foxglove:nightly
+        # cache-from: type=registry,ref=husarnet/dds-router
+        cache-to: type=inline
+
+    - name: Build and push (feature branch)
+      if: github.ref_name != 'main'
+      uses: docker/build-push-action@v3
+      with:
+        # platforms: linux/amd64, linux/arm64
+        platforms: linux/amd64
+        push: true
+        build-args: |
+          FOXGLOVE_VERSION=${{ env.FOXGLOVE_VERSION }}
+        tags: |
+          husarnet/foxglove:${{ github.head_ref || github.ref_name }}-${{ env.FOXGLOVE_VERSION }}
+          husarnet/foxglove:nightly
+        # cache-from: type=registry,ref=husarnet/dds-router-${{ github.head_ref || github.ref_name }}
+        cache-to: type=inline

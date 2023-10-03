@@ -1,7 +1,7 @@
 services:
   foxglove:
     build:
-      dockerfile: Dockerfile.foxglove
+      dockerfile: Dockerfile
     network_mode: host
     environment:
       - FOXGLOVE_PORT=8080
