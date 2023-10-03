@@ -73,12 +73,12 @@ COPY --from=urdf_builder /panther.urdf .
 # replace file:///ros2_ws with http://{{.Host}}:FOXGLOVE_PORT/ros2_ws in /src/rosbot_xl.urdf and /src/rosbot.urdf files
 RUN sed -i 's|file:///ros2_ws|http://{{.Host}}:{{env "UI_PORT"}}/ros2_ws|g' /src/rosbot_xl.urdf /src/rosbot.urdf /src/panther.urdf
 
-EXPOSE 80
+EXPOSE 8080
 
 ENV DS_TYPE=rosbridge-websocket
 # ENV DS_TYPE=foxglove-websocket
 ENV DS_PORT=9090
-ENV UI_PORT=80
+ENV UI_PORT=8080
 
 ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
 CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
