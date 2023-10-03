@@ -5,7 +5,7 @@ Foxglove docker images customized for running directly on the robot
 ## Environment Variables
 
 | Environment Variable | Default Value | Description |
-| - | - |
+| - | - | - |
 | `DS_TYPE` | `rosbridge-websocket` | Data source type. Possible values: `rosbridge-websocket` or  `foxglove-websocket` |
 | `DS_PORT` | `9090` | Data source port |
 | `UI_PORT` | `8080` | User interface port |
