@@ -68,7 +68,5 @@ ENV UI_PORT=8080
 # replace file:///ros2_ws with http://{{.Host}}:UI_PORT/ros2_ws in /src/rosbot_xl.urdf and /src/rosbot.urdf files
 RUN sed -i 's|file:///ros2_ws|http://{{.Host}}:{{env "UI_PORT"}}/ros2_ws|g' /src/rosbot_xl.urdf /src/rosbot.urdf /src/panther.urdf
 
-RUN echo $(curl -s https://raw.githubusercontent.com/foxglove/studio/main/package.json | jq -r '.version' | sed -nE 's/.*\b([0-9]+\.[0-9]+\.[0-9]+)\b.*/\1/p') > /version.txt
-
 ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
 CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
