@@ -1,6 +1,6 @@
 services:
   foxglove:
-    image: husarion/foxglove:add-panther-v1.72.0
+    image: husarion/foxglove:v1.72.0
     ports:
       - 8080:8080
     volumes:

@@ -7,7 +7,7 @@
 	redir /ui /?ds={$DS_TYPE}&ds.url=ws%3A%2F%2F{http.request.host}%3A{$DS_PORT}
 
 	templates {
-		mime "application/json" "text/plain"
+		mime "application/json" "text/plain" "text/html"
 	}
 
 	file_server browse
