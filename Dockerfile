@@ -17,6 +17,7 @@ RUN apt update && \
     svn checkout https://github.com/husarion/rosbot_xl_ros/trunk/rosbot_xl_description && \
     git clone https://github.com/husarion/ros_components_description.git && \
     svn checkout https://github.com/husarion/open_manipulator_x/trunk/open_manipulator_x_description && \
+    # TODO: Change branch after first release of ROS 2
     git clone -b ros2-control https://github.com/husarion/panther_ros.git && \
     rm -rf /ros2_ws/src/panther_ros/panther && \
     rm -rf /ros2_ws/src/panther_ros/panther_battery && \
