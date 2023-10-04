@@ -44,6 +44,7 @@ jobs:
         tags: |
           husarion/foxglove:${{ env.VERSION }}-${{ env.SHORT_DATE }}
           husarion/foxglove:${{ env.VERSION }}
+          husarion/foxglove:latest
           husarion/foxglove:nightly
         cache-to: type=inline
 
