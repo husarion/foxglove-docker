@@ -1,12 +1,14 @@
 services:
   foxglove:
-    image: husarion/foxglove:humble
-    volumes:
-      - ./RosbotTeleop.json:/src/FoxgloveDefaultLayout.json
-    environment:
-      - FOXGLOVE_PORT=8080
+    image: husarion/foxglove:add-panther-v1.72.0
     ports:
       - 8080:8080
+    volumes:
+      - ./RosbotTeleop.json:/foxglove/default-layout.json
+    environment:
+      - DS_TYPE=rosbridge-websocket
+      - DS_PORT=9090
+      - UI_PORT=8080
 
   rosbridge:
     image: husarion/rosbridge-server:humble

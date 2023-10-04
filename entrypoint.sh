@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# replace localhost:8080 with {{.Host}}:FOXGLOVE_PORT in /foxglove/default-layout.json file
-RUN sed -i 's|localhost:8080|{{.Host}}:{{env "UI_PORT"}}|g' /foxglove/default-layout.json
+# replace localhost:8080 with {{.Host}}:UI_PORT in /foxglove/default-layout.json file
+sed -i 's|localhost:8080|{{.Host}}:{{env "UI_PORT"}}|g' /foxglove/default-layout.json
 
 # Optionally override the default layout with one provided via bind mount
 index_html=$(cat index.html)
