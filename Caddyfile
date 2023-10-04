@@ -1,31 +1,20 @@
 # Listen on localhost on the specified port
-:{$FOXGLOVE_PORT} {
-    root * /src
+:{$UI_PORT} {
+	tls internal
+
+	root * /src
+
+	redir /ui /?ds={$DS_TYPE}&ds.url=ws%3A%2F%2F{http.request.host}%3A{$DS_PORT}
 
 	templates {
-		mime "application/json" "text/plain"
+		mime "application/json" "text/plain" "text/html"
 	}
 
-    file_server browse
+	file_server browse
 
 	@urdf path /*.urdf
 
-    header @urdf {
-        Content-Type "text/plain"
-    }
-
-    # respond /get-default-ws "{{.Host}}{{env 'FOXGLOVE_PORT'}}" 200 {
-    #     close
-    # }
-
-    header {
-        # get rid of CORS error
-        Access-Control-Allow-Origin *
-        Access-Control-Allow-Credentials true
-        Access-Control-Allow-Methods *
-        Access-Control-Allow-Headers *
-        defer
-        # Disable caching
-        Cache-Control "no-cache, no-store, must-revalidate"
-    }
+	header @urdf {
+		Content-Type "text/plain"
+	}
 }

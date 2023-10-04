@@ -1,13 +1,13 @@
 services:
   foxglove:
-    build:
-      dockerfile: Dockerfile.foxglove
+    build: .
     network_mode: host
-    environment:
-      - FOXGLOVE_PORT=8080
-      - ROSBRIDGE_PORT=9090
     # ports:
     #   - 8080:8080
+    environment:
+      - DS_TYPE=rosbridge-websocket
+      - DS_PORT=9090
+      - UI_PORT=8080
 
   rosbridge:
     image: husarion/rosbridge-server:humble
