@@ -17,7 +17,7 @@ Create the `compose.yaml` file
 ```yaml
 services:
   foxglove:
-    image: husarion/foxglove:v1.72.0
+    image: husarion/foxglove:1.72.0
     ports:
       - 8080:8080
     # optionaly override the default config

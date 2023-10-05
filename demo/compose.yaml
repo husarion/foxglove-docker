@@ -1,10 +1,13 @@
 services:
   foxglove:
     image: husarion/foxglove:1.72.0
+    # build:
+    #   context: ..
+    #   dockerfile: ./Dockerfile
     ports:
       - 8080:8080
     volumes:
-      - ./foxglove-layout.json:/foxglove/default-layout.json
+      - ./RosbotTeleop.json:/foxglove/default-layout.json
     environment:
       - DS_TYPE=rosbridge-websocket
       - DS_PORT=9090
