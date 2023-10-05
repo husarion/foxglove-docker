@@ -46,5 +46,5 @@ Open a browser and go to http://localhost:8080/ui
 This address automatically redirects to the URL using `DS_PORT` and `DS_TYPE` envs to connect to the right data source without setting it manually in the Foxglove UI.
 
 > [!IMPORTANT]
-> If you want to change `default-layout.json` it is necessary to execute the `docker compose down` command which removes the containers. This is because urdf files are mapped appropriately when starting the Docker container.
+> If you need to modify the default-layout.json file, you must first execute the 'docker-compose down' command to remove the containers. This step is essential because the URDF files are appropriately mapped when starting the Docker container.
 
