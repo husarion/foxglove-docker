@@ -38,7 +38,10 @@ RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
     sed -i 's/rpy=\"1.5707963267948966 0.0 1.5707963267948966\"/rpy=\"0.0 0.0 1.5707963267948966\"/g' /rosbot.urdf
 
 # Latest version of Foxglove: https://github.com/foxglove/studio/pkgs/container/studio
-FROM ghcr.io/foxglove/studio:${FOXGLOVE_VERSION}
+FROM ghcr.io/foxglove/studio:${FOXGLOVE_VERSION} as foxglove_build
+
+FROM caddy:2.6.2-alpine
+ARG FOXGLOVE_VERSION=1.72.0
 
 RUN apk update && apk add \
         bash \
@@ -48,6 +51,7 @@ SHELL ["/bin/bash", "-c"]
 
 WORKDIR /src
 
+COPY --from=foxglove_build /src .
 COPY FoxgloveDefaultLayout.json /foxglove/default-layout.json
 
 COPY Caddyfile /etc/caddy/
