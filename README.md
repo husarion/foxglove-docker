@@ -32,16 +32,18 @@ services:
     image: husarion/rosbridge-server:humble
     ports:
       - 9090:9090
-    command: ros2 launch rosbridge_server rosbridge_websocket_launch.xml  
+    command: ros2 launch rosbridge_server rosbridge_websocket_launch.xml
 ```
 
 And execute in the terminal:
 
-```
-docker compose up
+```bash
+docker compose up -d
 ```
 
-Access the robot user interface at:
+> **IMPORTANT:**
+>
+> If you want to change `default-layout.json` it is necessary to execute the `docker compose down` command which removes the containers. This is because urdf files are mapped appropriately when starting the Docker container.
 
 http://localhost:8080/ui
 

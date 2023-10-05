@@ -2,7 +2,7 @@
   "configById": {
     "3D!40jejke": {
       "cameraState": {
-        "distance": 0.7504827842222612,
+        "distance": 2.5,
         "perspective": true,
         "phi": 60.34220532319342,
         "target": [0, 0, 0],
@@ -76,7 +76,14 @@
           "label": "URDF",
           "instanceId": "e827a6dc-875b-448a-8475-5497577c2e1b",
           "layerId": "foxglove.Urdf",
+          "sourceType": "url",
           "url": "http://localhost:8080/rosbot.urdf",
+          "filePath": "",
+          "parameter": "",
+          "topic": "",
+          "framePrefix": "",
+          "displayMode": "auto",
+          "fallbackColor": "#ffffff",
           "order": 1
         }
       },

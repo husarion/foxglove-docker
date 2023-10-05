@@ -26,6 +26,7 @@ RUN apt update && \
     rm -rf /ros2_ws/src/panther_ros/panther_controller && \
     rm -rf /ros2_ws/src/panther_ros/panther_hardware_interfaces && \
     rm -rf /ros2_ws/src/panther_ros/panther_utils
+
 # Create URDF files
 RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
     colcon build && \
