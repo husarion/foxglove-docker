@@ -41,7 +41,7 @@ RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
 FROM ghcr.io/foxglove/studio:${FOXGLOVE_VERSION} as foxglove_build
 
 FROM caddy:2.6.2-alpine
-ARG FOXGLOVE_VERSION=1.72.0
+ARG FOXGLOVE_VERSION
 
 RUN apk update && apk add \
         bash \
