@@ -41,8 +41,7 @@ And execute in the terminal:
 docker compose up -d
 ```
 
-> **IMPORTANT:**
->
+> [!IMPORTANT]
 > If you want to change `default-layout.json` it is necessary to execute the `docker compose down` command which removes the containers. This is because urdf files are mapped appropriately when starting the Docker container.
 
 http://localhost:8080/ui
