@@ -73,8 +73,8 @@ ENV UI_PORT=8080
 ENV DISABLE_INTERACTION=false
 ENV DISABLE_CACHE=true
 
-# replace file:///ros2_ws with http://{{.Host}}:UI_PORT/ros2_ws
-RUN sed -i 's|file:///ros2_ws|http://{{.Host}}:{{env "UI_PORT"}}/ros2_ws|g' /src/rosbot_xl.urdf /src/rosbot.urdf /src/panther.urdf
+# replace file:///ros2_ws with http://{{placeholder "http.vars.full_host"}}:UI_PORT/ros2_ws
+RUN sed -i 's|file:///ros2_ws|http://{{placeholder "http.vars.full_host"}}:{{env "UI_PORT"}}/ros2_ws|g' /src/rosbot_xl.urdf /src/rosbot.urdf /src/panther.urdf
 
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
 CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
