@@ -9,6 +9,8 @@ Foxglove docker images customized for running directly on the robot
 | `DS_TYPE` | `rosbridge-websocket` | Data source type. Possible values: `rosbridge-websocket` or  `foxglove-websocket` |
 | `DS_PORT` | `9090` | Data source port |
 | `UI_PORT` | `8080` | User interface port |
+| `DISABLE_CACHE` | `true` | Clear local storage in browser on page reload |
+| `DISABLE_INTERACTION` | `false` | Make the UI read only |
 
 ## Quick Start
 

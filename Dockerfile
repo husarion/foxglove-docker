@@ -53,6 +53,9 @@ WORKDIR /src
 COPY --from=foxglove_build /src .
 COPY FoxgloveDefaultLayout.json /foxglove/default-layout.json
 
+COPY disable_cache.js /
+COPY disable_interaction.js /
+
 COPY Caddyfile /etc/caddy/
 COPY entrypoint.sh /
 
@@ -67,9 +70,11 @@ EXPOSE 8080
 ENV DS_TYPE=rosbridge-websocket
 ENV DS_PORT=9090
 ENV UI_PORT=8080
+ENV DISABLE_INTERACTION=false
+ENV DISABLE_CACHE=true
 
 # replace file:///ros2_ws with http://{{.Host}}:UI_PORT/ros2_ws
 RUN sed -i 's|file:///ros2_ws|http://{{.Host}}:{{env "UI_PORT"}}/ros2_ws|g' /src/rosbot_xl.urdf /src/rosbot.urdf /src/panther.urdf
 
-ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
 CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]

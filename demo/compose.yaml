@@ -12,6 +12,8 @@ services:
       - DS_TYPE=rosbridge-websocket
       - DS_PORT=9090
       - UI_PORT=8080
+      - DISABLE_CACHE=true
+      - DISABLE_INTERACTION=false
 
   rosbridge:
     image: husarion/rosbridge-server:humble
