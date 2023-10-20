@@ -26,13 +26,13 @@ cd foxglove-docker/demo
 **2a. Run `foxglove_bridge` compose**
 
 ```bash
-docker compose up -f compose.foxglove_bridge.yaml -d
+docker compose -f compose.foxglove_bridge.yaml up -d
 ```
 
 **2a. Run `rosbridge` compose**
 
 ```bash
-docker compose up -f compose.rosbridge.yaml -d
+docker compose -f compose.rosbridge.yaml up -d
 ```
 
 > [!NOTE]
