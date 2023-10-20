@@ -7,7 +7,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - ./RosbotTeleop.json:/foxglove/default-layout.json
+      - ./foxglove_layout.json:/foxglove/default-layout.json
     environment:
       - DS_TYPE=foxglove-websocket
       - DS_PORT=8765

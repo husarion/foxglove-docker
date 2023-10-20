@@ -49,4 +49,4 @@ To access Foxglove, input the following in your browser's search bar:
 This address automatically redirects to the URL using `DS_PORT` and `DS_TYPE` envs to connect to the right data source without setting it manually in the Foxglove UI.
 
 > [!IMPORTANT]
-> If you need to modify the default-layout.json file, you must first execute the 'docker-compose down' command to remove the containers. This step is essential because the URDF files are appropriately mapped when starting the Docker container.
+> If you want load new layout file, you must first execute the `docker-compose -f compose.foxglove_bridge.yaml down` or `docker-compose -f compose.rosbridge.yaml down` command to remove the containers.
