@@ -42,9 +42,9 @@ docker compose -f compose.rosbridge.yaml up -d
 
 To access Foxglove, input the following in your browser's search bar:
 
-- http://<localhost>:8080/ui - if you work locally,
-- http://<ROSBOT_IP>:8080/ui - if you want to connect to a device connected to the same LAN,
-- http://<HUSARNET_NAME>:8080/ui - if you want to connect to the device using Husarnet VPN.
+- `http://<localhost>:8080/ui` - if you work locally,
+- `http://<ROBOT_IP>:8080/ui` - if you want to connect to a device connected to the same LAN,
+- `http://<HUSARNET_NAME>:8080/ui` - if you want to connect to the device using Husarnet VPN.
 
 This address automatically redirects to the URL using `DS_PORT` and `DS_TYPE` envs to connect to the right data source without setting it manually in the Foxglove UI.
 
