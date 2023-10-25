@@ -1,6 +1,6 @@
 services:
   foxglove:
-    image: husarion/foxglove:1.72.0
+    image: husarion/foxglove:1.74.1
     # build:
     #   context: ..
     #   dockerfile: ./Dockerfile
