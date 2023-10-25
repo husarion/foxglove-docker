@@ -4,47 +4,49 @@ Foxglove docker images customized for running directly on the robot
 
 ## Environment Variables
 
-| Environment Variable | Default Value | Description |
-| - | - | - |
-| `DS_TYPE` | `rosbridge-websocket` | Data source type. Possible values: `rosbridge-websocket` or  `foxglove-websocket` |
-| `DS_PORT` | `9090` | Data source port |
-| `UI_PORT` | `8080` | User interface port |
+| Environment Variable  | Default Value         | Description                                                                      |
+| --------------------- | --------------------- | -------------------------------------------------------------------------------- |
+| `DS_TYPE`             | `rosbridge-websocket` | Data source type. Possible values: `rosbridge-websocket` or `foxglove-websocket` |
+| `DS_PORT`             | `9090`                | Data source port                                                                 |
+| `UI_PORT`             | `8080`                | User interface port                                                              |
+| `DISABLE_CACHE`       | `true`                | Clear local storage in browser on page reload                                    |
+| `DISABLE_INTERACTION` | `false`               | Make the UI read only                                                            |
 
 ## Quick Start
 
-Create the `compose.yaml` file
+Foxglove supports information exchange both using **rosbridge** and a dedicated **foxglove bridge**. Below are instructions for running foxglove in the selected mode.
 
-```yaml
-services:
-  foxglove:
-    image: husarion/foxglove:1.72.0
-    ports:
-      - 8080:8080
-    # optionaly override the default config
-    # volumes:
-    #   - ./custom-ui-config.json:/foxglove/default-layout.json
-    environment:
-      - DS_TYPE=rosbridge-websocket
-      - DS_PORT=9090
-      - UI_PORT=8080
-
-  rosbridge:
-    image: husarion/rosbridge-server:humble
-    ports:
-      - 9090:9090
-    command: ros2 launch rosbridge_server rosbridge_websocket_launch.xml
-```
-
-And execute in the terminal:
+**1. Clone repository**
 
 ```bash
-docker compose up -d
+git clone https://github.com/husarion/foxglove-docker.git
+cd foxglove-docker/demo
 ```
 
-Open a browser and go to http://localhost:8080/ui
+**2a. Run `foxglove_bridge` compose**
+
+```bash
+docker compose -f compose.foxglove_bridge.yaml up -d
+```
+
+**2a. Run `rosbridge` compose**
+
+```bash
+docker compose -f compose.rosbridge.yaml up -d
+```
+
+> [!NOTE]
+> Foxglove recommends using `foxglove_bridge` to speed up the exchange of information.
+
+**3. Open the Foxglove application in a browser**
+
+To access Foxglove, input the following in your browser's search bar:
+
+- `http://<localhost>:8080/ui` - if you work locally,
+- `http://<ROBOT_IP>:8080/ui` - if you want to connect to a device connected to the same LAN,
+- `http://<HUSARNET_NAME>:8080/ui` - if you want to connect to the device using Husarnet VPN.
 
 This address automatically redirects to the URL using `DS_PORT` and `DS_TYPE` envs to connect to the right data source without setting it manually in the Foxglove UI.
 
 > [!IMPORTANT]
-> If you need to modify the default-layout.json file, you must first execute the 'docker-compose down' command to remove the containers. This step is essential because the URDF files are appropriately mapped when starting the Docker container.
-
+> If you want load new layout file, you must first execute the `docker-compose -f compose.foxglove_bridge.yaml down` or `docker-compose -f compose.rosbridge.yaml down` command to remove the containers.
