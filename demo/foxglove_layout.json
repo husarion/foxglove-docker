@@ -77,7 +77,7 @@
           "instanceId": "e827a6dc-875b-448a-8475-5497577c2e1b",
           "layerId": "foxglove.Urdf",
           "sourceType": "url",
-          "url": "http://localhost:8080/rosbot.urdf",
+          "url": "http://localhost:8080/rosbot_xl.urdf",
           "filePath": "",
           "parameter": "",
           "topic": "",

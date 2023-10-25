@@ -15,7 +15,7 @@ if [[ "$DISABLE_CACHE" == "true" ]]; then
     echo "Cache is disabled"
     # Read the content of script1.js into a variable
     script1_content=$(</disable_cache.js)
-    
+
     # Escape certain characters in the content that might break sed
     escaped_script1_content=$(echo "$script1_content" | sed 's/[&/\]/\\&/g')
 
@@ -28,7 +28,7 @@ if [[ "$DISABLE_INTERACTION" == "true" ]]; then
     echo "Interaction is disabled"
     # Read the content of script2.js into a variable
     script2_content=$(</disable_interaction.js)
-    
+
     # Escape certain characters in the content that might break sed
     escaped_script2_content=$(echo "$script2_content" | sed 's/[&/\]/\\&/g')
 
