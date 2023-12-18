@@ -1,4 +1,4 @@
-name: Build a Docker Image
+name: Build a Docker Image ${{ inputs.foxglove_version }}
 
 on:
   workflow_dispatch:
