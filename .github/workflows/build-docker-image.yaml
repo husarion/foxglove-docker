@@ -1,4 +1,4 @@
-name: Build a Docker Image ${{ inputs.foxglove_version }}
+name: Build a Docker Image
 
 on:
   workflow_dispatch:
@@ -35,7 +35,7 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Build and push (production)
+    - name: Build and push (production) v${{ inputs.foxglove_version }}
       if: github.ref_name == 'main'
       uses: docker/build-push-action@v3
       with:
@@ -50,7 +50,7 @@ jobs:
           husarion/foxglove:nightly
         cache-to: type=inline
 
-    - name: Build and push (feature branch)
+    - name: Build and push (feature branch) v${{ inputs.foxglove_version }}
       if: github.ref_name != 'main'
       uses: docker/build-push-action@v3
       with:
