@@ -21,11 +21,12 @@ RUN apt update && \
     svn checkout https://github.com/husarion/open_manipulator_x/trunk/open_manipulator_x_description && \
     # TODO: Change branch after first release of ROS 2 -> svn checkout https://github.com/husarion/open_manipulator_x/trunk/open_manipulator_x_description
     git clone -b ros2-control https://github.com/husarion/panther_ros.git && \
-    rm -rf /ros2_ws/src/panther_ros/panther && \
-    rm -rf /ros2_ws/src/panther_ros/panther_battery && \
-    rm -rf /ros2_ws/src/panther_ros/panther_controller && \
-    rm -rf /ros2_ws/src/panther_ros/panther_hardware_interfaces && \
-    rm -rf /ros2_ws/src/panther_ros/panther_utils
+    find /ros2_ws/src/panther_ros -mindepth 1 -maxdepth 1 -not \( -name 'panther_description' -o -name 'panther_controller' \) -exec rm -rf {} \;
+    # rm -rf /ros2_ws/src/panther_ros/panther && \
+    # rm -rf /ros2_ws/src/panther_ros/panther_battery && \
+    # rm -rf /ros2_ws/src/panther_ros/panther_controller && \
+    # rm -rf /ros2_ws/src/panther_ros/panther_hardware_interfaces && \
+    # rm -rf /ros2_ws/src/panther_ros/panther_utils
 
 # Create URDF files
 RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
@@ -73,8 +74,10 @@ ENV UI_PORT=8080
 ENV DISABLE_INTERACTION=false
 ENV DISABLE_CACHE=true
 
-# replace file:///ros2_ws with http://{{placeholder "http.vars.full_host"}}:UI_PORT/ros2_ws
-RUN sed -i 's|file:///ros2_ws|http://{{placeholder "http.vars.full_host"}}:{{env "UI_PORT"}}/ros2_ws|g' /src/rosbot_xl.urdf /src/rosbot.urdf /src/panther.urdf
+# replace package://something with http://{{placeholder "http.vars.full_host"}}:UI_PORT/ros2_ws/install/something/share/something
+RUN sed -i \
+    's|package://\([^/]*\)|http://{{placeholder "http.vars.full_host"}}:{{env "UI_PORT"}}/ros2_ws/install/\1/share/\1|g' \
+    /src/rosbot_xl.urdf /src/rosbot.urdf /src/panther.urdf
 
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
 CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
