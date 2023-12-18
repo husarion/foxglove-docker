@@ -1,0 +1,38 @@
+# Listen on localhost on the specified port
+:{$UI_PORT} {
+	tls internal
+
+	root * /src
+
+	# Handle requests from Husarnet IPv6 clients
+	@ipv6Client {
+		expression {http.request.host}.startsWith("fc94")
+	}
+	handle @ipv6Client {
+		vars full_host [{http.request.host}]
+		redir /ui /?ds={$DS_TYPE}&ds.url=ws%3A%2F%2F%5B{http.request.host}%5D%3A{$DS_PORT}
+	}
+
+	# Handle all other requests (from non-IPv6 clients)
+	handle {
+		vars full_host {http.request.host}
+		redir /ui /?ds={$DS_TYPE}&ds.url=ws%3A%2F%2F{http.request.host}%3A{$DS_PORT}
+	}
+
+	templates {
+		mime "application/json" "text/plain" "text/html"
+	}
+
+	file_server browse
+
+	@urdf path /*.urdf
+
+	header @urdf {
+		Content-Type "text/plain"
+	}
+}
+
+:{$DS_PORT} {
+	# Reverse Proxy for foxglove-datasource
+	reverse_proxy ws://{$DS_HOST}:{$DS_PORT}
+}

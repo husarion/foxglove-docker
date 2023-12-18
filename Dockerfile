@@ -58,7 +58,9 @@ COPY disable_cache.js /
 COPY disable_interaction.js /
 
 COPY Caddyfile /etc/caddy/
+COPY Caddyfile_reverse_proxy /etc/caddy/
 COPY entrypoint.sh /
+COPY run.sh /
 
 # Copy Meshes and URDFs
 COPY --from=urdf_builder /ros2_ws ./ros2_ws
@@ -74,10 +76,14 @@ ENV UI_PORT=8080
 ENV DISABLE_INTERACTION=false
 ENV DISABLE_CACHE=true
 
+# only for IPv6 -> IPv4 reverse proxy for foxglove-websocket datasource (that can listen only on IPv4)
+ENV DS_HOST=
+
 # replace package://something with http://{{placeholder "http.vars.full_host"}}:UI_PORT/ros2_ws/install/something/share/something
 RUN sed -i \
     's|package://\([^/]*\)|http://{{placeholder "http.vars.full_host"}}:{{env "UI_PORT"}}/ros2_ws/install/\1/share/\1|g' \
     /src/rosbot_xl.urdf /src/rosbot.urdf /src/panther.urdf
 
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
-CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
+CMD /run.sh
+# CMD ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile"]
