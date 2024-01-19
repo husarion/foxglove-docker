@@ -1,8 +1,13 @@
 #!/bin/bash
 set -e
 
-# replace localhost:8080 with {{placeholder "http.vars.full_host"}}:UI_PORT in /foxglove/default-layout.json file
+# replace localhost:8080 with {{placeholder "http.vars.full_host"}}:UI_PORT in /foxglove/default-layout.json file (change file to do not modify volumen)
 sed 's|localhost:8080|{{placeholder "http.vars.full_host"}}:{{env "UI_PORT"}}|g' /foxglove/default-layout.json > /foxglove/remote-layout.json
+if [ -n "$ROBOT_NAMESPACE" ]; then
+    sed -i "s|<robot_namespace>|/$ROBOT_NAMESPACE|g" /foxglove/remote-layout.json
+else
+    sed -i "s|<robot_namespace>||g" /foxglove/remote-layout.json
+fi
 
 # Optionally override the default layout with one provided via bind mount
 index_html=$(cat index.html)
