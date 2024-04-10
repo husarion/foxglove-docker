@@ -2,63 +2,52 @@ name: Build a Docker Image
 
 on:
   workflow_dispatch:
-    inputs:
-      foxglove_version:
-        description: "Specify the tag of the Foxglove Release you want to use.\nAvailable tags: https://github.com/foxglove/studio/pkgs/container/studio"
-        type: string
-        default: "latest"
 
 jobs:
   build:
     runs-on: ubuntu-20.04
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Set SHORT_DATE env
-      run: echo "SHORT_DATE=$(date +%Y%m%d)" >> $GITHUB_ENV
-      shell: bash
+      - name: Set SHORT_DATE env
+        run: echo "SHORT_DATE=$(date +%Y%m%d)" >> $GITHUB_ENV
+        shell: bash
 
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v2
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
-      with:
-        version: latest
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          version: latest
 
-    - name: Login to Docker Registry
-      uses: docker/login-action@v2
-      with:
-        registry: docker.io
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Login to Docker Registry
+        uses: docker/login-action@v2
+        with:
+          registry: docker.io
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Build and push (production) v${{ inputs.foxglove_version }}
-      if: github.ref_name == 'main'
-      uses: docker/build-push-action@v3
-      with:
-        platforms: linux/amd64, linux/arm64
-        push: true
-        build-args: |
-          FOXGLOVE_VERSION=${{ inputs.foxglove_version }}
-        tags: |
-          husarion/foxglove:${{ inputs.foxglove_version }}-${{ env.SHORT_DATE }}
-          husarion/foxglove:${{ inputs.foxglove_version }}
-          husarion/foxglove:latest
-          husarion/foxglove:nightly
-        cache-to: type=inline
+      - name: Build and push (production)
+        if: github.ref_name == 'main'
+        uses: docker/build-push-action@v3
+        with:
+          platforms: linux/amd64, linux/arm64
+          push: true
+          tags: |
+            husarion/foxglove:studio-${{ env.SHORT_DATE }}
+            husarion/foxglove:studio
+            husarion/foxglove:studio-nightly
+          cache-to: type=inline
 
-    - name: Build and push (feature branch) v${{ inputs.foxglove_version }}
-      if: github.ref_name != 'main'
-      uses: docker/build-push-action@v3
-      with:
-        platforms: linux/amd64, linux/arm64
-        push: true
-        build-args: |
-          FOXGLOVE_VERSION=${{ inputs.foxglove_version }}
-        tags: |
-          husarion/foxglove:${{ github.head_ref || github.ref_name }}-${{ inputs.foxglove_version }}
-          husarion/foxglove:nightly
-        cache-to: type=inline
+      - name: Build and push (feature branch)
+        if: github.ref_name != 'main'
+        uses: docker/build-push-action@v3
+        with:
+          platforms: linux/amd64, linux/arm64
+          push: true
+          tags: |
+            husarion/foxglove:studio-nightly
+          cache-to: type=inline

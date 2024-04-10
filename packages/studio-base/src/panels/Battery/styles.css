@@ -1,0 +1,56 @@
+.battery {
+    max-width: 100%;
+    max-height: 100%;
+    min-width: 75%;
+    min-height: 75%;
+    background-color: #f3f3f3;
+    border: 2px solid #333;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.level {
+    width: 100%;
+    background: linear-gradient(to right, #4CAF50, #8BC34A); /* Gradient colors for battery level */
+    height: 100%;
+    border-radius: 8px;
+    position: relative;
+}
+
+/* Different colors based on battery level */
+.level.low {
+    background: linear-gradient(to right, #ff0000, #f44336); /* Red gradient */
+}
+
+.level.medium {
+    background: linear-gradient(to right, #ffa500, #ff9800); /* Orange gradient */
+}
+
+.level.high {
+    background: linear-gradient(to right, #4CAF50, #8BC34A); /* Green gradient */
+}
+
+/* Battery terminals */
+.terminal {
+    width: 20px;
+    height: 30%;
+    background-color: #333;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+/* Battery percentage text */
+.percentage {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    height: 50px; /* Half of the battery height */
+    line-height: 50px; /* Center the text vertically */
+}

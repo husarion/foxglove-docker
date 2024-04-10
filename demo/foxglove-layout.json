@@ -1,0 +1,249 @@
+{
+  "configById": {
+    "TriggerButton!2mhoc9g": {
+      "requestPayload": "{}",
+      "layout": "horizontal",
+      "advancedView": false,
+      "foxglovePanelTitle": "E-stop",
+      "buttonText": "STOP",
+      "serviceName": "/hardware/e-stop",
+      "buttonColor": "#ff0000"
+    },
+    "TriggerButton!194be9": {
+      "requestPayload": "{}",
+      "layout": "horizontal",
+      "advancedView": false,
+      "foxglovePanelTitle": "E-stop",
+      "buttonText": "Enable",
+      "buttonColor": "#00ff00",
+      "serviceName": "/hardware"
+    },
+    "Teleop!johyih": {
+      "topic": "/cmd_vel",
+      "publishRate": 1,
+      "upButton": {
+        "field": "linear-x",
+        "value": 1
+      },
+      "downButton": {
+        "field": "linear-x",
+        "value": -1
+      },
+      "leftButton": {
+        "field": "angular-z",
+        "value": 1
+      },
+      "rightButton": {
+        "field": "angular-z",
+        "value": -1
+      },
+      "foxglovePanelTitle": ""
+    },
+    "Battery!wppv5y": {
+      "path": "/battery.percentage",
+      "minValue": 0,
+      "maxValue": 1,
+      "colorMap": "red-yellow-green",
+      "colorMode": "colormap",
+      "gradient": ["#0000ff", "#ff00ff"],
+      "reverse": false,
+      "foxglovePanelTitle": ""
+    },
+    "Indicator!2wjfnhj": {
+      "path": "/hardware/e_stop.data",
+      "style": "background",
+      "fallbackColor": "#ff0000",
+      "fallbackLabel": "Stopped",
+      "rules": [
+        {
+          "operator": "=",
+          "rawValue": "true",
+          "color": "#68e24a",
+          "label": "Working"
+        }
+      ],
+      "foxglovePanelTitle": "E-stop Status"
+    },
+    "3D!2a7yeqc": {
+      "cameraState": {
+        "perspective": true,
+        "distance": 7.94428636916387,
+        "phi": 59.99999999999973,
+        "thetaOffset": 45.00000000000001,
+        "targetOffset": [0.7838587148623077, 0.5966343346200247, 2.76906893938473e-16],
+        "target": [0, 0, 0],
+        "targetOrientation": [0, 0, 0, 1],
+        "fovy": 45,
+        "near": 0.5,
+        "far": 5000
+      },
+      "followMode": "follow-pose",
+      "followTf": "odom",
+      "scene": {
+        "enableStats": true,
+        "ignoreColladaUpAxis": false,
+        "syncCamera": false,
+        "transforms": {
+          "editable": false,
+          "showLabel": false,
+          "axisScale": 4,
+          "lineWidth": 1,
+          "enablePreloading": true
+        }
+      },
+      "transforms": {
+        "frame:base_link": {
+          "visible": false
+        },
+        "frame:odom": {
+          "visible": true
+        },
+        "frame:fl_wheel_link": {
+          "visible": false
+        },
+        "frame:body_link": {
+          "visible": false
+        },
+        "frame:fr_wheel_link": {
+          "visible": false
+        },
+        "frame:rl_wheel_link": {
+          "visible": false
+        },
+        "frame:rr_wheel_link": {
+          "visible": false
+        },
+        "frame:cover_link": {
+          "visible": false
+        },
+        "frame:front_bumper_link": {
+          "visible": false
+        },
+        "frame:imu_link": {
+          "visible": false
+        },
+        "frame:rear_bumper_link": {
+          "visible": false
+        },
+        "frame:front_light_link": {
+          "visible": false
+        },
+        "frame:rear_light_link": {
+          "visible": false
+        }
+      },
+      "topics": {
+        "/robot_description": {
+          "visible": true
+        }
+      },
+      "layers": {
+        "664bff39-4ef1-411e-80e2-5d81ae974339": {
+          "visible": true,
+          "frameLocked": true,
+          "label": "Grid",
+          "instanceId": "664bff39-4ef1-411e-80e2-5d81ae974339",
+          "layerId": "foxglove.Grid",
+          "size": 15,
+          "divisions": 15,
+          "lineWidth": 1,
+          "color": "#248eff",
+          "position": [0, 0, 0],
+          "rotation": [0, 0, 0],
+          "order": 1
+        }
+      },
+      "publish": {
+        "type": "point",
+        "poseTopic": "/move_base_simple/goal",
+        "pointTopic": "/clicked_point",
+        "poseEstimateTopic": "/initialpose",
+        "poseEstimateXDeviation": 0.5,
+        "poseEstimateYDeviation": 0.5,
+        "poseEstimateThetaDeviation": 0.26179939
+      },
+      "imageMode": {}
+    },
+    "Plot!dg5ynj": {
+      "paths": [
+        {
+          "timestampMethod": "receiveTime",
+          "value": "/imu/data.linear_acceleration.x",
+          "enabled": true,
+          "label": "x",
+          "showLine": true
+        },
+        {
+          "timestampMethod": "receiveTime",
+          "value": "/imu/data.linear_acceleration.y",
+          "enabled": true,
+          "label": "y"
+        },
+        {
+          "timestampMethod": "receiveTime",
+          "value": "/imu/data.linear_acceleration.z",
+          "enabled": true,
+          "label": "z"
+        }
+      ],
+      "showXAxisLabels": true,
+      "showYAxisLabels": true,
+      "showLegend": true,
+      "legendDisplay": "floating",
+      "showPlotValuesInLegend": false,
+      "isSynced": true,
+      "xAxisVal": "timestamp",
+      "sidebarDimension": 240,
+      "foxglovePanelTitle": "IMU - acceleration",
+      "followingViewWidth": 60
+    },
+    "DiagnosticStatusPanel!jyt4qz": {
+      "topicToRender": "/diagnostics",
+      "selectedHardwareId": "none"
+    },
+    "Tab!62jad4": {
+      "activeTabIdx": 0,
+      "tabs": [
+        {
+          "title": "Control",
+          "layout": {
+            "first": {
+              "first": {
+                "first": "TriggerButton!2mhoc9g",
+                "second": "TriggerButton!194be9",
+                "direction": "row"
+              },
+              "second": "Teleop!johyih",
+              "direction": "column",
+              "splitPercentage": 22.123893805309734
+            },
+            "second": {
+              "first": "Battery!wppv5y",
+              "second": "Indicator!2wjfnhj",
+              "direction": "column",
+              "splitPercentage": 22.123893805309734
+            },
+            "direction": "row",
+            "splitPercentage": 74.1822429906542
+          }
+        },
+        {
+          "title": "Visualization",
+          "layout": {
+            "first": "3D!2a7yeqc",
+            "second": "Plot!dg5ynj",
+            "direction": "row",
+            "splitPercentage": 66.19834710743801
+          }
+        },
+        {
+          "title": "Diagnostic",
+          "layout": "DiagnosticStatusPanel!jyt4qz"
+        }
+      ]
+    }
+  },
+  "globalVariables": {},
+  "userNodes": {},
+  "layout": "Tab!62jad4"
+}

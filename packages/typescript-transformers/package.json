@@ -1,0 +1,28 @@
+{
+  "name": "@foxglove/typescript-transformers",
+  "license": "MPL-2.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/foxglove/studio.git"
+  },
+  "author": {
+    "name": "Foxglove Technologies",
+    "email": "support@foxglove.dev"
+  },
+  "homepage": "https://foxglove.dev/",
+  "main": "./src/index.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "prepack": "tsc -b"
+  },
+  "dependencies": {
+    "typescript": "5.3.3"
+  },
+  "devDependencies": {
+    "@foxglove/tsconfig": "2.0.0"
+  }
+}

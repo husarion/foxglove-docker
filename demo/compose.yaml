@@ -1,0 +1,26 @@
+services:
+  foxglove:
+    # image: husarion/foxglove-desktop:1.87.0-20240323
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    # runtime: nvidia
+    ports:
+      - 8080:8080
+      - 8765:8765
+    volumes:
+      - ./foxglove-layout.json:/foxglove/default-layout.json
+    environment:
+      - DS_TYPE=foxglove-websocket
+      - DS_PORT=8765
+      - DS_HOST=foxglove-ds
+      - UI_PORT=8080
+      - DISABLE_CACHE=true
+      - DISABLE_INTERACTION=false
+      - DISPLAY
+      # - NVIDIA_VISIBLE_DEVICES=all
+      # - NVIDIA_DRIVER_CAPABILITIES=all
+
+  foxglove-ds:
+    image: husarion/foxglove-bridge:humble-0.7.3-20240108
+    command: ros2 launch foxglove_bridge foxglove_bridge_launch.xml port:=8765 capabilities:=[clientPublish,parameters,parametersSubscribe,services,connectionGraph,assets]

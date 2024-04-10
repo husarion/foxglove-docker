@@ -1,0 +1,27 @@
+# environment:
+#   - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp # Default FastDDS do not work
+
+services:
+  panther_ros:
+    image: husarion/panther:humble-2.0.0-20240402
+    container_name: panther_ros
+    devices:
+      - /dev/bus/usb
+      - /dev/gpiochip0
+      - /dev/spidev0.0
+      - /dev/spidev0.1
+    volumes:
+      - ~/.ssh/id_rsa:/root/.ssh/id_rsa
+      - /sys/bus/iio/devices:/sys/bus/iio/devices
+      - /run/husarion/panther_config.env:/run/husarion/panther_config.env
+      - /run/husarion/panther_config.yaml:/run/husarion/panther_config.yaml
+    # Realtime hardware (https://control.ros.org/master/doc/ros2_control/controller_manager/doc/userdoc.html#determinism)
+    ulimits:
+      rtprio:
+        soft: 99
+        hard: 99
+      memlock:
+        soft: 102400
+        hard: 102400
+    command: >
+      ros2 launch panther_bringup bringup.launch.py namespace:=panther
