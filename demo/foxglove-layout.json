@@ -34,7 +34,7 @@
     "Battery!wppv5y": {
       "path": "/battery.percentage",
       "minValue": 0,
-      "maxValue": 100,
+      "maxValue": 1,
       "colorMap": "red-yellow-green",
       "colorMode": "colormap",
       "gradient": [
