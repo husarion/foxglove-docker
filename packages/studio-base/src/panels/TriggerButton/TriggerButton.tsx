@@ -14,6 +14,9 @@ import ThemeProvider from "@foxglove/studio-base/theme/ThemeProvider";
 
 import { defaultConfig, settingsActionReducer, useSettingsTree } from "./settings";
 
+import "./styles.css";
+
+
 const log = Log.getLogger(__dirname);
 
 type Props = {
@@ -244,38 +247,43 @@ function TriggerButtonContent(
         </Stack>
       )}
       {!config.advancedView && (
-        <Stack
-          direction="column-reverse"
-          justifyContent="center"
-          alignItems="center"
-          overflow="hidden"
-          flexGrow={0}
-          gap={1.5}
-        >
-          {statusMessage && (
-            <Typography variant="caption" noWrap>
-              {statusMessage}
-            </Typography>
-          )}
-          <Tooltip title={config.buttonTooltip}>
-            <span>
-              <Button
-                className={classes.button}
-                variant="contained"
-                disabled={!canTriggerButton}
-                onClick={triggerButtonClicked}
-                data-testid="call-service-button"
-                style={{
-                  minWidth: "200px",
-                  minHeight: "50px",
-                  fontSize: "1.5rem",
-                  borderRadius: "0.3rem",
-                }}
-              >
-                {config.buttonText ? config.buttonText : `Call service ${config.serviceName ?? ""}`}
-              </Button>
-            </span>
-          </Tooltip>
+
+        <Stack justifyContent="center" alignItems="center" fullWidth fullHeight>
+          <div id="center">
+            <Stack
+              direction="column-reverse"
+              justifyContent="center"
+              alignItems="center"
+              overflow="hidden"
+              flexGrow={0}
+              gap={1.5}
+            >
+              {statusMessage && (
+                <Typography variant="caption" noWrap>
+                  {statusMessage}
+                </Typography>
+              )}
+              <Tooltip title={config.buttonTooltip}>
+                <span>
+                  <Button
+                    className={classes.button}
+                    variant="contained"
+                    disabled={!canTriggerButton}
+                    onClick={triggerButtonClicked}
+                    data-testid="call-service-button"
+                    style={{
+                      minWidth: "200px",
+                      minHeight: "50px",
+                      fontSize: "1.5rem",
+                      borderRadius: "0.3rem",
+                    }}
+                  >
+                    {config.buttonText ? config.buttonText : `Call service ${config.serviceName ?? ""}`}
+                  </Button>
+                </span>
+              </Tooltip>
+            </Stack>
+          </div>
         </Stack>
       )}
     </Stack>

@@ -1,0 +1,116 @@
+body {
+  /* https://coolors.co/f06449-ede6e3-7d82b8-36382e-613f75  */
+  --background-color: #ede6e3;
+  --joystick-color: #888;
+  --joystick-head-color: #f64;
+  --text-color: #210124;
+
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background-color);
+}
+
+#center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+#game {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 50px;
+}
+
+#joystick {
+  position: relative;
+  background-color: var(--joystick-color);
+  border-radius: 50%;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 50px;
+  grid-row: 2;
+}
+
+#joystick-head {
+  position: relative;
+  background-color: var(--joystick-head-color);
+  border-radius: 50%;
+  width: 130px;
+  height: 130px;
+  cursor: grab;
+
+  animation-name: glow;
+  animation-duration: 0.6s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+  animation-delay: 4s;
+}
+
+@keyframes glow {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+.joystick-arrow:nth-of-type(1) {
+  position: absolute;
+  bottom: 335px;
+
+  width: 0;
+  height: 0;
+  border-left: 40px solid transparent;
+  border-right: 40px solid transparent;
+
+  border-bottom: 40px solid var(--joystick-color);
+}
+
+.joystick-arrow:nth-of-type(2) {
+  position: absolute;
+  top: 335px;
+
+  width: 0;
+  height: 0;
+  border-left: 40px solid transparent;
+  border-right: 40px solid transparent;
+
+  border-top: 40px solid var(--joystick-color);
+}
+
+.joystick-arrow:nth-of-type(3) {
+  position: absolute;
+  left: 335px;
+
+  width: 0;
+  height: 0;
+  border-top: 40px solid transparent;
+  border-bottom: 40px solid transparent;
+
+  border-left: 40px solid var(--joystick-color);
+}
+
+.joystick-arrow:nth-of-type(4) {
+  position: absolute;
+  right: 335px;
+
+  width: 0;
+  height: 0;
+  border-top: 40px solid transparent;
+  border-bottom: 40px solid transparent;
+
+  border-right: 40px solid var(--joystick-color);
+}
+
+#note {
+  grid-row: 3;
+  text-align: center;
+  font-size: 2em;
+  border-top: 40px solid transparent;
+}

@@ -14,7 +14,7 @@ import { simpleGetMessagePathDataItems } from "@foxglove/studio-base/components/
 import { settingsActionReducer, useSettingsTree } from "./settings";
 import type { Config } from "./types";
 
-import "./styles.css"; // Assuming you have the CSS styles in a separate file
+import "./styles.css";
 
 type Props = {
   context: PanelExtensionContext;

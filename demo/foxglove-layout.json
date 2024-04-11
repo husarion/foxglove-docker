@@ -7,7 +7,7 @@
       "foxglovePanelTitle": "E-stop",
       "buttonText": "STOP",
       "serviceName": "panther/hardware/e-stop",
-      "buttonColor": "#ff0000"
+      "buttonColor": "#bb0000"
     },
     "TriggerButton!194be9": {
       "requestPayload": "{}",
@@ -15,19 +15,19 @@
       "advancedView": false,
       "foxglovePanelTitle": "E-stop",
       "buttonText": "Enable",
-      "buttonColor": "#00ff00",
+      "buttonColor": "#009900",
       "serviceName": "/hardware"
     },
     "Tab!1l9vxsv": {
-      "activeTabIdx": 0,
+      "activeTabIdx": 1,
       "tabs": [
         {
           "title": "Slow mode",
-          "layout": "Teleop!1qlq2qt"
+          "layout": "Joy!3fmstz6"
         },
         {
           "title": "Fast mode",
-          "layout": "Teleop!1mtrw1e"
+          "layout": "Joy!7eprst"
         }
       ]
     },
@@ -47,57 +47,68 @@
     "Indicator!2wjfnhj": {
       "path": "/hardware/e_stop.data",
       "style": "background",
-      "fallbackColor": "#ff0000",
+      "fallbackColor": "#bb0000",
       "fallbackLabel": "Stopped",
       "rules": [
         {
           "operator": "=",
           "rawValue": "true",
-          "color": "#68e24a",
+          "color": "#00aa00",
           "label": "Working"
         }
       ],
       "foxglovePanelTitle": "E-stop Status"
     },
-    "Teleop!1qlq2qt": {
+    "Joy!3fmstz6": {
       "topic": "/cmd_vel",
-      "publishRate": 1,
+      "publishRate": 5,
       "upButton": {
         "field": "linear-x",
-        "value": 0.5
+        "value": 1
       },
       "downButton": {
         "field": "linear-x",
-        "value": -0.5
+        "value": -1
       },
       "leftButton": {
         "field": "angular-z",
-        "value": 0.7
+        "value": 1
       },
       "rightButton": {
         "field": "angular-z",
-        "value": -0.7
+        "value": 0
       },
-      "foxglovePanelTitle": ""
+      "xValue": {
+        "field": "linear-x",
+        "value": 1
+      },
+      "yValue": {
+        "field": "angular-z",
+        "value": -1
+      },
+      "xAxis": {
+        "field": "linear-x",
+        "maxSpeed": 0.5,
+        "minSpeed": 0.5
+      },
+      "yAxis": {
+        "field": "angular-z",
+        "maxSpeed": 0.75,
+        "minSpeed": -0.75
+      }
     },
-    "Teleop!1mtrw1e": {
+    "Joy!7eprst": {
       "topic": "/cmd_vel",
-      "publishRate": 1,
-      "upButton": {
+      "publishRate": 5,
+      "xAxis": {
         "field": "linear-x",
-        "value": 1.5
+        "maxSpeed": 2,
+        "minSpeed": -2
       },
-      "downButton": {
-        "field": "linear-x",
-        "value": -1.5
-      },
-      "leftButton": {
+      "yAxis": {
         "field": "angular-z",
-        "value": 3
-      },
-      "rightButton": {
-        "field": "angular-z",
-        "value": -3
+        "maxSpeed": 2.5,
+        "minSpeed": -2.5
       }
     },
     "3D!2a7yeqc": {
@@ -272,7 +283,7 @@
               },
               "second": "Tab!1l9vxsv",
               "direction": "column",
-              "splitPercentage": 21.976401179941004
+              "splitPercentage": 21.242937853107343
             },
             "second": {
               "first": "Battery!wppv5y",
@@ -281,7 +292,7 @@
               "splitPercentage": 21.976401179941004
             },
             "direction": "row",
-            "splitPercentage": 74.1822429906542
+            "splitPercentage": 76.81272643821838
           }
         },
         {
@@ -300,7 +311,9 @@
       ]
     }
   },
-  "globalVariables": {},
+  "globalVariables": {
+    "": "\"\""
+  },
   "userNodes": {},
   "layout": "Tab!62jad4"
 }
