@@ -1,10 +1,7 @@
-# environment:
-#   - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp # Default FastDDS do not work
-
 services:
   panther_ros:
-    image: husarion/panther:humble-2.0.0-20240402
-    container_name: panther_ros
+    image: husarion/panther:humble-ros2-devel
+    container_name: panther
     devices:
       - /dev/bus/usb
       - /dev/gpiochip0
