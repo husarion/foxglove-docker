@@ -19,7 +19,7 @@
       "serviceName": "/hardware"
     },
     "Tab!1l9vxsv": {
-      "activeTabIdx": 1,
+      "activeTabIdx": 0,
       "tabs": [
         {
           "title": "Slow mode",
@@ -278,7 +278,7 @@
               "first": "Battery!wppv5y",
               "second": "Indicator!2wjfnhj",
               "direction": "column",
-              "splitPercentage": 21.533923303834808
+              "splitPercentage": 21.976401179941004
             },
             "direction": "row",
             "splitPercentage": 74.1822429906542
