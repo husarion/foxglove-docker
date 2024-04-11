@@ -6,7 +6,7 @@
       "advancedView": false,
       "foxglovePanelTitle": "E-stop",
       "buttonText": "STOP",
-      "serviceName": "/hardware/e-stop",
+      "serviceName": "panther/hardware/e-stop",
       "buttonColor": "#ff0000"
     },
     "TriggerButton!194be9": {
@@ -18,34 +18,29 @@
       "buttonColor": "#00ff00",
       "serviceName": "/hardware"
     },
-    "Teleop!johyih": {
-      "topic": "/cmd_vel",
-      "publishRate": 1,
-      "upButton": {
-        "field": "linear-x",
-        "value": 1
-      },
-      "downButton": {
-        "field": "linear-x",
-        "value": -1
-      },
-      "leftButton": {
-        "field": "angular-z",
-        "value": 1
-      },
-      "rightButton": {
-        "field": "angular-z",
-        "value": -1
-      },
-      "foxglovePanelTitle": ""
+    "Tab!1l9vxsv": {
+      "activeTabIdx": 1,
+      "tabs": [
+        {
+          "title": "Slow mode",
+          "layout": "Teleop!1qlq2qt"
+        },
+        {
+          "title": "Fast mode",
+          "layout": "Teleop!1mtrw1e"
+        }
+      ]
     },
     "Battery!wppv5y": {
       "path": "/battery.percentage",
       "minValue": 0,
-      "maxValue": 1,
+      "maxValue": 100,
       "colorMap": "red-yellow-green",
       "colorMode": "colormap",
-      "gradient": ["#0000ff", "#ff00ff"],
+      "gradient": [
+        "#0000ff",
+        "#ff00ff"
+      ],
       "reverse": false,
       "foxglovePanelTitle": ""
     },
@@ -64,15 +59,69 @@
       ],
       "foxglovePanelTitle": "E-stop Status"
     },
+    "Teleop!1qlq2qt": {
+      "topic": "/cmd_vel",
+      "publishRate": 1,
+      "upButton": {
+        "field": "linear-x",
+        "value": 0.5
+      },
+      "downButton": {
+        "field": "linear-x",
+        "value": -0.5
+      },
+      "leftButton": {
+        "field": "angular-z",
+        "value": 0.7
+      },
+      "rightButton": {
+        "field": "angular-z",
+        "value": -0.7
+      },
+      "foxglovePanelTitle": ""
+    },
+    "Teleop!1mtrw1e": {
+      "topic": "/cmd_vel",
+      "publishRate": 1,
+      "upButton": {
+        "field": "linear-x",
+        "value": 1.5
+      },
+      "downButton": {
+        "field": "linear-x",
+        "value": -1.5
+      },
+      "leftButton": {
+        "field": "angular-z",
+        "value": 3
+      },
+      "rightButton": {
+        "field": "angular-z",
+        "value": -3
+      }
+    },
     "3D!2a7yeqc": {
       "cameraState": {
         "perspective": true,
         "distance": 7.94428636916387,
         "phi": 59.99999999999973,
         "thetaOffset": 45.00000000000001,
-        "targetOffset": [0.7838587148623077, 0.5966343346200247, 2.76906893938473e-16],
-        "target": [0, 0, 0],
-        "targetOrientation": [0, 0, 0, 1],
+        "targetOffset": [
+          0.7838587148623077,
+          0.5966343346200247,
+          2.76906893938473e-16
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ],
+        "targetOrientation": [
+          0,
+          0,
+          0,
+          1
+        ],
         "fovy": 45,
         "near": 0.5,
         "far": 5000
@@ -148,8 +197,16 @@
           "divisions": 15,
           "lineWidth": 1,
           "color": "#248eff",
-          "position": [0, 0, 0],
-          "rotation": [0, 0, 0],
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
           "order": 1
         }
       },
@@ -213,15 +270,15 @@
                 "second": "TriggerButton!194be9",
                 "direction": "row"
               },
-              "second": "Teleop!johyih",
+              "second": "Tab!1l9vxsv",
               "direction": "column",
-              "splitPercentage": 22.123893805309734
+              "splitPercentage": 21.976401179941004
             },
             "second": {
               "first": "Battery!wppv5y",
               "second": "Indicator!2wjfnhj",
               "direction": "column",
-              "splitPercentage": 22.123893805309734
+              "splitPercentage": 21.533923303834808
             },
             "direction": "row",
             "splitPercentage": 74.1822429906542

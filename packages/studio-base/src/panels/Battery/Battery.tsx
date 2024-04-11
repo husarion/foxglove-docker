@@ -238,12 +238,8 @@ export function Battery({ context }: Props): JSX.Element {
       : NaN;
 
   const { minValue, maxValue } = config;
-  const scaledValue =
-    (Math.max(minValue, Math.min(rawValue, maxValue)) - minValue) / (maxValue - minValue);
   // const outOfBounds = rawValue < minValue || rawValue > maxValue;
-  // const padding = 0.1;
-
-  const batteryLevel = rawValue * scaledValue;
+  const batteryLevel = Math.round(100 * (Math.min(Math.max(rawValue, minValue), maxValue) - minValue) / (maxValue - minValue));
 
   const updateBatteryLevel = (level: number) => {
     // Change color based on battery level
