@@ -19,73 +19,99 @@ function DirectionalPad(props: DirectionalPadProps): JSX.Element {
   const [speed, setSpeed] = useState<{ x: number; y: number } | undefined>();
   const [startPos, setStartPos] = useState<{ x: number; y: number } | undefined>();
   const [isDragging, setIsDragging] = useState(false);
-  const joystickHeadRef = useRef<HTMLDivElement>(null); // Ref for the joystick head
+  const joystickHeadRef = useRef<HTMLDivElement>(null);
 
-  // Mouse down event to initiate dragging
-  const handleMouseDownOnJoystick = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
+  const startDrag = useCallback((x: number, y: number) => {
     setIsDragging(true);
-    setStartPos({ x: event.clientX, y: event.clientY });
+    setStartPos({ x, y });
     if (joystickHeadRef.current) {
-      joystickHeadRef.current.style.cursor = 'grabbing';
-      joystickHeadRef.current.style.animation = 'none';
+      joystickHeadRef.current.style.cursor = "grabbing";
+      joystickHeadRef.current.style.animation = "none";
     }
   }, []);
 
+  // Handler for mouse down and touch start events
+  const handleStart = useCallback(
+    (event: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>) => {
+      const clientX =
+        event.type === "touchstart"
+          ? (event as React.TouchEvent<HTMLDivElement>).touches[0]!.clientX
+          : (event as React.MouseEvent<HTMLDivElement>).clientX;
+      const clientY =
+        event.type === "touchstart"
+          ? (event as React.TouchEvent<HTMLDivElement>).touches[0]!.clientY
+          : (event as React.MouseEvent<HTMLDivElement>).clientY;
+      startDrag(clientX, clientY);
+    },
+    [startDrag],
+  );
 
-  const handleMouseMove = useCallback((event: MouseEvent) => {
-    if (isDragging && startPos && joystickHeadRef.current) {
-      let dx = event.clientX - startPos.x;
-      let dy = event.clientY - startPos.y;
+  const moveJoystick = useCallback(
+    (clientX: number, clientY: number) => {
+      if (isDragging && startPos && joystickHeadRef.current) {
+        let dx = clientX - startPos.x;
+        let dy = clientY - startPos.y;
 
-      // Calculate the distance from the center to the new position
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      const maxDistance = 130; // Assuming the joystick can move 75px in any direction from the center
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const maxDistance = 130;
 
-      // If the distance is more than allowed, clamp it to the circular boundary
-      if (distance > maxDistance) {
-        dx *= maxDistance / distance;
-        dy *= maxDistance / distance;
+        if (distance > maxDistance) {
+          dx *= maxDistance / distance;
+          dy *= maxDistance / distance;
+        }
+
+        const v_x = Math.round(-dy) / maxDistance;
+        const v_y = Math.round(-dx) / maxDistance;
+
+        setSpeed({ x: v_x, y: v_y });
+        if (!disabled) {
+          onSpeedChange?.({ x: v_x, y: v_y });
+        }
+
+        joystickHeadRef.current.style.transform = `translate(${dx}px, ${dy}px)`;
       }
+    },
+    [isDragging, startPos, onSpeedChange, disabled],
+  );
 
-      const v_x = Math.round(-dy)/maxDistance;
-      const v_y = Math.round(-dx)/maxDistance;
+  const handleMove = useCallback(
+    (event: MouseEvent | TouchEvent) => {
+      const clientX = "touches" in event ? event.touches[0]!.clientX : event.clientX;
+      const clientY = "touches" in event ? event.touches[0]!.clientY : event.clientY;
 
-      setSpeed({x: v_x, y: v_y});
-      if(!disabled)
-      {
-        onSpeedChange?.({x: v_x, y: v_y});
-      }
+      moveJoystick(clientX, clientY);
+    },
+    [moveJoystick],
+  );
 
-      joystickHeadRef.current.style.transform = `translate(${dx}px, ${dy}px)`;
-    }
-  }, [isDragging, startPos, onSpeedChange, disabled]);
-
-  // Mouse up event to end dragging
-  const handleMouseUp = useCallback(() => {
+  // Mouse up and touch end event to end dragging
+  const handleEnd = useCallback(() => {
     if (speed != undefined || isDragging) {
       setIsDragging(false);
       setSpeed(undefined);
-      props.onSpeedChange?.({x: 0, y: 0});
+      onSpeedChange?.({ x: 0, y: 0 });
       if (joystickHeadRef.current) {
-        joystickHeadRef.current.style.cursor = '';
-        joystickHeadRef.current.style.transform = '';
-        // joystickHeadRef.current.style.animation = 'glow';
+        joystickHeadRef.current.style.cursor = "";
+        joystickHeadRef.current.style.transform = "";
       }
     }
-  }, [isDragging, speed, props]);
+  }, [isDragging, speed, onSpeedChange]);
 
-  // UseEffect hook to add and remove the global event listeners
   React.useEffect(() => {
     if (isDragging) {
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
+      window.addEventListener("mousemove", handleMove);
+      window.addEventListener("mouseup", handleEnd);
+      window.addEventListener("touchmove", handleMove);
+      window.addEventListener("touchend", handleEnd);
     }
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener("mousemove", handleMove);
+      window.removeEventListener("mouseup", handleEnd);
+      window.removeEventListener("touchmove", handleMove);
+      window.removeEventListener("touchend", handleEnd);
     };
-  }, [isDragging, handleMouseMove, handleMouseUp]);
+  }, [isDragging, handleMove, handleEnd]);
 
   return (
     <Stack justifyContent="center" alignItems="center" fullWidth fullHeight>
@@ -96,11 +122,15 @@ function DirectionalPad(props: DirectionalPadProps): JSX.Element {
             <div className="joystick-arrow"></div>
             <div className="joystick-arrow"></div>
             <div className="joystick-arrow"></div>
-            <div id="joystick-head" ref={joystickHeadRef} onMouseDown={handleMouseDownOnJoystick}></div>
+            <div
+              id="joystick-head"
+              ref={joystickHeadRef}
+              onMouseDown={handleStart}
+              onTouchStart={handleStart}
+            ></div>
           </div>
-          {/* Note below joystick for action feedback */}
           <div id="note">
-            X: {speed?.x.toFixed(2) ?? '0.00'} Y: {speed?.y.toFixed(2) ?? '0.00'}
+            X: {speed?.x.toFixed(2) ?? "0.00"} Y: {speed?.y.toFixed(2) ?? "0.00"}
           </div>
         </div>
       </div>
