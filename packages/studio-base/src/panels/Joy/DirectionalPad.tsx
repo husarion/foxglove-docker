@@ -5,18 +5,23 @@
 import React, { useCallback, useState, useRef } from "react";
 
 import Stack from "@foxglove/studio-base/components/Stack";
+
 import "./styles.css";
 
 // Type for the Joystick Props
 type DirectionalPadProps = {
   disabled?: boolean;
   onSpeedChange?: (pos: { x: number; y: number }) => void;
+  xLimit?: number;
+  yLimit?: number;
 };
 
 // Component for the DirectionalPad
 function DirectionalPad(props: DirectionalPadProps): JSX.Element {
-  const { onSpeedChange, disabled = false } = props;
+  const { onSpeedChange, disabled = false, xLimit, yLimit } = props;
   const [speed, setSpeed] = useState<{ x: number; y: number } | undefined>();
+  const [maxXAxis, setMaxXAxis] = useState(0.5);
+  const [maxYAxis, setMaxYAxis] = useState(0.5);
   const [startPos, setStartPos] = useState<{ x: number; y: number } | undefined>();
   const [isDragging, setIsDragging] = useState(false);
   const joystickHeadRef = useRef<HTMLDivElement>(null);
@@ -60,8 +65,8 @@ function DirectionalPad(props: DirectionalPadProps): JSX.Element {
           dy *= maxDistance / distance;
         }
 
-        const v_x = Math.round(-dy) / maxDistance;
-        const v_y = Math.round(-dx) / maxDistance;
+        const v_x = (Math.round(-dy) / maxDistance) * maxXAxis;
+        const v_y = (Math.round(-dx) / maxDistance) * maxYAxis;
 
         setSpeed({ x: v_x, y: v_y });
         if (!disabled) {
@@ -71,7 +76,7 @@ function DirectionalPad(props: DirectionalPadProps): JSX.Element {
         joystickHeadRef.current.style.transform = `translate(${dx}px, ${dy}px)`;
       }
     },
-    [isDragging, startPos, onSpeedChange, disabled],
+    [isDragging, startPos, onSpeedChange, disabled, maxXAxis, maxYAxis],
   );
 
   const handleMove = useCallback(
@@ -128,6 +133,58 @@ function DirectionalPad(props: DirectionalPadProps): JSX.Element {
               onMouseDown={handleStart}
               onTouchStart={handleStart}
             ></div>
+          </div>
+          <div
+            className="slider"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gridColumn: "2",
+              gridRow: "2",
+            }}
+          >
+            <input
+              id="max-y-speed"
+              type="range"
+              min="0"
+              max={xLimit}
+              step="0.1"
+              value={maxXAxis}
+              onChange={(e) => {
+                setMaxXAxis(Number(e.target.value));
+              }}
+              style={{ width: "200px", transform: "rotate(-90deg)" }}
+            />
+            <div id="note">
+              <br /> <br /> X: {maxXAxis.toFixed(1)}
+            </div>
+          </div>
+          <div
+            className="slider"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gridColumn: "3",
+              gridRow: "2",
+            }}
+          >
+            <input
+              id="max-y-speed"
+              type="range"
+              min="0"
+              max={yLimit}
+              step="0.1"
+              value={maxYAxis}
+              onChange={(e) => {
+                setMaxYAxis(Number(e.target.value));
+              }}
+              style={{ width: "200px", transform: "rotate(-90deg)" }}
+            />
+            <div id="note">
+              <br /> <br /> Y: {maxYAxis.toFixed(1)}
+            </div>
           </div>
           <div id="note">
             X: {speed?.x.toFixed(2) ?? "0.00"} Y: {speed?.y.toFixed(2) ?? "0.00"}

@@ -33,7 +33,7 @@ const geometryMsgOptions = [
   { label: "angular-z", value: "angular-z" },
 ];
 
-type Axis = { field: string; maxSpeed: number, minSpeed: number }
+type Axis = { field: string; limit: number };
 
 type Config = {
   topic: undefined | string;
@@ -64,8 +64,14 @@ function buildSettingsTree(config: Config, topics: readonly Topic[]): SettingsTr
             value: config.xAxis.field,
             options: geometryMsgOptions,
           },
-          maxSpeed: { label: "Max Speed", input: "number", value: config.xAxis.maxSpeed, step: 0.25, min: 0, max: 10 },
-          minSpeed: { label: "Min Speed", input: "number", value: config.xAxis.minSpeed, step: 0.25, min: -10, max: 0 },
+          limit: {
+            label: "Limit",
+            input: "number",
+            value: config.xAxis.limit,
+            step: 0.25,
+            min: 0,
+            max: 10,
+          },
         },
       },
       yAxis: {
@@ -77,8 +83,14 @@ function buildSettingsTree(config: Config, topics: readonly Topic[]): SettingsTr
             value: config.yAxis.field,
             options: geometryMsgOptions,
           },
-          maxSpeed: { label: "Max Speed", input: "number", value: config.yAxis.maxSpeed, step: 0.25, min: 0, max: 10 },
-          minSpeed: { label: "Min Speed", input: "number", value: config.yAxis.minSpeed, step: 0.25, min: -10, max: 0 },
+          limit: {
+            label: "Limit",
+            input: "number",
+            value: config.yAxis.limit,
+            step: 0.25,
+            min: 0,
+            max: 10,
+          },
         },
       },
     },
@@ -101,15 +113,15 @@ function Joy(props: JoyProps): JSX.Element {
     const {
       topic,
       publishRate = 5,
-      xAxis: { field: xAxisField = "linear-x", maxSpeed: xMax = 1, minSpeed: xMin = -1 } = {},
-      yAxis: { field: yAxisField = "angular-z", maxSpeed: yMax = 1, minSpeed: yMin = -1 } = {},
+      xAxis: { field: xAxisField = "linear-x", limit: xLimit = 1 } = {},
+      yAxis: { field: yAxisField = "angular-z", limit: yLimit = 1 } = {},
     } = partialConfig;
 
     return {
       topic,
       publishRate,
-      xAxis: { field: xAxisField, maxSpeed: xMax, minSpeed: xMin },
-      yAxis: { field: yAxisField, maxSpeed: yMax, minSpeed: yMin },
+      xAxis: { field: xAxisField, limit: xLimit },
+      yAxis: { field: yAxisField, limit: yLimit },
     };
   });
 
@@ -170,37 +182,34 @@ function Joy(props: JoyProps): JSX.Element {
   }, [context, currentTopic]);
 
   useLayoutEffect(() => {
-    if ((speed == undefined) || !currentTopic) {
+    if (speed == undefined || !currentTopic) {
       return;
     }
 
     const message = {
-      linear: {x: 0, y: 0, z: 0},
-      angular: {x: 0, y: 0, z: 0},
+      linear: { x: 0, y: 0, z: 0 },
+      angular: { x: 0, y: 0, z: 0 },
     };
-
-    const scaleJoyValue = (axis: Axis, value: number): number =>
-      value > 0 ? value * axis.maxSpeed : value * -axis.minSpeed;
 
     function setTwistValue(axis: Axis, value: number) {
       switch (axis.field) {
         case "linear-x":
-          message.linear.x = scaleJoyValue(axis, value);
+          message.linear.x = value;
           break;
         case "linear-y":
-          message.linear.y = scaleJoyValue(axis, value);
+          message.linear.y = value;
           break;
         case "linear-z":
-          message.linear.z = scaleJoyValue(axis, value);
+          message.linear.z = value;
           break;
         case "angular-x":
-          message.angular.x = scaleJoyValue(axis, value);
+          message.angular.x = value;
           break;
         case "angular-y":
-          message.angular.y = scaleJoyValue(axis, value);
+          message.angular.y = value;
           break;
         case "angular-z":
-          message.angular.z = scaleJoyValue(axis, value);
+          message.angular.z = value;
           break;
       }
     }
@@ -244,13 +253,16 @@ function Joy(props: JoyProps): JSX.Element {
         {canPublish && !hasTopic && (
           <EmptyState>Select a publish topic in the panel settings</EmptyState>
         )}
-        {enabled && <DirectionalPad
-          disabled={!enabled}
-          onSpeedChange={(value) => {
-            setVelocity(value);
-          }}
-        />}
-
+        {enabled && (
+          <DirectionalPad
+            disabled={!enabled}
+            onSpeedChange={(value) => {
+              setVelocity(value);
+            }}
+            xLimit={config.xAxis.limit}
+            yLimit={config.yAxis.limit}
+          />
+        )}
       </Stack>
     </ThemeProvider>
   );
