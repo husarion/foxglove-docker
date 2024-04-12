@@ -63,8 +63,8 @@ COPY --from=urdf_builder /ros2_ws ./ros2_ws
 
 EXPOSE 8080
 
-ENV DS_TYPE=rosbridge-websocket
-ENV DS_PORT=9090
+ENV DS_TYPE=foxglove-websocket
+ENV DS_PORT=8765
 ENV UI_PORT=8080
 ENV DISABLE_INTERACTION=false
 ENV DISABLE_CACHE=true
