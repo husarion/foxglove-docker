@@ -1,0 +1,25 @@
+.battery {
+  width: 50%;
+  height: 75%;
+  background-color: #f3f3f3;
+  border: 2px solid #333;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.level {
+  width: 100%;
+  background: linear-gradient(to right, #4caf50, #8bc34a); /* Gradient colors for battery level */
+  height: 100%;
+  border-radius: 8px;
+  position: relative;
+}
+
+/* Battery percentage text */
+.percentage {
+  position: relative;
+  font-size: 1rem;
+}

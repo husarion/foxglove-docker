@@ -5,6 +5,8 @@
 export const panels = {
   "3D": "3D",
   "3DPanelDescription": "Display markers, camera images, meshes, URDFs, and more in a 3D scene.",
+  bar: "Bar",
+  barDescription: "Display a bar indicator.",
   battery: "Battery",
   batteryDescription: "Display a battery indicator.",
   callService: "Service Call",

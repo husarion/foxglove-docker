@@ -121,7 +121,7 @@ function reducer(state: State, action: Action): State {
   }
 }
 
-export function Battery({ context }: Props): JSX.Element {
+export function Bar({ context }: Props): JSX.Element {
   // panel extensions must notify when they've completed rendering
   // onRender will setRenderDone to a done callback which we can invoke after we've rendered
   const [renderDone, setRenderDone] = useState<() => void>(() => () => {});
@@ -210,24 +210,9 @@ export function Battery({ context }: Props): JSX.Element {
 
   const { minValue, maxValue } = config;
   // const outOfBounds = rawValue < minValue || rawValue > maxValue;
-  const batteryLevel = Math.round(
+  const barLevel = Math.round(
     (100 * (Math.min(Math.max(rawValue, minValue), maxValue) - minValue)) / (maxValue - minValue),
   );
-
-  const updateBatteryLevel = (level: number) => {
-    // Change color based on battery level
-    let levelClass = "";
-    if (level <= 20) {
-      levelClass = "gradient-color-red";
-    } else if (level <= 50) {
-      levelClass = "gradient-color-orange";
-    } else if (level <= 80) {
-      levelClass = "gradient-color-yellow";
-    } else {
-      levelClass = "gradient-color-green";
-    }
-    return levelClass;
-  };
 
   return (
     <Stack
@@ -237,25 +222,10 @@ export function Battery({ context }: Props): JSX.Element {
       fullHeight
       style={{ userSelect: "none" }}
     >
-      <div className="battery__card">
-        <div className="battery__data">
-          <p className="battery__text">Battery</p>
-          <h1 className="battery__percentage">{batteryLevel}%</h1>
-
-          <p className="battery__status">
-            Battery Status <i className="ri-plug-line"></i>
-          </p>
-        </div>
-
-        <div className="battery__pill">
-          <div className="battery__level">
-            <div
-              className={updateBatteryLevel(batteryLevel)}
-              style={{ height: `${batteryLevel}%` }}
-            ></div>
-          </div>
-        </div>
+      <div className="battery">
+        <div className="level" style={{ height: `${barLevel}%` }}></div>
       </div>
+      <div className="percentage">{barLevel}%</div>
     </Stack>
   );
 }

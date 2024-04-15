@@ -120,75 +120,73 @@ function DirectionalPad(props: DirectionalPadProps): JSX.Element {
 
   return (
     <Stack justifyContent="center" alignItems="center" fullWidth fullHeight>
-      <div id="center">
-        <div id="game">
-          <div id="joystick">
-            <div className="joystick-arrow"></div>
-            <div className="joystick-arrow"></div>
-            <div className="joystick-arrow"></div>
-            <div className="joystick-arrow"></div>
-            <div
-              id="joystick-head"
-              ref={joystickHeadRef}
-              onMouseDown={handleStart}
-              onTouchStart={handleStart}
-            ></div>
-          </div>
+      <div id="game">
+        <div id="joystick">
+          <div className="joystick-arrow"></div>
+          <div className="joystick-arrow"></div>
+          <div className="joystick-arrow"></div>
+          <div className="joystick-arrow"></div>
           <div
-            className="slider"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gridColumn: "2",
-              gridRow: "2",
+            id="joystick-head"
+            ref={joystickHeadRef}
+            onMouseDown={handleStart}
+            onTouchStart={handleStart}
+          ></div>
+        </div>
+        <div
+          className="slider"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gridColumn: "2",
+            gridRow: "2",
+          }}
+        >
+          <input
+            id="max-y-speed"
+            type="range"
+            min="0"
+            max={xLimit}
+            step="0.1"
+            value={maxXAxis}
+            onChange={(e) => {
+              setMaxXAxis(Number(e.target.value));
             }}
-          >
-            <input
-              id="max-y-speed"
-              type="range"
-              min="0"
-              max={xLimit}
-              step="0.1"
-              value={maxXAxis}
-              onChange={(e) => {
-                setMaxXAxis(Number(e.target.value));
-              }}
-              style={{ width: "200px", transform: "rotate(-90deg)" }}
-            />
-            <div id="note">
-              <br /> <br /> X: {maxXAxis.toFixed(1)}
-            </div>
-          </div>
-          <div
-            className="slider"
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gridColumn: "3",
-              gridRow: "2",
-            }}
-          >
-            <input
-              id="max-y-speed"
-              type="range"
-              min="0"
-              max={yLimit}
-              step="0.1"
-              value={maxYAxis}
-              onChange={(e) => {
-                setMaxYAxis(Number(e.target.value));
-              }}
-              style={{ width: "200px", transform: "rotate(-90deg)" }}
-            />
-            <div id="note">
-              <br /> <br /> Y: {maxYAxis.toFixed(1)}
-            </div>
-          </div>
+            style={{ width: "200px", transform: "rotate(-90deg)" }}
+          />
           <div id="note">
-            X: {speed?.x.toFixed(2) ?? "0.00"} Y: {speed?.y.toFixed(2) ?? "0.00"}
+            <br /> <br /> X: {maxXAxis.toFixed(1)}
           </div>
+        </div>
+        <div
+          className="slider"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gridColumn: "3",
+            gridRow: "2",
+          }}
+        >
+          <input
+            id="max-y-speed"
+            type="range"
+            min="0"
+            max={yLimit}
+            step="0.1"
+            value={maxYAxis}
+            onChange={(e) => {
+              setMaxYAxis(Number(e.target.value));
+            }}
+            style={{ width: "200px", transform: "rotate(-90deg)" }}
+          />
+          <div id="note">
+            <br /> <br /> Y: {maxYAxis.toFixed(1)}
+          </div>
+        </div>
+        <div id="note">
+          X: {speed?.x.toFixed(2) ?? "0.00"} Y: {speed?.y.toFixed(2) ?? "0.00"}
         </div>
       </div>
     </Stack>
