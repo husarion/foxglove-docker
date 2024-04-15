@@ -6,7 +6,7 @@
       "advancedView": false,
       "foxglovePanelTitle": "E-stop",
       "buttonText": "STOP",
-      "serviceName": "panther/hardware/e-stop",
+      "serviceName": "panther/hardware/e_stop_trigger",
       "buttonColor": "#bb0000"
     },
     "TriggerButton!194be9": {
@@ -16,71 +16,52 @@
       "foxglovePanelTitle": "E-stop",
       "buttonText": "Enable",
       "buttonColor": "#009900",
-      "serviceName": "/hardware"
-    },
-    "Tab!1l9vxsv": {
-      "activeTabIdx": 0,
-      "tabs": [
-        {
-          "title": "Slow mode",
-          "layout": "Joy!3fmstz6"
-        },
-        {
-          "title": "Fast mode",
-          "layout": "Joy!7eprst"
-        }
-      ]
+      "serviceName": "panther/hardware/e_stop_reset"
     },
     "Battery!wppv5y": {
       "path": "/battery.percentage",
       "minValue": 0,
       "maxValue": 1,
+      "colorMap": "red-yellow-green",
       "colorMode": "colormap",
       "gradient": ["#0000ff", "#ff00ff"],
       "reverse": false,
       "foxglovePanelTitle": ""
     },
-    "Indicator!2wjfnhj": {
-      "path": "/hardware/e_stop.data",
-      "style": "background",
-      "fallbackColor": "#bb0000",
-      "fallbackLabel": "Stopped",
-      "rules": [
-        {
-          "operator": "=",
-          "rawValue": "true",
-          "color": "#00aa00",
-          "label": "Working"
-        }
-      ],
-      "foxglovePanelTitle": "E-stop Status"
-    },
     "Joy!3fmstz6": {
       "topic": "/cmd_vel",
       "publishRate": 5,
+      "upButton": {
+        "field": "linear-x",
+        "value": 1
+      },
+      "downButton": {
+        "field": "linear-x",
+        "value": -1
+      },
+      "leftButton": {
+        "field": "angular-z",
+        "value": 1
+      },
+      "rightButton": {
+        "field": "angular-z",
+        "value": 0
+      },
+      "xValue": {
+        "field": "linear-x",
+        "value": 1
+      },
+      "yValue": {
+        "field": "angular-z",
+        "value": -1
+      },
       "xAxis": {
         "field": "linear-x",
-        "maxSpeed": 0.5,
-        "minSpeed": 0.5
+        "limit": 2
       },
       "yAxis": {
         "field": "angular-z",
-        "maxSpeed": 0.75,
-        "minSpeed": -0.75
-      }
-    },
-    "Joy!7eprst": {
-      "topic": "/cmd_vel",
-      "publishRate": 5,
-      "xAxis": {
-        "field": "linear-x",
-        "maxSpeed": 2,
-        "minSpeed": -2
-      },
-      "yAxis": {
-        "field": "angular-z",
-        "maxSpeed": 2.5,
-        "minSpeed": -2.5
+        "limit": 3
       }
     },
     "3D!2a7yeqc": {
@@ -216,6 +197,42 @@
       "foxglovePanelTitle": "IMU - acceleration",
       "followingViewWidth": 60
     },
+    "Bar!3t52ye7": {
+      "path": "/battery.percentage",
+      "minValue": 0,
+      "maxValue": 85,
+      "colorMode": "colormap",
+      "gradient": ["#0000ff", "#ff00ff"],
+      "reverse": false,
+      "foxglovePanelTitle": "FL"
+    },
+    "Bar!461hl59": {
+      "path": "/battery.percentage",
+      "minValue": 0,
+      "maxValue": 90,
+      "colorMode": "colormap",
+      "gradient": ["#0000ff", "#ff00ff"],
+      "reverse": false,
+      "foxglovePanelTitle": "FR"
+    },
+    "Bar!1fzrnqw": {
+      "path": "/battery.percentage",
+      "minValue": 0,
+      "maxValue": 120,
+      "colorMode": "colormap",
+      "gradient": ["#0000ff", "#ff00ff"],
+      "reverse": false,
+      "foxglovePanelTitle": "RL"
+    },
+    "Bar!1q5qffy": {
+      "path": "/battery.percentage",
+      "minValue": 0,
+      "maxValue": 100,
+      "colorMode": "colormap",
+      "gradient": ["#0000ff", "#ff00ff"],
+      "reverse": false,
+      "foxglovePanelTitle": "RR"
+    },
     "DiagnosticStatusPanel!jyt4qz": {
       "topicToRender": "/diagnostics",
       "selectedHardwareId": "none"
@@ -232,25 +249,35 @@
                 "second": "TriggerButton!194be9",
                 "direction": "row"
               },
-              "second": "Tab!1l9vxsv",
-              "direction": "column",
-              "splitPercentage": 21.581920903954803
+              "second": "Battery!wppv5y",
+              "direction": "row"
             },
-            "second": {
-              "first": "Battery!wppv5y",
-              "second": "Indicator!2wjfnhj",
-              "direction": "column",
-              "splitPercentage": 21.976401179941004
-            },
-            "direction": "row",
-            "splitPercentage": 76.81272643821838
+            "second": "Joy!3fmstz6",
+            "direction": "column",
+            "splitPercentage": 31.63841807909605
           }
         },
         {
           "title": "Visualization",
           "layout": {
             "first": "3D!2a7yeqc",
-            "second": "Plot!dg5ynj",
+            "second": {
+              "first": "Plot!dg5ynj",
+              "second": {
+                "first": {
+                  "first": "Bar!3t52ye7",
+                  "second": "Bar!461hl59",
+                  "direction": "row"
+                },
+                "second": {
+                  "first": "Bar!1fzrnqw",
+                  "second": "Bar!1q5qffy",
+                  "direction": "row"
+                },
+                "direction": "row"
+              },
+              "direction": "column"
+            },
             "direction": "row",
             "splitPercentage": 66.19834710743801
           }
