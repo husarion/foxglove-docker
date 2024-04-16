@@ -1,3 +1,14 @@
+@property --rotate {
+  syntax: "<angle>";
+  initial-value: 132deg;
+  inherits: false;
+}
+
+:root {
+  --card-height: 65vh;
+  --card-width: calc(var(--card-height) / 1.5);
+}
+
 body {
   /* https://coolors.co/f06449-ede6e3-7d82b8-36382e-613f75  */
   --background-color: #ede6e3;
@@ -36,6 +47,26 @@ body {
   grid-row: 2;
 }
 
+#joystick::before {
+  content: "";
+  width: 104%;
+  height: 104%;
+  border-radius: 50%;
+  background-image: linear-gradient(var(--rotate), #5dffdc, #3ce367 43%, #4ec200);
+  position: absolute;
+  z-index: -1;
+  animation: spin 2.5s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    --rotate: 0deg;
+  }
+  100% {
+    --rotate: 360deg;
+  }
+}
+
 #joystick-head {
   position: relative;
   background-color: var(--joystick-head-color);
@@ -57,7 +88,7 @@ body {
     transform: scale(1);
   }
   100% {
-    transform: scale(1.2);
+    transform: scale(1.1);
   }
 }
 
