@@ -55,15 +55,21 @@ body {
   background-image: linear-gradient(var(--rotate), #5dffdc, #3ce367 43%, #4ec200);
   position: absolute;
   z-index: -1;
-  animation: spin 2.5s linear infinite;
+  animation: spin 2s linear infinite;
 }
 
 @keyframes spin {
   0% {
     --rotate: 0deg;
+    transform: scale(1);
+  }
+  50% {
+    --rotate: 180deg;
+    transform: scale(1.02);
   }
   100% {
     --rotate: 360deg;
+    transform: scale(1);
   }
 }
 
@@ -75,12 +81,7 @@ body {
   height: 130px;
   cursor: grab;
 
-  animation-name: glow;
-  animation-duration: 0.6s;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-  animation-timing-function: ease-in-out;
-  animation-delay: 4s;
+  animation: glow 0.6s alternate infinite;
 }
 
 @keyframes glow {
@@ -88,7 +89,7 @@ body {
     transform: scale(1);
   }
   100% {
-    transform: scale(1.1);
+    transform: scale(1.15);
   }
 }
 

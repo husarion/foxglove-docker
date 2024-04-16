@@ -98,6 +98,7 @@ function DirectionalPad(props: DirectionalPadProps): JSX.Element {
       if (joystickHeadRef.current) {
         joystickHeadRef.current.style.cursor = "";
         joystickHeadRef.current.style.transform = "";
+        joystickHeadRef.current.style.animation = "glow 0.6s alternate infinite";
       }
     }
   }, [isDragging, speed, onSpeedChange]);
