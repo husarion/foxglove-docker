@@ -2,34 +2,37 @@
   "configById": {
     "TriggerButton!2mhoc9g": {
       "requestPayload": "{}",
-      "layout": "horizontal",
+      "layout": "vertical",
       "advancedView": false,
       "foxglovePanelTitle": "E-stop",
       "buttonText": "STOP",
-      "serviceName": "panther/hardware/e_stop_trigger",
+      "serviceName": "/panther/hardware/e_stop_trigger",
       "buttonColor": "#bb0000"
     },
     "TriggerButton!194be9": {
       "requestPayload": "{}",
-      "layout": "horizontal",
+      "layout": "vertical",
       "advancedView": false,
       "foxglovePanelTitle": "E-stop",
       "buttonText": "Enable",
       "buttonColor": "#009900",
-      "serviceName": "panther/hardware/e_stop_reset"
+      "serviceName": "/panther/hardware/e_stop_reset"
     },
     "Battery!wppv5y": {
-      "path": "/battery.percentage",
+      "path": "/panther/battery.percentage",
       "minValue": 0,
       "maxValue": 1,
       "colorMap": "red-yellow-green",
       "colorMode": "colormap",
-      "gradient": ["#0000ff", "#ff00ff"],
+      "gradient": [
+        "#0000ff",
+        "#ff00ff"
+      ],
       "reverse": false,
       "foxglovePanelTitle": ""
     },
     "Joy!3fmstz6": {
-      "topic": "/cmd_vel",
+      "topic": "/panther/cmd_vel",
       "publishRate": 5,
       "upButton": {
         "field": "linear-x",
@@ -70,9 +73,22 @@
         "distance": 7.94428636916387,
         "phi": 59.99999999999973,
         "thetaOffset": 45.00000000000001,
-        "targetOffset": [0.7838587148623077, 0.5966343346200247, 2.76906893938473e-16],
-        "target": [0, 0, 0],
-        "targetOrientation": [0, 0, 0, 1],
+        "targetOffset": [
+          0.7838587148623077,
+          0.5966343346200247,
+          2.76906893938473e-16
+        ],
+        "target": [
+          0,
+          0,
+          0
+        ],
+        "targetOrientation": [
+          0,
+          0,
+          0,
+          1
+        ],
         "fovy": 45,
         "near": 0.5,
         "far": 5000
@@ -148,8 +164,16 @@
           "divisions": 15,
           "lineWidth": 1,
           "color": "#248eff",
-          "position": [0, 0, 0],
-          "rotation": [0, 0, 0],
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
           "order": 1
         }
       },
@@ -202,7 +226,10 @@
       "minValue": 0,
       "maxValue": 85,
       "colorMode": "colormap",
-      "gradient": ["#0000ff", "#ff00ff"],
+      "gradient": [
+        "#0000ff",
+        "#ff00ff"
+      ],
       "reverse": false,
       "foxglovePanelTitle": "FL"
     },
@@ -211,7 +238,10 @@
       "minValue": 0,
       "maxValue": 90,
       "colorMode": "colormap",
-      "gradient": ["#0000ff", "#ff00ff"],
+      "gradient": [
+        "#0000ff",
+        "#ff00ff"
+      ],
       "reverse": false,
       "foxglovePanelTitle": "FR"
     },
@@ -220,7 +250,10 @@
       "minValue": 0,
       "maxValue": 120,
       "colorMode": "colormap",
-      "gradient": ["#0000ff", "#ff00ff"],
+      "gradient": [
+        "#0000ff",
+        "#ff00ff"
+      ],
       "reverse": false,
       "foxglovePanelTitle": "RL"
     },
@@ -229,7 +262,10 @@
       "minValue": 0,
       "maxValue": 100,
       "colorMode": "colormap",
-      "gradient": ["#0000ff", "#ff00ff"],
+      "gradient": [
+        "#0000ff",
+        "#ff00ff"
+      ],
       "reverse": false,
       "foxglovePanelTitle": "RR"
     },
