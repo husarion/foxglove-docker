@@ -20,7 +20,7 @@ services:
       # - NVIDIA_DRIVER_CAPABILITIES=all
 
   foxglove-ds:
-    image: husarion/foxglove-bridge:humble-0.7.3-20240108
+    image: husarion/foxglove-bridge:humble-0.7.4-20240320
     network_mode: host
     ipc: host
     ports:

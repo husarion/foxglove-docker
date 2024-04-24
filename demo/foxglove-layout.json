@@ -70,13 +70,13 @@
     "3D!2a7yeqc": {
       "cameraState": {
         "perspective": true,
-        "distance": 7.94428636916387,
-        "phi": 59.99999999999973,
-        "thetaOffset": 45.00000000000001,
+        "distance": 14,
+        "phi": 59.99999999999931,
+        "thetaOffset": 44.999999999999886,
         "targetOffset": [
-          0.7838587148623077,
-          0.5966343346200247,
-          2.76906893938473e-16
+          0,
+          0,
+          0
         ],
         "target": [
           0,
@@ -175,6 +175,22 @@
             0
           ],
           "order": 1
+        },
+        "6af4965a-b0f2-4903-9786-4b26c17033f9": {
+          "visible": true,
+          "frameLocked": true,
+          "label": "URDF",
+          "instanceId": "6af4965a-b0f2-4903-9786-4b26c17033f9",
+          "layerId": "foxglove.Urdf",
+          "sourceType": "topic",
+          "url": "",
+          "filePath": "",
+          "parameter": "",
+          "topic": "/panther/robot_description",
+          "framePrefix": "",
+          "displayMode": "auto",
+          "fallbackColor": "#ffffff",
+          "order": 2
         }
       },
       "publish": {
@@ -192,20 +208,20 @@
       "paths": [
         {
           "timestampMethod": "receiveTime",
-          "value": "/imu/data.linear_acceleration.x",
+          "value": "/panther/imu/data.linear_acceleration.x",
           "enabled": true,
           "label": "x",
           "showLine": true
         },
         {
           "timestampMethod": "receiveTime",
-          "value": "/imu/data.linear_acceleration.y",
+          "value": "/panther/imu/data.linear_acceleration.y",
           "enabled": true,
           "label": "y"
         },
         {
           "timestampMethod": "receiveTime",
-          "value": "/imu/data.linear_acceleration.z",
+          "value": "/panther/imu/data.linear_acceleration.z",
           "enabled": true,
           "label": "z"
         }
@@ -222,9 +238,9 @@
       "followingViewWidth": 60
     },
     "Bar!3t52ye7": {
-      "path": "/battery.percentage",
+      "path": "/panther/joint_states.effort[1]",
       "minValue": 0,
-      "maxValue": 85,
+      "maxValue": 1,
       "colorMode": "colormap",
       "gradient": [
         "#0000ff",
@@ -234,9 +250,9 @@
       "foxglovePanelTitle": "FL"
     },
     "Bar!461hl59": {
-      "path": "/battery.percentage",
+      "path": "/panther/joint_states.effort[2]",
       "minValue": 0,
-      "maxValue": 90,
+      "maxValue": 1,
       "colorMode": "colormap",
       "gradient": [
         "#0000ff",
@@ -246,7 +262,7 @@
       "foxglovePanelTitle": "FR"
     },
     "Bar!1fzrnqw": {
-      "path": "/battery.percentage",
+      "path": "/panther/joint_states.effort[2]",
       "minValue": 0,
       "maxValue": 120,
       "colorMode": "colormap",
@@ -258,7 +274,7 @@
       "foxglovePanelTitle": "RL"
     },
     "Bar!1q5qffy": {
-      "path": "/battery.percentage",
+      "path": "/panther/joint_states.effort[3]",
       "minValue": 0,
       "maxValue": 100,
       "colorMode": "colormap",
@@ -274,7 +290,7 @@
       "selectedHardwareId": "none"
     },
     "Tab!62jad4": {
-      "activeTabIdx": 0,
+      "activeTabIdx": 1,
       "tabs": [
         {
           "title": "Control",
