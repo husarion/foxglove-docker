@@ -5,12 +5,12 @@ x-common-config:
 
 services:
   foxglove:
-    # image: husarion/foxglove:studio-nightly
+    image: husarion/foxglove:studio-nightly
     container_name: foxglove
     <<: *common-config
-    build:
-      context: ..
-      dockerfile: Dockerfile
+    # build:
+    #   context: ..
+    #   dockerfile: Dockerfile
     # runtime: nvidia
     ports:
       - 8080:8080
