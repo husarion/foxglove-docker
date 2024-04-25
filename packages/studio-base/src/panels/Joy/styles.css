@@ -4,11 +4,6 @@
   inherits: false;
 }
 
-:root {
-  --card-height: 65vh;
-  --card-width: calc(var(--card-height) / 1.5);
-}
-
 body {
   /* https://coolors.co/f06449-ede6e3-7d82b8-36382e-613f75  */
   --background-color: #ede6e3;
@@ -20,31 +15,31 @@ body {
   background-color: var(--background-color);
 }
 
-#center {
+#content {
+  flex-direction: row;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
 }
 
-#game {
-  display: grid;
-  grid-template-columns: auto 100px 100px;
-  grid-template-rows: auto 1fr;
-  gap: 50px;
+.joystick-panel {
+  flex: 1;
+  max-width: 800px;
+  padding: 50px;
+  text-align: center;
 }
+
 
 #joystick {
   position: relative;
   background-color: var(--joystick-color);
   border-radius: 50%;
-  width: 300px;
-  height: 300px;
+  width: 270px;
+  height: 270px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 10px 50px;
-  grid-row: 2;
 }
 
 #joystick::before {
@@ -77,8 +72,8 @@ body {
   position: relative;
   background-color: var(--joystick-head-color);
   border-radius: 50%;
-  width: 130px;
-  height: 130px;
+  width: 115px;
+  height: 115px;
   cursor: grab;
 
   animation: glow 0.6s alternate infinite;
@@ -95,65 +90,76 @@ body {
 
 .joystick-arrow:nth-of-type(1) {
   position: absolute;
-  bottom: 335px;
+  bottom: 295px;
 
   width: 0;
   height: 0;
-  border-left: 40px solid transparent;
-  border-right: 40px solid transparent;
+  border-left: 35px solid transparent;
+  border-right: 35px solid transparent;
 
-  border-bottom: 40px solid var(--joystick-color);
+  border-bottom: 35px solid var(--joystick-color);
 }
 
 .joystick-arrow:nth-of-type(2) {
   position: absolute;
-  top: 335px;
+  top: 295px;
 
   width: 0;
   height: 0;
-  border-left: 40px solid transparent;
-  border-right: 40px solid transparent;
+  border-left: 35px solid transparent;
+  border-right: 35px solid transparent;
 
-  border-top: 40px solid var(--joystick-color);
+  border-top: 35px solid var(--joystick-color);
 }
 
 .joystick-arrow:nth-of-type(3) {
   position: absolute;
-  left: 335px;
+  left: 295px;
 
   width: 0;
   height: 0;
-  border-top: 40px solid transparent;
-  border-bottom: 40px solid transparent;
+  border-top: 35px solid transparent;
+  border-bottom: 35px solid transparent;
 
-  border-left: 40px solid var(--joystick-color);
+  border-left: 35px solid var(--joystick-color);
 }
 
 .joystick-arrow:nth-of-type(4) {
   position: absolute;
-  right: 335px;
+  right: 295px;
 
   width: 0;
   height: 0;
-  border-top: 40px solid transparent;
-  border-bottom: 40px solid transparent;
+  border-top: 35px solid transparent;
+  border-bottom: 35px solid transparent;
 
-  border-right: 40px solid var(--joystick-color);
+  border-right: 35px solid var(--joystick-color);
 }
 
-#note {
-  grid-row: 3;
+#joy-note {
+  position: absolute;
   text-align: center;
   font-size: 2em;
-  border-top: 40px solid transparent;
+  border-top: 35px solid transparent;
+  top: 315px;
+}
+
+.slider-panel {
+  flex-direction: column;
+  width: 200px;
 }
 
 .slider {
-  height: 100%;
   display: flex;
-  grid-column: 2;
-  grid-row: 2;
   position: relative;
   justify-content: center;
-  margin: 10px 50px;
+  appearance: slider-vertical;
+  width: 100px;
+  height: 225px;
+}
+
+.note {
+  font-size: 2em;
+  position: relative;
+  top: 20px;
 }

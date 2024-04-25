@@ -77,7 +77,7 @@
       "showPlotValuesInLegend": false,
       "isSynced": true,
       "xAxisVal": "timestamp",
-      "sidebarDimension": 240,
+      "sidebarDimension": 0,
       "foxglovePanelTitle": "Acceleration",
       "followingViewWidth": 60
     },

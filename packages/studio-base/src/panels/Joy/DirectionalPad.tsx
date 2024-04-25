@@ -4,8 +4,6 @@
 
 import React, { useCallback, useState, useRef } from "react";
 
-import Stack from "@foxglove/studio-base/components/Stack";
-
 import "./styles.css";
 
 // Type for the Joystick Props
@@ -120,8 +118,8 @@ function DirectionalPad(props: DirectionalPadProps): JSX.Element {
   }, [isDragging, handleMove, handleEnd]);
 
   return (
-    <Stack justifyContent="center" alignItems="center" fullWidth fullHeight>
-      <div id="game">
+    <div id="content">
+      <div className="joystick-panel">
         <div id="joystick">
           <div className="joystick-arrow"></div>
           <div className="joystick-arrow"></div>
@@ -133,20 +131,19 @@ function DirectionalPad(props: DirectionalPadProps): JSX.Element {
             onMouseDown={handleStart}
             onTouchStart={handleStart}
           ></div>
+          <div id="joy-note">
+            X: {speed?.x.toFixed(2) ?? "0.00"} Y: {speed?.y.toFixed(2) ?? "0.00"}
+          </div>
         </div>
-        <div
-          className="slider"
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gridColumn: "2",
-            gridRow: "2",
-          }}
-        >
+      </div>
+      <div style={{ display: "flex" }}>
+
+        <div className="slider-panel">
           <input
-            id="max-y-speed"
+            id="max-x-speed"
+            className="slider"
             type="range"
+            aria-orientation="vertical"
             min="0"
             max={xLimit}
             step="0.1"
@@ -154,24 +151,15 @@ function DirectionalPad(props: DirectionalPadProps): JSX.Element {
             onChange={(e) => {
               setMaxXAxis(Number(e.target.value));
             }}
-            style={{ width: "200px", transform: "rotate(-90deg)" }}
           />
-          <div id="note">
-            <br /> <br /> X: {maxXAxis.toFixed(1)}
-          </div>
+          <p className="note"> X: {maxXAxis.toFixed(1)} m/s</p>
         </div>
-        <div
-          className="slider"
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gridColumn: "3",
-            gridRow: "2",
-          }}
-        >
+
+        <div className="slider-panel">
+
           <input
             id="max-y-speed"
+            className="slider"
             type="range"
             min="0"
             max={yLimit}
@@ -180,17 +168,12 @@ function DirectionalPad(props: DirectionalPadProps): JSX.Element {
             onChange={(e) => {
               setMaxYAxis(Number(e.target.value));
             }}
-            style={{ width: "200px", transform: "rotate(-90deg)" }}
           />
-          <div id="note">
-            <br /> <br /> Y: {maxYAxis.toFixed(1)}
-          </div>
-        </div>
-        <div id="note">
-          X: {speed?.x.toFixed(2) ?? "0.00"} Y: {speed?.y.toFixed(2) ?? "0.00"}
+          <p className="note"> Y: {maxYAxis.toFixed(1)} rad/s</p>
+
         </div>
       </div>
-    </Stack>
+    </div>
   );
 }
 

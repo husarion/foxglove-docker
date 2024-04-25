@@ -243,27 +243,20 @@ function Joy(props: JoyProps): JSX.Element {
 
   return (
     <ThemeProvider isDark={colorScheme === "dark"}>
-      <Stack
-        fullHeight
-        justifyContent="center"
-        alignItems="center"
-        style={{ padding: "min(5%, 8px)", textAlign: "center" }}
-      >
-        {!canPublish && <EmptyState>Connect to a data source that supports publishing</EmptyState>}
-        {canPublish && !hasTopic && (
-          <EmptyState>Select a publish topic in the panel settings</EmptyState>
-        )}
-        {enabled && (
-          <DirectionalPad
-            disabled={!enabled}
-            onSpeedChange={(value) => {
-              setVelocity(value);
-            }}
-            xLimit={config.xAxis.limit}
-            yLimit={config.yAxis.limit}
-          />
-        )}
-      </Stack>
+      {!canPublish && <EmptyState>Connect to a data source that supports publishing</EmptyState>}
+      {canPublish && !hasTopic && (
+        <EmptyState>Select a publish topic in the panel settings</EmptyState>
+      )}
+      {enabled && (
+        <DirectionalPad
+          disabled={!enabled}
+          onSpeedChange={(value) => {
+            setVelocity(value);
+          }}
+          xLimit={config.xAxis.limit}
+          yLimit={config.yAxis.limit}
+        />
+      )}
     </ThemeProvider>
   );
 }
