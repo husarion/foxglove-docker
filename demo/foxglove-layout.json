@@ -1,5 +1,93 @@
 {
   "configById": {
+    "Bar!3t52ye7": {
+      "path": "/panther/joint_states.effort[0]",
+      "minValue": 0,
+      "maxValue": 20,
+      "colorMode": "colormap",
+      "gradient": [
+        "#0000ff",
+        "#ff00ff"
+      ],
+      "reverse": false,
+      "foxglovePanelTitle": "FL"
+    },
+    "Bar!461hl59": {
+      "path": "/panther/joint_states.effort[1]",
+      "minValue": 0,
+      "maxValue": 20,
+      "colorMode": "colormap",
+      "gradient": [
+        "#0000ff",
+        "#ff00ff"
+      ],
+      "reverse": false,
+      "foxglovePanelTitle": "FR"
+    },
+    "Bar!1fzrnqw": {
+      "path": "/panther/joint_states.effort[2]",
+      "minValue": 0,
+      "maxValue": 20,
+      "colorMode": "colormap",
+      "gradient": [
+        "#0000ff",
+        "#ff00ff"
+      ],
+      "reverse": false,
+      "foxglovePanelTitle": "RL"
+    },
+    "Bar!1q5qffy": {
+      "path": "/panther/joint_states.effort[3]",
+      "minValue": 0,
+      "maxValue": 20,
+      "colorMode": "colormap",
+      "gradient": [
+        "#0000ff",
+        "#ff00ff"
+      ],
+      "reverse": false,
+      "foxglovePanelTitle": "RR"
+    },
+    "Plot!dg5ynj": {
+      "paths": [
+        {
+          "timestampMethod": "receiveTime",
+          "value": "/panther/imu/data.linear_acceleration.x",
+          "enabled": true,
+          "label": "x",
+          "showLine": true
+        },
+        {
+          "timestampMethod": "receiveTime",
+          "value": "/panther/imu/data.linear_acceleration.y",
+          "enabled": true,
+          "label": "y"
+        },
+        {
+          "timestampMethod": "receiveTime",
+          "value": "/panther/imu/data.linear_acceleration.z",
+          "enabled": true,
+          "label": "z"
+        }
+      ],
+      "showXAxisLabels": true,
+      "showYAxisLabels": true,
+      "showLegend": true,
+      "legendDisplay": "floating",
+      "showPlotValuesInLegend": false,
+      "isSynced": true,
+      "xAxisVal": "timestamp",
+      "sidebarDimension": 240,
+      "foxglovePanelTitle": "Acceleration",
+      "followingViewWidth": 60
+    },
+    "DiagnosticSummary!47zasr6": {
+      "minLevel": 0,
+      "pinnedIds": [],
+      "hardwareIdFilter": "",
+      "topicToRender": "/diagnostics",
+      "sortByLevel": true
+    },
     "TriggerButton!2mhoc9g": {
       "requestPayload": "{}",
       "layout": "vertical",
@@ -67,276 +155,32 @@
         "limit": 3
       }
     },
-    "3D!2a7yeqc": {
-      "cameraState": {
-        "perspective": true,
-        "distance": 14,
-        "phi": 59.99999999999931,
-        "thetaOffset": 44.999999999999886,
-        "targetOffset": [
-          0,
-          0,
-          0
-        ],
-        "target": [
-          0,
-          0,
-          0
-        ],
-        "targetOrientation": [
-          0,
-          0,
-          0,
-          1
-        ],
-        "fovy": 45,
-        "near": 0.5,
-        "far": 5000
-      },
-      "followMode": "follow-pose",
-      "followTf": "odom",
-      "scene": {
-        "enableStats": true,
-        "ignoreColladaUpAxis": false,
-        "syncCamera": false,
-        "transforms": {
-          "editable": false,
-          "showLabel": false,
-          "axisScale": 4,
-          "lineWidth": 1,
-          "enablePreloading": true
-        }
-      },
-      "transforms": {
-        "frame:base_link": {
-          "visible": false
-        },
-        "frame:odom": {
-          "visible": true
-        },
-        "frame:fl_wheel_link": {
-          "visible": false
-        },
-        "frame:body_link": {
-          "visible": false
-        },
-        "frame:fr_wheel_link": {
-          "visible": false
-        },
-        "frame:rl_wheel_link": {
-          "visible": false
-        },
-        "frame:rr_wheel_link": {
-          "visible": false
-        },
-        "frame:cover_link": {
-          "visible": false
-        },
-        "frame:front_bumper_link": {
-          "visible": false
-        },
-        "frame:imu_link": {
-          "visible": false
-        },
-        "frame:rear_bumper_link": {
-          "visible": false
-        },
-        "frame:front_light_link": {
-          "visible": false
-        },
-        "frame:rear_light_link": {
-          "visible": false
-        }
-      },
-      "topics": {
-        "/robot_description": {
-          "visible": true
-        }
-      },
-      "layers": {
-        "664bff39-4ef1-411e-80e2-5d81ae974339": {
-          "visible": true,
-          "frameLocked": true,
-          "label": "Grid",
-          "instanceId": "664bff39-4ef1-411e-80e2-5d81ae974339",
-          "layerId": "foxglove.Grid",
-          "size": 15,
-          "divisions": 15,
-          "lineWidth": 1,
-          "color": "#248eff",
-          "position": [
-            0,
-            0,
-            0
-          ],
-          "rotation": [
-            0,
-            0,
-            0
-          ],
-          "order": 1
-        },
-        "6af4965a-b0f2-4903-9786-4b26c17033f9": {
-          "visible": true,
-          "frameLocked": true,
-          "label": "URDF",
-          "instanceId": "6af4965a-b0f2-4903-9786-4b26c17033f9",
-          "layerId": "foxglove.Urdf",
-          "sourceType": "topic",
-          "url": "",
-          "filePath": "",
-          "parameter": "",
-          "topic": "/panther/robot_description",
-          "framePrefix": "",
-          "displayMode": "auto",
-          "fallbackColor": "#ffffff",
-          "order": 2
-        }
-      },
-      "publish": {
-        "type": "point",
-        "poseTopic": "/move_base_simple/goal",
-        "pointTopic": "/clicked_point",
-        "poseEstimateTopic": "/initialpose",
-        "poseEstimateXDeviation": 0.5,
-        "poseEstimateYDeviation": 0.5,
-        "poseEstimateThetaDeviation": 0.26179939
-      },
-      "imageMode": {}
-    },
-    "Plot!dg5ynj": {
-      "paths": [
-        {
-          "timestampMethod": "receiveTime",
-          "value": "/panther/imu/data.linear_acceleration.x",
-          "enabled": true,
-          "label": "x",
-          "showLine": true
-        },
-        {
-          "timestampMethod": "receiveTime",
-          "value": "/panther/imu/data.linear_acceleration.y",
-          "enabled": true,
-          "label": "y"
-        },
-        {
-          "timestampMethod": "receiveTime",
-          "value": "/panther/imu/data.linear_acceleration.z",
-          "enabled": true,
-          "label": "z"
-        }
-      ],
-      "showXAxisLabels": true,
-      "showYAxisLabels": true,
-      "showLegend": true,
-      "legendDisplay": "floating",
-      "showPlotValuesInLegend": false,
-      "isSynced": true,
-      "xAxisVal": "timestamp",
-      "sidebarDimension": 240,
-      "foxglovePanelTitle": "IMU - acceleration",
-      "followingViewWidth": 60
-    },
-    "Bar!3t52ye7": {
-      "path": "/panther/joint_states.effort[1]",
-      "minValue": 0,
-      "maxValue": 1,
-      "colorMode": "colormap",
-      "gradient": [
-        "#0000ff",
-        "#ff00ff"
-      ],
-      "reverse": false,
-      "foxglovePanelTitle": "FL"
-    },
-    "Bar!461hl59": {
-      "path": "/panther/joint_states.effort[2]",
-      "minValue": 0,
-      "maxValue": 1,
-      "colorMode": "colormap",
-      "gradient": [
-        "#0000ff",
-        "#ff00ff"
-      ],
-      "reverse": false,
-      "foxglovePanelTitle": "FR"
-    },
-    "Bar!1fzrnqw": {
-      "path": "/panther/joint_states.effort[2]",
-      "minValue": 0,
-      "maxValue": 120,
-      "colorMode": "colormap",
-      "gradient": [
-        "#0000ff",
-        "#ff00ff"
-      ],
-      "reverse": false,
-      "foxglovePanelTitle": "RL"
-    },
-    "Bar!1q5qffy": {
-      "path": "/panther/joint_states.effort[3]",
-      "minValue": 0,
-      "maxValue": 100,
-      "colorMode": "colormap",
-      "gradient": [
-        "#0000ff",
-        "#ff00ff"
-      ],
-      "reverse": false,
-      "foxglovePanelTitle": "RR"
-    },
-    "DiagnosticStatusPanel!jyt4qz": {
-      "topicToRender": "/diagnostics",
-      "selectedHardwareId": "none"
-    },
-    "Tab!62jad4": {
+    "Tab!1plmth0": {
       "activeTabIdx": 0,
       "tabs": [
         {
-          "title": "Control",
+          "title": "Motors",
           "layout": {
             "first": {
-              "first": {
-                "first": "TriggerButton!2mhoc9g",
-                "second": "TriggerButton!194be9",
-                "direction": "row"
-              },
-              "second": "Battery!wppv5y",
+              "first": "Bar!3t52ye7",
+              "second": "Bar!461hl59",
               "direction": "row"
             },
-            "second": "Joy!3fmstz6",
-            "direction": "column",
-            "splitPercentage": 31.63841807909605
+            "second": {
+              "first": "Bar!1fzrnqw",
+              "second": "Bar!1q5qffy",
+              "direction": "row"
+            },
+            "direction": "row"
           }
         },
         {
-          "title": "Visualization",
-          "layout": {
-            "first": "3D!2a7yeqc",
-            "second": {
-              "first": "Plot!dg5ynj",
-              "second": {
-                "first": {
-                  "first": "Bar!3t52ye7",
-                  "second": "Bar!461hl59",
-                  "direction": "row"
-                },
-                "second": {
-                  "first": "Bar!1fzrnqw",
-                  "second": "Bar!1q5qffy",
-                  "direction": "row"
-                },
-                "direction": "row"
-              },
-              "direction": "column"
-            },
-            "direction": "row",
-            "splitPercentage": 66.19834710743801
-          }
+          "title": "IMU",
+          "layout": "Plot!dg5ynj"
         },
         {
           "title": "Diagnostic",
-          "layout": "DiagnosticStatusPanel!jyt4qz"
+          "layout": "DiagnosticSummary!47zasr6"
         }
       ]
     }
@@ -345,5 +189,24 @@
     "": "\"\""
   },
   "userNodes": {},
-  "layout": "Tab!62jad4"
+  "layout": {
+    "first": {
+      "first": {
+        "first": "TriggerButton!2mhoc9g",
+        "second": "TriggerButton!194be9",
+        "direction": "row"
+      },
+      "second": "Battery!wppv5y",
+      "direction": "row",
+      "splitPercentage": 61.24222587596123
+    },
+    "second": {
+      "first": "Joy!3fmstz6",
+      "second": "Tab!1plmth0",
+      "direction": "column",
+      "splitPercentage": 67.17877094972067
+    },
+    "direction": "column",
+    "splitPercentage": 23.1981981981982
+  }
 }

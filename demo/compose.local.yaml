@@ -1,11 +1,16 @@
+x-common-config:
+  &common-config
+  network_mode: host
+  ipc: host
+
 services:
   foxglove:
-    image: husarion/foxglove:studio-nightly
-    network_mode: host
-    ipc: host
-    # build:
-    #   context: ..
-    #   dockerfile: Dockerfile
+    # image: husarion/foxglove:studio-nightly
+    container_name: foxglove
+    <<: *common-config
+    build:
+      context: ..
+      dockerfile: Dockerfile
     # runtime: nvidia
     ports:
       - 8080:8080
@@ -21,8 +26,8 @@ services:
 
   foxglove-ds:
     image: husarion/foxglove-bridge:humble-0.7.4-20240320
-    network_mode: host
-    ipc: host
+    container_name: foxglove-bridge
+    <<: *common-config
     ports:
       - 8765:8765
     command: ros2 launch foxglove_bridge foxglove_bridge_launch.xml port:=8765 capabilities:=[clientPublish,parameters,parametersSubscribe,services,connectionGraph,assets]
