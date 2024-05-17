@@ -16,19 +16,19 @@ body {
 }
 
 #content {
-  flex-direction: row;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: inherit;
 }
 
 .joystick-panel {
-  flex: 1;
+  flex-direction: column;
   max-width: 800px;
-  padding: 50px;
   text-align: center;
+  align-items: center;
+  padding: 20px 70px;
 }
-
 
 #joystick {
   position: relative;
@@ -39,7 +39,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 10px 50px;
+  margin: 70px 100px 110px;
 }
 
 #joystick::before {
@@ -69,7 +69,7 @@ body {
 }
 
 #joystick-head {
-  position: relative;
+  position: absolute;
   background-color: var(--joystick-head-color);
   border-radius: 50%;
   width: 115px;
@@ -140,25 +140,26 @@ body {
   position: absolute;
   text-align: center;
   font-size: 2em;
-  border-top: 35px solid transparent;
-  top: 315px;
+  top: 350px;
 }
 
 .slider-panel {
   flex-direction: column;
-  width: 200px;
+  padding: 0px 20px;
+  justify-content: center;
 }
 
 .slider {
   display: flex;
-  position: relative;
-  justify-content: center;
   appearance: slider-vertical;
-  width: 100px;
   height: 225px;
+  position: relative;
+  margin: 0 auto;
 }
 
 .note {
+  display: flex;
+  justify-content: center;
   font-size: 2em;
   position: relative;
   top: 20px;

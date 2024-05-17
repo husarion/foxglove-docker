@@ -131,9 +131,9 @@ function DirectionalPad(props: DirectionalPadProps): JSX.Element {
             onMouseDown={handleStart}
             onTouchStart={handleStart}
           ></div>
-          <div id="joy-note">
-            X: {speed?.x.toFixed(2) ?? "0.00"} Y: {speed?.y.toFixed(2) ?? "0.00"}
-          </div>
+          <p id="joy-note">
+            ({speed?.x.toFixed(2) ?? "0.00"}, {speed?.y.toFixed(2) ?? "0.00"})
+          </p>
         </div>
       </div>
       <div style={{ display: "flex" }}>
@@ -169,7 +169,7 @@ function DirectionalPad(props: DirectionalPadProps): JSX.Element {
               setMaxYAxis(Number(e.target.value));
             }}
           />
-          <p className="note"> Y: {maxYAxis.toFixed(1)} rad/s</p>
+          <p className="note"> Yaw: {maxYAxis.toFixed(1)} rad/s</p>
 
         </div>
       </div>
