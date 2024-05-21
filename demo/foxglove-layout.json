@@ -1,40 +1,11 @@
 {
   "configById": {
-    "Bar!3t52ye7": {
-      "path": "/panther/joint_states.effort[0]",
-      "minValue": 0,
-      "maxValue": 20,
-      "colorMode": "colormap",
-      "gradient": ["#0000ff", "#ff00ff"],
-      "reverse": false,
-      "foxglovePanelTitle": "FL"
-    },
-    "Bar!461hl59": {
-      "path": "/panther/joint_states.effort[1]",
-      "minValue": 0,
-      "maxValue": 20,
-      "colorMode": "colormap",
-      "gradient": ["#0000ff", "#ff00ff"],
-      "reverse": false,
-      "foxglovePanelTitle": "FR"
-    },
-    "Bar!1fzrnqw": {
-      "path": "/panther/joint_states.effort[2]",
-      "minValue": 0,
-      "maxValue": 20,
-      "colorMode": "colormap",
-      "gradient": ["#0000ff", "#ff00ff"],
-      "reverse": false,
-      "foxglovePanelTitle": "RL"
-    },
-    "Bar!1q5qffy": {
-      "path": "/panther/joint_states.effort[3]",
-      "minValue": 0,
-      "maxValue": 20,
-      "colorMode": "colormap",
-      "gradient": ["#0000ff", "#ff00ff"],
-      "reverse": false,
-      "foxglovePanelTitle": "RR"
+    "DiagnosticSummary!47zasr6": {
+      "minLevel": 0,
+      "pinnedIds": [],
+      "hardwareIdFilter": "",
+      "topicToRender": "/panther/diagnostics",
+      "sortByLevel": true
     },
     "Plot!dg5ynj": {
       "paths": [
@@ -69,12 +40,41 @@
       "foxglovePanelTitle": "Acceleration",
       "followingViewWidth": 60
     },
-    "DiagnosticSummary!47zasr6": {
-      "minLevel": 0,
-      "pinnedIds": [],
-      "hardwareIdFilter": "",
-      "topicToRender": "/panther/diagnostics",
-      "sortByLevel": true
+    "Bar!3t52ye7": {
+      "path": "/panther/joint_states.effort[0]",
+      "minValue": -20,
+      "maxValue": 20,
+      "colorMode": "colormap",
+      "gradient": ["#0000ff", "#ff00ff"],
+      "reverse": false,
+      "foxglovePanelTitle": "FL"
+    },
+    "Bar!461hl59": {
+      "path": "/panther/joint_states.effort[1]",
+      "minValue": -20,
+      "maxValue": 20,
+      "colorMode": "colormap",
+      "gradient": ["#0000ff", "#ff00ff"],
+      "reverse": false,
+      "foxglovePanelTitle": "FR"
+    },
+    "Bar!1fzrnqw": {
+      "path": "/panther/joint_states.effort[2]",
+      "minValue": -20,
+      "maxValue": 20,
+      "colorMode": "colormap",
+      "gradient": ["#0000ff", "#ff00ff"],
+      "reverse": false,
+      "foxglovePanelTitle": "RL"
+    },
+    "Bar!1q5qffy": {
+      "path": "/panther/joint_states.effort[3]",
+      "minValue": -20,
+      "maxValue": 20,
+      "colorMode": "colormap",
+      "gradient": ["#0000ff", "#ff00ff"],
+      "reverse": false,
+      "foxglovePanelTitle": "RR"
     },
     "TriggerButton!2mhoc9g": {
       "requestPayload": "{}",
@@ -141,8 +141,16 @@
       }
     },
     "Tab!1plmth0": {
-      "activeTabIdx": 0,
+      "activeTabIdx": 2,
       "tabs": [
+        {
+          "title": "Diagnostic",
+          "layout": "DiagnosticSummary!47zasr6"
+        },
+        {
+          "title": "IMU",
+          "layout": "Plot!dg5ynj"
+        },
         {
           "title": "Motors",
           "layout": {
@@ -156,16 +164,8 @@
               "second": "Bar!1q5qffy",
               "direction": "row"
             },
-            "direction": "row"
+            "direction": "column"
           }
-        },
-        {
-          "title": "IMU",
-          "layout": "Plot!dg5ynj"
-        },
-        {
-          "title": "Diagnostic",
-          "layout": "DiagnosticSummary!47zasr6"
         }
       ]
     }
@@ -189,9 +189,9 @@
       "first": "Joy!3fmstz6",
       "second": "Tab!1plmth0",
       "direction": "column",
-      "splitPercentage": 67.17877094972067
+      "splitPercentage": 60.93957198166887
     },
     "direction": "column",
-    "splitPercentage": 23.1981981981982
+    "splitPercentage": 14.098360655737704
   }
 }
