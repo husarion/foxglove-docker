@@ -15,7 +15,6 @@ import {
   Topic,
 } from "@foxglove/studio";
 import EmptyState from "@foxglove/studio-base/components/EmptyState";
-import Stack from "@foxglove/studio-base/components/Stack";
 import ThemeProvider from "@foxglove/studio-base/theme/ThemeProvider";
 
 import DirectionalPad from "./DirectionalPad";
@@ -138,7 +137,7 @@ function Joy(props: JoyProps): JSX.Element {
   }, []);
 
   // setup context render handler and render done handling
-  const [renderDone, setRenderDone] = useState<() => void>(() => () => {});
+  const [renderDone, setRenderDone] = useState<() => void>(() => () => { });
   const [colorScheme, setColorScheme] = useState<"dark" | "light">("light");
   useLayoutEffect(() => {
     context.watch("topics");
