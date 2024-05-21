@@ -23,7 +23,6 @@ type Props = {
 
 const defaultConfig: Config = {
   path: "",
-  minValue: 0,
   maxValue: 1,
   colorMode: "colormap",
   gradient: ["#0000ff", "#ff00ff"],
@@ -124,7 +123,7 @@ function reducer(state: State, action: Action): State {
 export function Bar({ context }: Props): JSX.Element {
   // panel extensions must notify when they've completed rendering
   // onRender will setRenderDone to a done callback which we can invoke after we've rendered
-  const [renderDone, setRenderDone] = useState<() => void>(() => () => {});
+  const [renderDone, setRenderDone] = useState<() => void>(() => () => { });
 
   const [config, setConfig] = useState(() => ({
     ...defaultConfig,
@@ -204,15 +203,17 @@ export function Bar({ context }: Props): JSX.Element {
 
   const rawValue =
     typeof state.latestMatchingQueriedData === "number" ||
-    typeof state.latestMatchingQueriedData === "string"
+      typeof state.latestMatchingQueriedData === "string"
       ? Number(state.latestMatchingQueriedData)
       : NaN;
 
-  const { minValue, maxValue } = config;
-  // const outOfBounds = rawValue < minValue || rawValue > maxValue;
-  const barLevel = Math.round(
-    (100 * (Math.min(Math.max(rawValue, minValue), maxValue) - minValue)) / (maxValue - minValue),
-  );
+  const { maxValue } = config;
+  const barLevel = Math.round((100 * Math.min(rawValue, maxValue)) / maxValue)
+  const levelHeight = Math.abs(barLevel) / 2;
+
+  const isPositive = rawValue >= 0;
+  const top = isPositive ? `${50 - levelHeight}%` : '50%';
+  const bottom = isPositive ? '50%' : `${50 - levelHeight}%`;
 
   return (
     <Stack
@@ -222,8 +223,11 @@ export function Bar({ context }: Props): JSX.Element {
       fullHeight
       style={{ userSelect: "none" }}
     >
-      <div className="battery">
-        <div className="level" style={{ height: `${barLevel}%` }}></div>
+      <div className="bar">
+        <div
+          className={`level ${isPositive ? 'positive' : 'negative'}`}
+          style={{ height: `${levelHeight}%`, top, bottom }}
+        ></div>
       </div>
       <div className="percentage">{barLevel}%</div>
     </Stack>

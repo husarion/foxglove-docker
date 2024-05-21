@@ -1,5 +1,4 @@
-x-common-config:
-  &common-config
+x-common-config: &common-config
   network_mode: host
   ipc: host
 
@@ -30,4 +29,6 @@ services:
     <<: *common-config
     ports:
       - 8765:8765
+    environment:
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp # For panther-docker image
     command: ros2 launch foxglove_bridge foxglove_bridge_launch.xml port:=8765 capabilities:=[clientPublish,parameters,parametersSubscribe,services,connectionGraph,assets]

@@ -4,7 +4,6 @@
 
 export type Config = {
   path: string;
-  minValue: number;
   maxValue: number;
   colorMode: "colormap" | "gradient";
   gradient: [string, string];

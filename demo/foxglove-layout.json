@@ -5,10 +5,7 @@
       "minValue": 0,
       "maxValue": 20,
       "colorMode": "colormap",
-      "gradient": [
-        "#0000ff",
-        "#ff00ff"
-      ],
+      "gradient": ["#0000ff", "#ff00ff"],
       "reverse": false,
       "foxglovePanelTitle": "FL"
     },
@@ -17,10 +14,7 @@
       "minValue": 0,
       "maxValue": 20,
       "colorMode": "colormap",
-      "gradient": [
-        "#0000ff",
-        "#ff00ff"
-      ],
+      "gradient": ["#0000ff", "#ff00ff"],
       "reverse": false,
       "foxglovePanelTitle": "FR"
     },
@@ -29,10 +23,7 @@
       "minValue": 0,
       "maxValue": 20,
       "colorMode": "colormap",
-      "gradient": [
-        "#0000ff",
-        "#ff00ff"
-      ],
+      "gradient": ["#0000ff", "#ff00ff"],
       "reverse": false,
       "foxglovePanelTitle": "RL"
     },
@@ -41,10 +32,7 @@
       "minValue": 0,
       "maxValue": 20,
       "colorMode": "colormap",
-      "gradient": [
-        "#0000ff",
-        "#ff00ff"
-      ],
+      "gradient": ["#0000ff", "#ff00ff"],
       "reverse": false,
       "foxglovePanelTitle": "RR"
     },
@@ -85,7 +73,7 @@
       "minLevel": 0,
       "pinnedIds": [],
       "hardwareIdFilter": "",
-      "topicToRender": "/diagnostics",
+      "topicToRender": "/panther/diagnostics",
       "sortByLevel": true
     },
     "TriggerButton!2mhoc9g": {
@@ -112,10 +100,7 @@
       "maxValue": 1,
       "colorMap": "red-yellow-green",
       "colorMode": "colormap",
-      "gradient": [
-        "#0000ff",
-        "#ff00ff"
-      ],
+      "gradient": ["#0000ff", "#ff00ff"],
       "reverse": false,
       "foxglovePanelTitle": ""
     },

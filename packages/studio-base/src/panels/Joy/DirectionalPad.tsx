@@ -139,6 +139,7 @@ function DirectionalPad(props: DirectionalPadProps): JSX.Element {
       <div style={{ display: "flex" }}>
 
         <div className="slider-panel">
+          <p className="note"> X Axis</p>
           <input
             id="max-x-speed"
             className="slider"
@@ -156,7 +157,7 @@ function DirectionalPad(props: DirectionalPadProps): JSX.Element {
         </div>
 
         <div className="slider-panel">
-
+          <p className="note"> Y Axis</p>
           <input
             id="max-y-speed"
             className="slider"
@@ -170,7 +171,6 @@ function DirectionalPad(props: DirectionalPadProps): JSX.Element {
             }}
           />
           <p className="note"> Yaw: {maxYAxis.toFixed(1)} rad/s</p>
-
         </div>
       </div>
     </div>

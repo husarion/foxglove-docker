@@ -1,25 +1,34 @@
-.battery {
-  width: 50%;
+.bar {
+  width: 100px;
   height: 75%;
   background-color: #f3f3f3;
   border: 2px solid #333;
   position: relative;
   overflow: hidden;
   border-radius: 10px;
-  display: flex;
-  align-items: flex-end;
 }
 
 .level {
   width: 100%;
-  background: linear-gradient(to right, #4caf50, #8bc34a); /* Gradient colors for battery level */
-  height: 100%;
-  border-radius: 8px;
-  position: relative;
+  position: absolute;
+  bottom: 50%; /* Start from the middle */
+  transition:
+    height 0.3s,
+    top 0.3s,
+    bottom 0.3s; /* Smooth transition for the bar changes */
 }
 
-/* Battery percentage text */
+.level.positive {
+  background-color: #4caf50;
+}
+
+.level.negative {
+  background-color: #f44336;
+}
+
 .percentage {
   position: relative;
   font-size: 1rem;
+  margin-top: 10px; /* Add some space between the bar and the percentage text */
+  text-align: center;
 }

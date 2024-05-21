@@ -57,11 +57,6 @@ export function useSettingsTree(
           error: pathParseError,
           validTypes: supportedDataTypes,
         },
-        minValue: {
-          label: "Min",
-          input: "number",
-          value: config.minValue,
-        },
         maxValue: {
           label: "Max",
           input: "number",

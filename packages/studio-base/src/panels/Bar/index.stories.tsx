@@ -48,7 +48,7 @@ export const EmptyState: StoryObj = {
 
 export const InvalidValue: StoryObj = {
   render: function Story() {
-    return <BarPanel overrideConfig={{ path: "/data.value", minValue: 0, maxValue: 1 }} />;
+    return <BarPanel overrideConfig={{ path: "/data.value", maxValue: 1 }} />;
   },
 
   parameters: { panelSetup: { fixture: makeFixture(NaN) } },
@@ -60,7 +60,6 @@ export const Rainbow: StoryObj = {
       <BarPanel
         overrideConfig={{
           path: "/data.value",
-          minValue: 0,
           maxValue: 1,
           colorMode: "colormap",
           colorMap: "rainbow",
@@ -78,7 +77,6 @@ export const Turbo: StoryObj = {
       <BarPanel
         overrideConfig={{
           path: "/data.value",
-          minValue: 0,
           maxValue: 1,
           colorMode: "colormap",
           colorMap: "turbo",
@@ -96,7 +94,6 @@ export const TurboReverse: StoryObj = {
       <BarPanel
         overrideConfig={{
           path: "/data.value",
-          minValue: 0,
           maxValue: 1,
           colorMode: "colormap",
           colorMap: "turbo",
@@ -115,7 +112,6 @@ export const CustomGradient: StoryObj = {
       <BarPanel
         overrideConfig={{
           path: "/data.value",
-          minValue: 0,
           maxValue: 1,
           colorMode: "gradient",
           gradient: ["#ec9a57", "#65c6ff"],
@@ -133,7 +129,6 @@ export const CustomGradientReverse: StoryObj = {
       <BarPanel
         overrideConfig={{
           path: "/data.value",
-          minValue: 0,
           maxValue: 1,
           colorMode: "gradient",
           gradient: ["#ec9a57", "#65c6ff"],
@@ -148,7 +143,7 @@ export const CustomGradientReverse: StoryObj = {
 
 export const MinValue: StoryObj = {
   render: function Story() {
-    return <BarPanel overrideConfig={{ path: "/data.value", minValue: 0, maxValue: 1 }} />;
+    return <BarPanel overrideConfig={{ path: "/data.value", maxValue: 1 }} />;
   },
 
   parameters: { panelSetup: { fixture: makeFixture(0) } },
@@ -156,7 +151,7 @@ export const MinValue: StoryObj = {
 
 export const MaxValue: StoryObj = {
   render: function Story() {
-    return <BarPanel overrideConfig={{ path: "/data.value", minValue: 0, maxValue: 1 }} />;
+    return <BarPanel overrideConfig={{ path: "/data.value", maxValue: 1 }} />;
   },
 
   parameters: { panelSetup: { fixture: makeFixture(1) } },
@@ -164,7 +159,7 @@ export const MaxValue: StoryObj = {
 
 export const TooLow: StoryObj = {
   render: function Story() {
-    return <BarPanel overrideConfig={{ path: "/data.value", minValue: 0, maxValue: 1 }} />;
+    return <BarPanel overrideConfig={{ path: "/data.value", maxValue: 1 }} />;
   },
 
   parameters: { panelSetup: { fixture: makeFixture(-1) } },
@@ -172,7 +167,7 @@ export const TooLow: StoryObj = {
 
 export const TooHigh: StoryObj = {
   render: function Story() {
-    return <BarPanel overrideConfig={{ path: "/data.value", minValue: 0, maxValue: 1 }} />;
+    return <BarPanel overrideConfig={{ path: "/data.value", maxValue: 1 }} />;
   },
 
   parameters: { panelSetup: { fixture: makeFixture(2) } },
@@ -180,7 +175,7 @@ export const TooHigh: StoryObj = {
 
 export const CustomRange: StoryObj = {
   render: function Story() {
-    return <BarPanel overrideConfig={{ path: "/data.value", minValue: 5, maxValue: 7 }} />;
+    return <BarPanel overrideConfig={{ path: "/data.value", maxValue: 7 }} />;
   },
 
   parameters: { panelSetup: { fixture: makeFixture(6.5) } },
@@ -188,7 +183,7 @@ export const CustomRange: StoryObj = {
 
 export const MessagePathWithFilter: StoryObj = {
   render: function Story() {
-    return <BarPanel overrideConfig={{ path: `/data{id=="b"}.value`, minValue: 0, maxValue: 4 }} />;
+    return <BarPanel overrideConfig={{ path: `/data{id=="b"}.value`, maxValue: 4 }} />;
   },
 
   parameters: {
@@ -221,7 +216,7 @@ export const MessagePathWithFilter: StoryObj = {
 
 export const StringValue: StoryObj = {
   render: function Story() {
-    return <BarPanel overrideConfig={{ path: `/data.value`, minValue: 0, maxValue: 1 }} />;
+    return <BarPanel overrideConfig={{ path: `/data.value`, maxValue: 1 }} />;
   },
 
   parameters: {
