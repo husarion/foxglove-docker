@@ -207,11 +207,11 @@ export function Bar({ context }: Props): JSX.Element {
       ? Number(state.latestMatchingQueriedData)
       : NaN;
 
-  const { maxValue } = config;
-  const barLevel = Math.round((100 * Math.min(rawValue, maxValue)) / maxValue)
-  const levelHeight = Math.abs(barLevel) / 2;
+  const { maxValue, reverse } = config;
+  const barPercentage = Math.round((100 * rawValue) / maxValue)
 
-  const isPositive = rawValue >= 0;
+  const levelHeight = Math.max(Math.min(Math.abs(barPercentage), 100), 0) / 2; // 50% is the max height
+  const isPositive = reverse ? rawValue < 0 : rawValue >= 0;
   const top = isPositive ? `${50 - levelHeight}%` : '50%';
   const bottom = isPositive ? '50%' : `${50 - levelHeight}%`;
 
@@ -229,7 +229,7 @@ export function Bar({ context }: Props): JSX.Element {
           style={{ height: `${levelHeight}%`, top, bottom }}
         ></div>
       </div>
-      <div className="percentage">{barLevel}%</div>
+      <div className="percentage">{barPercentage}%</div>
     </Stack>
   );
 }

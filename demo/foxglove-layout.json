@@ -43,16 +43,16 @@
     "Bar!3t52ye7": {
       "path": "/panther/joint_states.effort[0]",
       "minValue": -20,
-      "maxValue": 20,
+      "maxValue": 34.52,
       "colorMode": "colormap",
       "gradient": ["#0000ff", "#ff00ff"],
-      "reverse": false,
+      "reverse": true,
       "foxglovePanelTitle": "FL"
     },
     "Bar!461hl59": {
       "path": "/panther/joint_states.effort[1]",
       "minValue": -20,
-      "maxValue": 20,
+      "maxValue": 34.52,
       "colorMode": "colormap",
       "gradient": ["#0000ff", "#ff00ff"],
       "reverse": false,
@@ -61,16 +61,16 @@
     "Bar!1fzrnqw": {
       "path": "/panther/joint_states.effort[2]",
       "minValue": -20,
-      "maxValue": 20,
+      "maxValue": 34.52,
       "colorMode": "colormap",
       "gradient": ["#0000ff", "#ff00ff"],
-      "reverse": false,
+      "reverse": true,
       "foxglovePanelTitle": "RL"
     },
     "Bar!1q5qffy": {
       "path": "/panther/joint_states.effort[3]",
       "minValue": -20,
-      "maxValue": 20,
+      "maxValue": 34.52,
       "colorMode": "colormap",
       "gradient": ["#0000ff", "#ff00ff"],
       "reverse": false,
