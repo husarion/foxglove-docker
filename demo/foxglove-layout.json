@@ -4,27 +4,27 @@
       "minLevel": 0,
       "pinnedIds": [],
       "hardwareIdFilter": "",
-      "topicToRender": "/panther/diagnostics",
+      "topicToRender": "<robot_namespace>/diagnostics",
       "sortByLevel": true
     },
     "Plot!dg5ynj": {
       "paths": [
         {
           "timestampMethod": "receiveTime",
-          "value": "/panther/imu/data.linear_acceleration.x",
+          "value": "<robot_namespace>/imu_sensor_broadcaster/imu.linear_acceleration.x",
           "enabled": true,
           "label": "x",
           "showLine": true
         },
         {
           "timestampMethod": "receiveTime",
-          "value": "/panther/imu/data.linear_acceleration.y",
+          "value": "<robot_namespace>/imu_sensor_broadcaster/imu.linear_acceleration.y",
           "enabled": true,
           "label": "y"
         },
         {
           "timestampMethod": "receiveTime",
-          "value": "/panther/imu/data.linear_acceleration.z",
+          "value": "<robot_namespace>/imu_sensor_broadcaster/imu.linear_acceleration.z",
           "enabled": true,
           "label": "z"
         }
@@ -41,39 +41,35 @@
       "followingViewWidth": 60
     },
     "Bar!3t52ye7": {
-      "path": "/panther/joint_states.effort[0]",
-      "minValue": -20,
+      "path": "<robot_namespace>/joint_states.effort[0]",
       "maxValue": 34.52,
       "colorMode": "colormap",
       "gradient": ["#0000ff", "#ff00ff"],
-      "reverse": true,
+      "reverse": false,
       "foxglovePanelTitle": "FL"
     },
     "Bar!461hl59": {
-      "path": "/panther/joint_states.effort[1]",
-      "minValue": -20,
-      "maxValue": 34.52,
-      "colorMode": "colormap",
-      "gradient": ["#0000ff", "#ff00ff"],
-      "reverse": false,
-      "foxglovePanelTitle": "FR"
-    },
-    "Bar!1fzrnqw": {
-      "path": "/panther/joint_states.effort[2]",
-      "minValue": -20,
+      "path": "<robot_namespace>/joint_states.effort[1]",
       "maxValue": 34.52,
       "colorMode": "colormap",
       "gradient": ["#0000ff", "#ff00ff"],
       "reverse": true,
-      "foxglovePanelTitle": "RL"
+      "foxglovePanelTitle": "FR"
     },
-    "Bar!1q5qffy": {
-      "path": "/panther/joint_states.effort[3]",
-      "minValue": -20,
+    "Bar!1fzrnqw": {
+      "path": "<robot_namespace>/joint_states.effort[2]",
       "maxValue": 34.52,
       "colorMode": "colormap",
       "gradient": ["#0000ff", "#ff00ff"],
       "reverse": false,
+      "foxglovePanelTitle": "RL"
+    },
+    "Bar!1q5qffy": {
+      "path": "<robot_namespace>/joint_states.effort[3]",
+      "maxValue": 34.52,
+      "colorMode": "colormap",
+      "gradient": ["#0000ff", "#ff00ff"],
+      "reverse": true,
       "foxglovePanelTitle": "RR"
     },
     "TriggerButton!2mhoc9g": {
@@ -82,7 +78,7 @@
       "advancedView": false,
       "foxglovePanelTitle": "E-stop",
       "buttonText": "STOP",
-      "serviceName": "/panther/hardware/e_stop_trigger",
+      "serviceName": "<robot_namespace>/hardware/e_stop_trigger",
       "buttonColor": "#bb0000"
     },
     "TriggerButton!194be9": {
@@ -92,10 +88,10 @@
       "foxglovePanelTitle": "E-stop",
       "buttonText": "Enable",
       "buttonColor": "#009900",
-      "serviceName": "/panther/hardware/e_stop_reset"
+      "serviceName": "<robot_namespace>/hardware/e_stop_reset"
     },
     "Battery!wppv5y": {
-      "path": "/panther/battery.percentage",
+      "path": "<robot_namespace>/battery.percentage",
       "minValue": 0,
       "maxValue": 1,
       "colorMap": "red-yellow-green",
@@ -105,7 +101,7 @@
       "foxglovePanelTitle": ""
     },
     "Joy!3fmstz6": {
-      "topic": "/panther/cmd_vel",
+      "topic": "<robot_namespace>/cmd_vel",
       "publishRate": 5,
       "upButton": {
         "field": "linear-x",

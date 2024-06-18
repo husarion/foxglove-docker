@@ -17,6 +17,7 @@ services:
     volumes:
       - ./foxglove-layout.json:/foxglove/default-layout.json
     environment:
+      - ROBOT_NAMESPACE=panther
       # - DS_HOST=foxglove-ds
       - DISABLE_CACHE=true
       - DISABLE_INTERACTION=false

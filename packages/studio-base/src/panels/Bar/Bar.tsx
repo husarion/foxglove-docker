@@ -209,6 +209,7 @@ export function Bar({ context }: Props): JSX.Element {
 
   const { maxValue, reverse } = config;
   const barPercentage = Math.round((100 * rawValue) / maxValue)
+  const percentage = reverse ? -barPercentage : barPercentage;
 
   const levelHeight = Math.max(Math.min(Math.abs(barPercentage), 100), 0) / 2; // 50% is the max height
   const isPositive = reverse ? rawValue < 0 : rawValue >= 0;
@@ -229,7 +230,7 @@ export function Bar({ context }: Props): JSX.Element {
           style={{ height: `${levelHeight}%`, top, bottom }}
         ></div>
       </div>
-      <div className="percentage">{barPercentage}%</div>
+      <div className="percentage">{percentage}%</div>
     </Stack>
   );
 }
