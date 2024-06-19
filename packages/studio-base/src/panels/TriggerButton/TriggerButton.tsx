@@ -31,8 +31,8 @@ type State = {
 const useStyles = makeStyles<{ buttonColor?: string }>()((theme, { buttonColor }) => {
   const augmentedButtonColor = buttonColor
     ? theme.palette.augmentColor({
-        color: { main: buttonColor },
-      })
+      color: { main: buttonColor },
+    })
     : undefined;
 
   return {
@@ -105,7 +105,7 @@ function TriggerButtonContent(
 
   // panel extensions must notify when they've completed rendering
   // onRender will setRenderDone to a done callback which we can invoke after we've rendered
-  const [renderDone, setRenderDone] = useState<() => void>(() => () => {});
+  const [renderDone, setRenderDone] = useState<() => void>(() => () => { });
   const [state, setState] = useState<State | undefined>();
   const [config, setConfig] = useState<Config>(() => ({
     ...defaultConfig,
@@ -165,10 +165,10 @@ function TriggerButtonContent(
 
   const canTriggerButton = Boolean(
     context.callService != undefined &&
-      config.requestPayload &&
-      config.serviceName &&
-      parsedObject != undefined &&
-      state?.status !== "requesting",
+    config.requestPayload &&
+    config.serviceName &&
+    parsedObject != undefined &&
+    state?.status !== "requesting",
   );
 
   const triggerButtonClicked = useCallback(async () => {

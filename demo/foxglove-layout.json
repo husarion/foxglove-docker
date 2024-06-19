@@ -11,20 +11,20 @@
       "paths": [
         {
           "timestampMethod": "receiveTime",
-          "value": "<robot_namespace>/imu_sensor_broadcaster/imu.linear_acceleration.x",
+          "value": "<robot_namespace>/imu_broadcaster/imu.linear_acceleration.x",
           "enabled": true,
           "label": "x",
           "showLine": true
         },
         {
           "timestampMethod": "receiveTime",
-          "value": "<robot_namespace>/imu_sensor_broadcaster/imu.linear_acceleration.y",
+          "value": "<robot_namespace>/imu_broadcaster/imu.linear_acceleration.y",
           "enabled": true,
           "label": "y"
         },
         {
           "timestampMethod": "receiveTime",
-          "value": "<robot_namespace>/imu_sensor_broadcaster/imu.linear_acceleration.z",
+          "value": "<robot_namespace>/imu_broadcaster/imu.linear_acceleration.z",
           "enabled": true,
           "label": "z"
         }
@@ -72,24 +72,6 @@
       "reverse": true,
       "foxglovePanelTitle": "RR"
     },
-    "TriggerButton!2mhoc9g": {
-      "requestPayload": "{}",
-      "layout": "vertical",
-      "advancedView": false,
-      "foxglovePanelTitle": "E-stop",
-      "buttonText": "STOP",
-      "serviceName": "<robot_namespace>/hardware/e_stop_trigger",
-      "buttonColor": "#bb0000"
-    },
-    "TriggerButton!194be9": {
-      "requestPayload": "{}",
-      "layout": "vertical",
-      "advancedView": false,
-      "foxglovePanelTitle": "E-stop",
-      "buttonText": "Enable",
-      "buttonColor": "#009900",
-      "serviceName": "<robot_namespace>/hardware/e_stop_reset"
-    },
     "Battery!wppv5y": {
       "path": "<robot_namespace>/battery.percentage",
       "minValue": 0,
@@ -98,7 +80,16 @@
       "colorMode": "colormap",
       "gradient": ["#0000ff", "#ff00ff"],
       "reverse": false,
-      "foxglovePanelTitle": ""
+      "foxglovePanelTitle": "Battery"
+    },
+    "EStop!1ejvisy": {
+      "requestPayload": "{}",
+      "layout": "vertical",
+      "advancedView": false,
+      "serviceName": "",
+      "goServiceName": "<robot_namespace>/hardware/e_stop_reset",
+      "stopServiceName": "<robot_namespace>/hardware/e_stop_triger",
+      "foxglovePanelTitle": "E-stop"
     },
     "Joy!3fmstz6": {
       "topic": "<robot_namespace>/cmd_vel",
@@ -172,22 +163,18 @@
   "userNodes": {},
   "layout": {
     "first": {
-      "first": {
-        "first": "TriggerButton!2mhoc9g",
-        "second": "TriggerButton!194be9",
-        "direction": "row"
-      },
-      "second": "Battery!wppv5y",
+      "first": "Battery!wppv5y",
+      "second": "EStop!1ejvisy",
       "direction": "row",
-      "splitPercentage": 61.24222587596123
+      "splitPercentage": 45.78378378378378
     },
     "second": {
       "first": "Joy!3fmstz6",
       "second": "Tab!1plmth0",
       "direction": "column",
-      "splitPercentage": 60.93957198166887
+      "splitPercentage": 57.41007194244605
     },
     "direction": "column",
-    "splitPercentage": 14.098360655737704
+    "splitPercentage": 23.626373626373624
   }
 }

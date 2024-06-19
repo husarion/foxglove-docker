@@ -9,6 +9,7 @@ import { TAB_PANEL_TYPE } from "@foxglove/studio-base/util/globalConstants";
 import barThumbnail from "./Bar/thumbnail.png";
 import batteryThumbnail from "./Battery/thumbnail.png";
 import dataSourceInfoThumbnail from "./DataSourceInfo/thumbnail.png";
+import eStopThumbnail from "./EStop/thumbnail.png";
 import gaugeThumbnail from "./Gauge/thumbnail.png";
 import imageThumbnail from "./Image/thumbnail.png";
 import indicatorThumbnail from "./Indicator/thumbnail.png";
@@ -203,5 +204,12 @@ export const getBuiltin: (t: TFunction<"panels">) => PanelInfo[] = (t) => [
     description: t("triggerButtonDescription"),
     thumbnail: triggerButtonThumbnail,
     module: async () => await import("./TriggerButton"),
+  },
+  {
+    title: t("eStop"),
+    type: "EStop",
+    description: t("eStopDescription"),
+    thumbnail: eStopThumbnail,
+    module: async () => await import("./EStop"),
   },
 ];

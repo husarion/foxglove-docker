@@ -15,11 +15,12 @@ body {
   background-color: var(--background-color);
 }
 
-#content {
+.content {
   display: flex;
   align-items: center;
   justify-content: center;
   height: inherit;
+  container-type: inline-size;
 }
 
 .joystick-panel {
@@ -163,4 +164,26 @@ body {
   font-size: 2em;
   position: relative;
   margin: 10px 0px;
+}
+
+/*=============== BREAKPOINTS ===============*/
+/* For small devices */
+@container (max-width: 640px) {
+  .joystick-panel {
+    zoom: 0.5;
+  }
+  .slider-panel {
+    zoom: 0.5;
+    max-height: 300px;
+  }
+}
+
+/* For medium containers */
+@container (min-width: 641px) and (max-width: 1023px) {
+  .joystick-panel {
+    zoom: 0.75;
+  }
+  .slider-panel {
+    zoom: 0.75;
+  }
 }

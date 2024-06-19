@@ -118,7 +118,7 @@ function DirectionalPad(props: DirectionalPadProps): JSX.Element {
   }, [isDragging, handleMove, handleEnd]);
 
   return (
-    <div id="content">
+    <div className="content">
       <div className="joystick-panel">
         <div id="joystick">
           <div className="joystick-arrow"></div>

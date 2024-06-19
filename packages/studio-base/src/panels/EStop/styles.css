@@ -1,0 +1,16 @@
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.state-one {
+  color: #fff;
+  background: green;
+}
+
+.state-two {
+  color: #000;
+  background: yellow;
+}
