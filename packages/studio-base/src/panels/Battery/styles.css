@@ -9,14 +9,14 @@
   --gradient-color-orange: linear-gradient(90deg, hsl(22, 89%, 46%) 15%, hsl(54, 90%, 45%) 100%);
   --gradient-color-yellow: linear-gradient(90deg, hsl(54, 89%, 46%) 15%, hsl(92, 90%, 45%) 100%);
   --gradient-color-green: linear-gradient(90deg, hsl(92, 89%, 46%) 15%, hsl(92, 90%, 68%) 100%);
+  --text-color: #fff;
   --body-color: hsl(0, 0%, 11%);
-  --container-color: hsl(0, 0%, 9%);
 
   /*========== Font and typography ==========*/
   /*.5rem = 8px | 1rem = 16px ...*/
   --body-font: "Rubik", sans-serif;
 
-  --biggest-font-size: 2.5rem;
+  --biggest-font-size: 2.1rem;
   --normal-font-size: 0.938rem;
   --smaller-font-size: 0.75rem;
 }
@@ -41,38 +41,47 @@ body {
   font-family: var(--body-font);
   font-size: var(--normal-font-size);
   background-color: var(--body-color);
+  color: var(--text-color);
 }
 
 /*=============== BATTERY ===============*/
 .battery {
-  height: 100vh;
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0 1.5rem;
+  width: 100%;
+  height: 100%;
 }
 
 .battery__card {
-  position: relative;
+  display: flex;
+  align-items: center;
   width: 100%;
-  height: 240px;
-  background-color: var(--container-color);
+  max-width: 270px;
+  height: 95%;
+  max-height: 200px;
   padding: 1.5rem 2rem;
   border-radius: 1.5rem;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  align-items: center;
+}
+
+.battery__data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .battery__text {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
 }
 
 .battery__percentage {
   font-size: var(--biggest-font-size);
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .battery__status {
-  position: absolute;
   bottom: 1.5rem;
   display: flex;
   align-items: center;
@@ -86,14 +95,13 @@ body {
 
 .battery__pill {
   position: relative;
-  width: 75px;
+  width: 20%;
+  max-width: 75px;
   height: 100%;
-  background-color: var(--container-color);
   box-shadow:
     inset 20px 0 48px hsl(0, 0%, 16%),
     inset -4px 12px 48px hsl(0, 0%, 56%);
   border-radius: 3rem;
-  justify-self: flex-end;
 }
 
 .battery__level {
@@ -109,7 +117,6 @@ body {
   left: 0;
   right: 0;
   height: 36px;
-  background: var(--gradient-color-red);
   box-shadow:
     inset -10px 0 12px hsla(0, 0%, 0%, 0.1),
     inset 12px 0 12px hsla(0, 0%, 0%, 0.15);
@@ -120,7 +127,6 @@ body {
   content: "";
   position: absolute;
   height: 8px;
-  background: var(--gradient-color-red);
   box-shadow: inset 0px -3px 6px hsla(0, 0%, 0%, 0.2);
   left: 0;
   right: 0;
@@ -150,6 +156,9 @@ body {
 .animated-red,
 .green-color {
   -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -ms-background-clip: text;
+  background-clip: text;
   color: transparent;
 }
 
@@ -174,79 +183,46 @@ body {
 /* Liquid battery with gradient color */
 .gradient-color-red,
 .gradient-color-red::after {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 36px;
   background: var(--gradient-color-red);
-  box-shadow:
-    inset -10px 0 12px hsla(0, 0%, 0%, 0.1),
-    inset 12px 0 12px hsla(0, 0%, 0%, 0.15);
-  transition: 0.3s;
 }
 
 .gradient-color-orange,
 .gradient-color-orange::after {
   background: var(--gradient-color-orange);
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 36px;
-  background: var(--gradient-color-orange);
-  box-shadow:
-    inset -10px 0 12px hsla(0, 0%, 0%, 0.1),
-    inset 12px 0 12px hsla(0, 0%, 0%, 0.15);
-  transition: 0.3s;
 }
 
 .gradient-color-yellow,
 .gradient-color-yellow::after {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 36px;
   background: var(--gradient-color-yellow);
-  box-shadow:
-    inset -10px 0 12px hsla(0, 0%, 0%, 0.1),
-    inset 12px 0 12px hsla(0, 0%, 0%, 0.15);
-  transition: 0.3s;
 }
 
 .gradient-color-green,
 .gradient-color-green::after {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 36px;
   background: var(--gradient-color-green);
-  box-shadow:
-    inset -10px 0 12px hsla(0, 0%, 0%, 0.1),
-    inset 12px 0 12px hsla(0, 0%, 0%, 0.15);
-  transition: 0.3s;
 }
 
 /*=============== BREAKPOINTS ===============*/
 /* For small devices */
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 640px) {
   .battery__card {
-    zoom: 0.8;
+    zoom: 0.9;
+  }
+
+  .battery {
+    height: 150px;
   }
 }
 
 /* For medium devices */
-@media screen and (min-width: 430px) {
-  .battery__card {
-    width: 312px;
+@media screen and (min-width: 641px) and (max-width: 1023px) {
+  .battery {
+    height: 180px;
   }
 }
 
 /* For large devices */
 @media screen and (min-width: 1024px) {
   .battery__card {
-    zoom: 1.5;
+    zoom: 1.2;
   }
 }

@@ -2640,6 +2640,7 @@ __metadata:
     react-virtualized: 9.22.5
     react-window: 1.8.9
     readable-stream: 4.5.2
+    remixicon: 4.3.0
     reselect: 5.1.0
     sanitize-html: 2.11.0
     seedrandom: 3.0.5
@@ -17766,6 +17767,13 @@ __metadata:
     mdast-util-to-string: ^1.0.0
     unist-util-visit: ^2.0.0
   checksum: 81fff0dcfaf6d6117ef1293bb1d26c3e25483d99c65c22434298eed93583a89ea5d7b94063d9a7f47c0647a708ce84f00ff62d274503f248feec03c344cabb20
+  languageName: node
+  linkType: hard
+
+"remixicon@npm:4.3.0":
+  version: 4.3.0
+  resolution: "remixicon@npm:4.3.0"
+  checksum: bdce2fadea276f0cc46640e62bbd55cbd0f73227debeaaa185223bf86be6815a4a3f78f3b8a889047ac9c03d1fae6a484a25b22ca0452441b7940895583df0c2
   languageName: node
   linkType: hard
 

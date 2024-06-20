@@ -4,17 +4,16 @@
 
 import * as _ from "lodash-es";
 import { useCallback, useEffect, useLayoutEffect, useReducer, useState } from "react";
-// import { v4 as uuidv4 } from "uuid";
 
 import { parseMessagePath, MessagePath } from "@foxglove/message-path";
 import { MessageEvent, PanelExtensionContext, SettingsTreeAction } from "@foxglove/studio";
 import { simpleGetMessagePathDataItems } from "@foxglove/studio-base/components/MessagePathSyntax/simpleGetMessagePathDataItems";
-// import { turboColorString } from "@foxglove/studio-base/util/colorUtils";
 import Stack from "@foxglove/studio-base/components/Stack";
 
 import { settingsActionReducer, useSettingsTree } from "./settings";
 import type { Config } from "./types";
 
+import 'remixicon/fonts/remixicon.css';
 import "./styles.css";
 
 type Props = {
@@ -122,9 +121,7 @@ function reducer(state: State, action: Action): State {
 }
 
 export function Battery({ context }: Props): JSX.Element {
-  // panel extensions must notify when they've completed rendering
-  // onRender will setRenderDone to a done callback which we can invoke after we've rendered
-  const [renderDone, setRenderDone] = useState<() => void>(() => () => {});
+  const [renderDone, setRenderDone] = useState<() => void>(() => () => { });
 
   const [config, setConfig] = useState(() => ({
     ...defaultConfig,
@@ -197,65 +194,79 @@ export function Battery({ context }: Props): JSX.Element {
     };
   }, [context, state.parsedPath?.topicName]);
 
-  // Indicate render is complete - the effect runs after the dom is updated
   useEffect(() => {
     renderDone();
   }, [renderDone]);
 
   const rawValue =
     typeof state.latestMatchingQueriedData === "number" ||
-    typeof state.latestMatchingQueriedData === "string"
+      typeof state.latestMatchingQueriedData === "string"
       ? Number(state.latestMatchingQueriedData)
       : NaN;
 
   const { minValue, maxValue } = config;
-  // const outOfBounds = rawValue < minValue || rawValue > maxValue;
   const batteryLevel = Math.round(
     (100 * (Math.min(Math.max(rawValue, minValue), maxValue) - minValue)) / (maxValue - minValue),
   );
 
   const updateBatteryLevel = (level: number) => {
-    // Change color based on battery level
     let levelClass = "";
+    let height = `${level}%`;
+
     if (level <= 20) {
       levelClass = "gradient-color-red";
     } else if (level <= 50) {
       levelClass = "gradient-color-orange";
     } else if (level <= 80) {
       levelClass = "gradient-color-yellow";
-    } else {
+    } else if (level < 100) {
       levelClass = "gradient-color-green";
+    } else if (level === 100) {
+      levelClass = "gradient-color-green";
+      height = "110%"; /* To hide the ellipse */
     }
-    return levelClass;
+    return { levelClass, height };
   };
 
+  const updateBatteryStatus = (level: number) => {
+    let batteryStatus = "";
+    let icon = undefined;
+    if (level === 100) {
+      batteryStatus = `Full battery `;
+      icon = <i className="ri-battery-2-fill green-color"></i>;
+    } else if (level <= 20) {
+      //  && !batt.charging) {
+      batteryStatus = `Low battery `;
+      icon = <i className="ri-plug-line animated-red"></i>
+    }
+    // else if (batt.charging) {
+    //   batteryStatus = `Charging... <i class="ri-flashlight-line animated-green"></i>`;
+    // }
+    return { batteryStatus, icon };
+  };
+
+  const { batteryStatus, icon } = updateBatteryStatus(batteryLevel);
+  const { levelClass, height } = updateBatteryLevel(batteryLevel);
+
   return (
-    <Stack
-      justifyContent="center"
-      alignItems="center"
-      fullWidth
-      fullHeight
-      style={{ userSelect: "none" }}
-    >
-      <div className="battery__card">
-        <div className="battery__data">
-          <p className="battery__text">Battery</p>
-          <h1 className="battery__percentage">{batteryLevel}%</h1>
-
-          <p className="battery__status">
-            Battery Status <i className="ri-plug-line"></i>
-          </p>
-        </div>
-
-        <div className="battery__pill">
-          <div className="battery__level">
-            <div
-              className={updateBatteryLevel(batteryLevel)}
-              style={{ height: `${batteryLevel}%` }}
-            ></div>
+    <Stack justifyContent="center" alignItems="center" fullWidth fullHeight style={{ userSelect: "none" }}>
+      <section className="battery">
+        <div className="battery__card">
+          <div className="battery__data">
+            <p className="battery__text">Battery</p>
+            <h1 className="battery__percentage">{batteryLevel}%</h1>
+            <p className="battery__status">
+              {batteryStatus}
+              {icon}
+            </p>
+          </div>
+          <div className="battery__pill">
+            <div className="battery__level">
+              <div className={`battery__liquid  ${levelClass} `} style={{ height }}></div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </Stack>
   );
 }
