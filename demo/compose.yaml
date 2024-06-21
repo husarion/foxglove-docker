@@ -1,9 +1,9 @@
 services:
   foxglove:
-    image: husarion/foxglove:studio-nightly
-    # build:
-    #   context: ..
-    #   dockerfile: Dockerfile
+    # image: husarion/foxglove:studio-nightly
+    build:
+      context: ..
+      dockerfile: Dockerfile
     # runtime: nvidia
     ports:
       - 8080:8080
