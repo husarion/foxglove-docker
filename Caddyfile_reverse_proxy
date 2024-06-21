@@ -19,7 +19,7 @@
 	handle_path /* {
 		# reverse_proxy http://127.0.0.1:8080
 		# Serve static files from /var/www/foxglove
-		root * {$SNAP_DATA}/www/foxglove/
+		root * /src
 
 		@ipv6Client {
 			expression {http.request.host}.startsWith("fc94")
