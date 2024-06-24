@@ -88,7 +88,7 @@
       "advancedView": false,
       "serviceName": "",
       "goServiceName": "<robot_namespace>/hardware/e_stop_reset",
-      "stopServiceName": "<robot_namespace>/hardware/e_stop_triger",
+      "stopServiceName": "<robot_namespace>/hardware/e_stop_trigger",
       "foxglovePanelTitle": "E-stop"
     },
     "Joy!3fmstz6": {
