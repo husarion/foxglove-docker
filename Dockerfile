@@ -4,9 +4,9 @@ ARG ROS_DISTRO=humble
 FROM node:16 as foxglove_build
 WORKDIR /src
 
-COPY . ./
 RUN apt-get update && \
     apt-get install -y git-lfs && \
+    git clone -b reverse-proxy https://github.com/husarion/foxglove-docker . && \
     git lfs pull
 
 RUN corepack enable
