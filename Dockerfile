@@ -3,7 +3,11 @@ ARG ROS_DISTRO=humble
 # =========================== Foxglove builder ===============================
 FROM node:16 as foxglove_build
 WORKDIR /src
+
 COPY . ./
+RUN apt-get update && \
+    apt-get install -y git-lfs && \
+    git lfs pull
 
 RUN corepack enable
 RUN yarn install --immutable
