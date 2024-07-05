@@ -2,10 +2,9 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/
 
-import * as _ from "lodash-es";
 import { Button, Palette, Typography } from "@mui/material";
+import * as _ from "lodash-es";
 import { Dispatch, SetStateAction, useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useState } from "react";
-
 import { makeStyles } from "tss-react/mui";
 
 import Log from "@foxglove/log";
@@ -27,9 +26,7 @@ type Props = {
   context: PanelExtensionContext;
 };
 
-type EStopState = {
-  waitFor: "go" | "stop";
-};
+type EStopState = "go" | "stop" | undefined;
 
 type ReqState = {
   status: "requesting" | "error" | "success";
@@ -54,7 +51,7 @@ const useStyles = makeStyles<{ state?: string }>()((theme, { state }) => {
   const buttonColor = state === "go" ? "#090" : "#900";
   const augmentedButtonColor = theme.palette.augmentColor({
     color: { main: buttonColor },
-  })
+  });
 
   return {
     button: {
@@ -185,12 +182,12 @@ function EStopContent(
   // onRender will setRenderDone to a done callback which we can invoke after we've rendered
   const [renderDone, setRenderDone] = useState<() => void>(() => () => { });
   const [reqState, setReqState] = useState<ReqState | undefined>();
-  const [eStopState, setEStopState] = useState<EStopState>({ waitFor: "go" });
+  const [eStopState, setEStopState] = useState<EStopState>();
   const [config, setConfig] = useState<Config>(() => ({
     ...defaultConfig,
     ...(context.initialState as Partial<Config>),
   }));
-  const { classes } = useStyles({ state: eStopState.waitFor });
+  const { classes } = useStyles({ state: eStopState });
 
   const [state, dispatch] = useReducer(
     reducer,
@@ -256,12 +253,6 @@ function EStopContent(
     };
   }, [context, state.parsedPath?.topicName]);
 
-  const rawValue =
-    typeof state.latestMatchingQueriedData === "boolean" ||
-      typeof state.latestMatchingQueriedData === "string"
-      ? String(state.latestMatchingQueriedData)
-      : NaN;
-
   const { error: requestParseError, parsedObject } = useMemo(
     () => parseInput(config.requestPayload ?? ""),
     [config.requestPayload],
@@ -297,6 +288,7 @@ function EStopContent(
     config.requestPayload &&
     config.goServiceName &&
     config.stopServiceName &&
+    eStopState != undefined &&
     parsedObject != undefined &&
     requestParseError == undefined &&
     reqState?.status !== "requesting",
@@ -308,7 +300,7 @@ function EStopContent(
       return;
     }
 
-    const serviceName = eStopState.waitFor === "go" ? config.goServiceName : config.stopServiceName;
+    const serviceName = eStopState === "go" ? config.stopServiceName : config.goServiceName;
 
     if (!serviceName) {
       setReqState({ status: "error", value: "Service name is not configured" });
@@ -322,12 +314,20 @@ function EStopContent(
         status: "success",
         value: JSON.stringify(response, (_key, value) => (typeof value === "bigint" ? value.toString() : value), 2) ?? "",
       });
-      setEStopState({ waitFor: eStopState.waitFor === "go" ? "stop" : "go" });
+      setEStopState(undefined);
     } catch (err) {
       setReqState({ status: "error", value: (err as Error).message });
       log.error(err);
     }
-  }, [context, eStopState.waitFor, config.goServiceName, config.stopServiceName, config.requestPayload]);
+  }, [context, eStopState, config.goServiceName, config.stopServiceName, config.requestPayload]);
+
+  // Setting eStopState based on state.latestMatchingQueriedData
+  useEffect(() => {
+    if (state.latestMatchingQueriedData != undefined) {
+      const data = state.latestMatchingQueriedData as boolean;
+      setEStopState(data ? "stop" : "go");
+    }
+  }, [state.latestMatchingQueriedData]);
 
   // Indicate render is complete - the effect runs after the dom is updated
   useEffect(() => {
@@ -365,11 +365,10 @@ function EStopContent(
                   borderRadius: "0.3rem",
                 }}
               >
-                {eStopState.waitFor.toUpperCase()}
+                {eStopState?.toUpperCase() ?? "Wait for feedback"}
               </Button>
             </span>
           </Stack>
-          <p> {rawValue} </p>
         </div>
       </Stack>
     </Stack>
