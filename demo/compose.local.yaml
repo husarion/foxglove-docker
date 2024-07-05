@@ -4,7 +4,7 @@ x-common-config: &common-config
 
 services:
   foxglove:
-    image: husarion/foxglove:studio-nightly
+    image: husarion/foxglove:improvements-nightly
     container_name: foxglove
     <<: *common-config
     # build:
