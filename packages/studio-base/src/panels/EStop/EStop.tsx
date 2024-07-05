@@ -2,12 +2,16 @@
 // License, v2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/
 
+import * as _ from "lodash-es";
 import { Button, Palette, Typography } from "@mui/material";
-import { Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from "react";
+import { Dispatch, SetStateAction, useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useState } from "react";
+
 import { makeStyles } from "tss-react/mui";
 
 import Log from "@foxglove/log";
-import { PanelExtensionContext, SettingsTreeAction } from "@foxglove/studio";
+import { parseMessagePath, MessagePath } from "@foxglove/message-path";
+import { MessageEvent, PanelExtensionContext, SettingsTreeAction } from "@foxglove/studio";
+import { simpleGetMessagePathDataItems } from "@foxglove/studio-base/components/MessagePathSyntax/simpleGetMessagePathDataItems";
 import Stack from "@foxglove/studio-base/components/Stack";
 import { Config } from "@foxglove/studio-base/panels/EStop/types";
 import ThemeProvider from "@foxglove/studio-base/theme/ThemeProvider";
@@ -31,6 +35,20 @@ type ReqState = {
   status: "requesting" | "error" | "success";
   value: string;
 };
+
+type State = {
+  path: string;
+  parsedPath: MessagePath | undefined;
+  latestMessage: MessageEvent | undefined;
+  latestMatchingQueriedData: unknown;
+  error: Error | undefined;
+  pathParseError: string | undefined;
+};
+
+type Action =
+  | { type: "frame"; messages: readonly MessageEvent[] }
+  | { type: "path"; path: string }
+  | { type: "seek" };
 
 const useStyles = makeStyles<{ state?: string }>()((theme, { state }) => {
   const buttonColor = state === "go" ? "#090" : "#900";
@@ -70,6 +88,83 @@ function parseInput(value: string): { error?: string; parsedObject?: unknown } {
   return { error, parsedObject };
 }
 
+function getSingleDataItem(results: unknown[]) {
+  if (results.length <= 1) {
+    return results[0];
+  }
+  throw new Error("Message path produced multiple results");
+}
+
+function reducer(state: State, action: Action): State {
+  try {
+    switch (action.type) {
+      case "frame": {
+        if (state.pathParseError != undefined) {
+          return { ...state, latestMessage: _.last(action.messages), error: undefined };
+        }
+        let latestMatchingQueriedData = state.latestMatchingQueriedData;
+        let latestMessage = state.latestMessage;
+        if (state.parsedPath) {
+          for (const message of action.messages) {
+            if (message.topic !== state.parsedPath.topicName) {
+              continue;
+            }
+            const data = getSingleDataItem(
+              simpleGetMessagePathDataItems(message, state.parsedPath),
+            );
+            if (data != undefined) {
+              latestMatchingQueriedData = data;
+              latestMessage = message;
+            }
+          }
+        }
+        return { ...state, latestMessage, latestMatchingQueriedData, error: undefined };
+      }
+      case "path": {
+        const newPath = parseMessagePath(action.path);
+        let pathParseError: string | undefined;
+        if (
+          newPath?.messagePath.some(
+            (part) =>
+              (part.type === "filter" && typeof part.value === "object") ||
+              (part.type === "slice" &&
+                (typeof part.start === "object" || typeof part.end === "object")),
+          ) === true
+        ) {
+          pathParseError = "Message paths using variables are not currently supported";
+        }
+        let latestMatchingQueriedData: unknown;
+        let error: Error | undefined;
+        try {
+          latestMatchingQueriedData =
+            newPath && pathParseError == undefined && state.latestMessage
+              ? getSingleDataItem(simpleGetMessagePathDataItems(state.latestMessage, newPath))
+              : undefined;
+        } catch (err) {
+          error = err;
+        }
+        return {
+          ...state,
+          path: action.path,
+          parsedPath: newPath,
+          latestMatchingQueriedData,
+          error,
+          pathParseError,
+        };
+      }
+      case "seek":
+        return {
+          ...state,
+          latestMessage: undefined,
+          latestMatchingQueriedData: undefined,
+          error: undefined,
+        };
+    }
+  } catch (error) {
+    return { ...state, latestMatchingQueriedData: undefined, error };
+  }
+}
+
 // Wrapper component with ThemeProvider so useStyles in the panel receives the right theme.
 export function EStop({ context }: Props): JSX.Element {
   const [colorScheme, setColorScheme] = useState<Palette["mode"]>("light");
@@ -97,6 +192,23 @@ function EStopContent(
   }));
   const { classes } = useStyles({ state: eStopState.waitFor });
 
+  const [state, dispatch] = useReducer(
+    reducer,
+    { ...config, path: config.statusTopicName },
+    ({ path }): State => ({
+      path,
+      parsedPath: parseMessagePath(path),
+      latestMessage: undefined,
+      latestMatchingQueriedData: undefined,
+      pathParseError: undefined,
+      error: undefined,
+    }),
+  );
+
+  useLayoutEffect(() => {
+    dispatch({ type: "path", path: config.statusTopicName });
+  }, [config.statusTopicName]);
+
   useEffect(() => {
     context.saveState(config);
     context.setDefaultPanelTitle(
@@ -117,12 +229,38 @@ function EStopContent(
     context.onRender = (renderReqState, done) => {
       setRenderDone(() => done);
       setColorScheme(renderReqState.colorScheme ?? "light");
+
+      if (renderReqState.didSeek === true) {
+        dispatch({ type: "seek" });
+      }
+
+      if (renderReqState.currentFrame) {
+        dispatch({ type: "frame", messages: renderReqState.currentFrame });
+      }
     };
+
+    context.watch("currentFrame");
+    context.watch("didSeek");
 
     return () => {
       context.onRender = undefined;
     };
   }, [context, setColorScheme]);
+
+  useEffect(() => {
+    if (state.parsedPath?.topicName != undefined) {
+      context.subscribe([{ topic: state.parsedPath.topicName, preload: false }]);
+    }
+    return () => {
+      context.unsubscribeAll();
+    };
+  }, [context, state.parsedPath?.topicName]);
+
+  const rawValue =
+    typeof state.latestMatchingQueriedData === "boolean" ||
+      typeof state.latestMatchingQueriedData === "string"
+      ? String(state.latestMatchingQueriedData)
+      : NaN;
 
   const { error: requestParseError, parsedObject } = useMemo(
     () => parseInput(config.requestPayload ?? ""),
@@ -231,6 +369,7 @@ function EStopContent(
               </Button>
             </span>
           </Stack>
+          <p> {rawValue} </p>
         </div>
       </Stack>
     </Stack>
