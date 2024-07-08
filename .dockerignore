@@ -3,5 +3,6 @@
 .DS_Store
 .webpack/
 dist/
+demo/
 node_modules/
 Dockerfile
