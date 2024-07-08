@@ -1,7 +1,7 @@
 ARG ROS_DISTRO=humble
 
 # =========================== Foxglove builder ===============================
-FROM node:16 as foxglove_build
+FROM node:16 AS foxglove_build
 WORKDIR /src
 
 RUN apt-get update && \
