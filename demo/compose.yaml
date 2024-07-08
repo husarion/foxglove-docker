@@ -1,6 +1,6 @@
 services:
   foxglove:
-    image: husarion/foxglove:studio-nightly
+    image: husarion/foxglove:improvements-nightly
     # build:
     #   context: ..
     #   dockerfile: Dockerfile

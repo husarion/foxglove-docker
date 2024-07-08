@@ -12,7 +12,9 @@ import { SettingsTreeAction, SettingsTreeNodes } from "@foxglove/studio";
 import { Config } from "./types";
 
 export const defaultConfig: Config = {
-  requestPayload: "{}",
+  goServiceName: "",
+  stopServiceName: "",
+  statusTopicName: "",
 };
 
 function serviceError(serviceName?: string) {
@@ -37,16 +39,22 @@ export function useSettingsTree(config: Config): SettingsTreeNodes {
       general: {
         fields: {
           goServiceName: {
-            label: "GO Service name",
+            label: "GO Service",
             input: "string",
             error: serviceError(config.goServiceName),
-            value: config.goServiceName ?? "",
+            value: config.goServiceName,
           },
           stopServiceName: {
-            label: "STOP Service name",
+            label: "STOP Service",
             input: "string",
             error: serviceError(config.stopServiceName),
-            value: config.stopServiceName ?? "",
+            value: config.stopServiceName,
+          },
+          statusTopicName: {
+            label: "EStop status topic",
+            input: "string",
+            error: serviceError(config.statusTopicName),
+            value: config.statusTopicName,
           },
         },
       },

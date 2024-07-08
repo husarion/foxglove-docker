@@ -63,6 +63,7 @@ body {
   max-height: 200px;
   padding: 1.5rem 2rem;
   border-radius: 1.5rem;
+  zoom: 1.2;
 }
 
 .battery__data {
@@ -199,30 +200,4 @@ body {
 .gradient-color-green,
 .gradient-color-green::after {
   background: var(--gradient-color-green);
-}
-
-/*=============== BREAKPOINTS ===============*/
-/* For small devices */
-@media screen and (max-width: 640px) {
-  .battery__card {
-    zoom: 0.9;
-  }
-
-  .battery {
-    height: 150px;
-  }
-}
-
-/* For medium devices */
-@media screen and (min-width: 641px) and (max-width: 1023px) {
-  .battery {
-    height: 180px;
-  }
-}
-
-/* For large devices */
-@media screen and (min-width: 1024px) {
-  .battery__card {
-    zoom: 1.2;
-  }
 }

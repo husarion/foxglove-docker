@@ -156,6 +156,26 @@ body {
   height: 225px;
   position: relative;
   margin: 0 auto;
+  width: 10px; /* Adjust this width if needed */
+}
+
+.slider::-webkit-slider-thumb {
+  width: 20px; /* Increase the size of the thumb if needed */
+  height: 20px;
+}
+
+.slider::before {
+  content: '';
+  position: absolute;
+  top: -10px; /* Adjust this value to increase the clickable area above the slider */
+  bottom: -10px; /* Adjust this value to increase the clickable area below the slider */
+  left: -20px; /* Adjust this value to increase the clickable area to the left of the slider */
+  right: -20px; /* Adjust this value to increase the clickable area to the right of the slider */
+}
+
+.slider:hover::before,
+.slider:focus::before {
+  cursor: pointer; /* Change the cursor to indicate interactivity */
 }
 
 .note {
@@ -164,26 +184,4 @@ body {
   font-size: 2em;
   position: relative;
   margin: 10px 0px;
-}
-
-/*=============== BREAKPOINTS ===============*/
-/* For small devices */
-@container (max-width: 640px) {
-  .joystick-panel {
-    zoom: 0.5;
-  }
-  .slider-panel {
-    zoom: 0.5;
-    max-height: 300px;
-  }
-}
-
-/* For medium containers */
-@container (min-width: 641px) and (max-width: 1023px) {
-  .joystick-panel {
-    zoom: 0.75;
-  }
-  .slider-panel {
-    zoom: 0.75;
-  }
 }
