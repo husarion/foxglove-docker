@@ -1,4 +1,5 @@
 services:
+
   foxglove:
     image: husarion/foxglove:improvements-nightly
     # build:
@@ -14,6 +15,8 @@ services:
 
   foxglove-ds:
     image: husarion/foxglove-bridge:humble-0.7.7-20240708
+    environment:
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
     ports:
       - 8765:8765
     command: ros2 launch foxglove_bridge foxglove_bridge_launch.xml port:=8765 capabilities:=[clientPublish,parameters,parametersSubscribe,services,connectionGraph,assets]
