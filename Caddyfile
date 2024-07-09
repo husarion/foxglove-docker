@@ -1,7 +1,6 @@
-# Listen on localhost on the specified port
-:{$UI_PORT} {
-		handle_path /ws {
-		reverse_proxy http://0.0.0.0:8765
+:8080 {
+	handle_path /ws {
+		reverse_proxy http://127.0.0.1:8765
 	}
 
 	handle_path /* {
