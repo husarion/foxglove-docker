@@ -1,22 +1,26 @@
-services:
+x-common-config: &common-config
+  network_mode: host
+  ipc: host
+  environment:
+    - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+    - ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-0}
 
+services:
   foxglove:
     image: husarion/foxglove:improvements-nightly
-    # build:
-    #   context: ..
-    #   dockerfile: Dockerfile
+    <<: *common-config
     ports:
       - 8080:8080
     volumes:
       - ./foxglove-layout.json:/foxglove/default-layout.json
+      - ../Caddyfile:/etc/caddy/Caddyfile
     environment:
       - DISABLE_CACHE=true
       - DISABLE_INTERACTION=false
 
   foxglove-ds:
     image: husarion/foxglove-bridge:humble-0.7.7-20240708
-    environment:
-      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+    <<: *common-config
     ports:
       - 8765:8765
     command: ros2 launch foxglove_bridge foxglove_bridge_launch.xml port:=8765 capabilities:=[clientPublish,parameters,parametersSubscribe,services,connectionGraph,assets]
