@@ -300,7 +300,7 @@ function EStopContent(
       return;
     }
 
-    const serviceName = eStopState === "go" ? config.stopServiceName : config.goServiceName;
+    const serviceName = eStopState === "go" ? config.goServiceName : config.stopServiceName;
 
     if (!serviceName) {
       setReqState({ status: "error", value: "Service name is not configured" });
