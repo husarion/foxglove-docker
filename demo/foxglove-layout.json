@@ -11,20 +11,20 @@
       "paths": [
         {
           "timestampMethod": "receiveTime",
-          "value": "<robot_namespace>/imu_broadcaster/imu.linear_acceleration.x",
+          "value": "<robot_namespace>/imu/data.linear_acceleration.x",
           "enabled": true,
           "label": "x",
           "showLine": true
         },
         {
           "timestampMethod": "receiveTime",
-          "value": "<robot_namespace>/imu_broadcaster/imu.linear_acceleration.y",
+          "value": "<robot_namespace>/imu/data.linear_acceleration.y",
           "enabled": true,
           "label": "y"
         },
         {
           "timestampMethod": "receiveTime",
-          "value": "<robot_namespace>/imu_broadcaster/imu.linear_acceleration.z",
+          "value": "<robot_namespace>/imu/data.linear_acceleration.z",
           "enabled": true,
           "label": "z"
         }
@@ -73,7 +73,7 @@
       "foxglovePanelTitle": "RR"
     },
     "Battery!wppv5y": {
-      "path": "<robot_namespace>/battery.percentage",
+      "path": "<robot_namespace>/battery/battery_status.percentage",
       "minValue": 0,
       "maxValue": 1,
       "colorMap": "red-yellow-green",
