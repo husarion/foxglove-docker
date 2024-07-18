@@ -62,22 +62,11 @@ export function useSettingsTree(
           input: "number",
           value: config.maxValue,
         },
-        colorMode: {
-          label: "Color mode",
-          input: "select",
-          value: config.colorMode,
-          options: [
-            { label: "Color map", value: "colormap" },
-            { label: "Gradient", value: "gradient" },
-          ],
-        },
-        ...(config.colorMode === "gradient" && {
-          gradient: {
-            label: "Gradient",
-            input: "gradient",
-            value: config.gradient,
-          },
-        }),
+        // windowSize: {
+        //   label: "Mean Avg Window Size",
+        //   input: "number",
+        //   value: config.windowSize,
+        // },
         reverse: {
           label: "Reverse",
           input: "boolean",

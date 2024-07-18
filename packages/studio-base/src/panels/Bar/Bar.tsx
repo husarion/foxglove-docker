@@ -48,8 +48,7 @@ type Props = {
 const defaultConfig: Config = {
   path: "",
   maxValue: 1,
-  colorMode: "colormap",
-  gradient: ["#0000ff", "#ff00ff"],
+  // windowSize: 100,
   reverse: false,
 };
 

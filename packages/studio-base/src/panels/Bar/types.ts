@@ -5,7 +5,6 @@
 export type Config = {
   path: string;
   maxValue: number;
-  colorMode: "colormap" | "gradient";
-  gradient: [string, string];
+  // windowSize: number;
   reverse: boolean;
 };
