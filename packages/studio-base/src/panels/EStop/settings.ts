@@ -12,6 +12,7 @@ import { SettingsTreeAction, SettingsTreeNodes } from "@foxglove/studio";
 import { Config } from "./types";
 
 export const defaultConfig: Config = {
+  requestPayload: "{}",
   goServiceName: "",
   stopServiceName: "",
   statusTopicName: "",

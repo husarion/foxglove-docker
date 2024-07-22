@@ -182,12 +182,12 @@ function EStopContent(
   // onRender will setRenderDone to a done callback which we can invoke after we've rendered
   const [renderDone, setRenderDone] = useState<() => void>(() => () => { });
   const [reqState, setReqState] = useState<ReqState | undefined>();
-  const [eStopState, setEStopState] = useState<EStopState>();
+  const [eStopAction, setEStopAction] = useState<EStopState>();
   const [config, setConfig] = useState<Config>(() => ({
     ...defaultConfig,
     ...(context.initialState as Partial<Config>),
   }));
-  const { classes } = useStyles({ state: eStopState });
+  const { classes } = useStyles({ state: eStopAction });
 
   const [state, dispatch] = useReducer(
     reducer,
@@ -288,7 +288,7 @@ function EStopContent(
     config.requestPayload &&
     config.goServiceName &&
     config.stopServiceName &&
-    eStopState != undefined &&
+    eStopAction != undefined &&
     parsedObject != undefined &&
     requestParseError == undefined &&
     reqState?.status !== "requesting",
@@ -300,7 +300,7 @@ function EStopContent(
       return;
     }
 
-    const serviceName = eStopState === "go" ? config.goServiceName : config.stopServiceName;
+    const serviceName = eStopAction === "go" ? config.goServiceName : config.stopServiceName;
 
     if (!serviceName) {
       setReqState({ status: "error", value: "Service name is not configured" });
@@ -314,18 +314,18 @@ function EStopContent(
         status: "success",
         value: JSON.stringify(response, (_key, value) => (typeof value === "bigint" ? value.toString() : value), 2) ?? "",
       });
-      setEStopState(undefined);
+      setEStopAction(undefined);
     } catch (err) {
       setReqState({ status: "error", value: (err as Error).message });
       log.error(err);
     }
-  }, [context, eStopState, config.goServiceName, config.stopServiceName, config.requestPayload]);
+  }, [context, eStopAction, config.goServiceName, config.stopServiceName, config.requestPayload]);
 
-  // Setting eStopState based on state.latestMatchingQueriedData
+  // Setting eStopAction based on state.latestMatchingQueriedData
   useEffect(() => {
     if (state.latestMatchingQueriedData != undefined) {
       const data = state.latestMatchingQueriedData as boolean;
-      setEStopState(data ? "stop" : "go");
+      setEStopAction(data ? "go" : "stop");
     }
   }, [state.latestMatchingQueriedData]);
 
@@ -365,7 +365,7 @@ function EStopContent(
                   borderRadius: "0.3rem",
                 }}
               >
-                {eStopState?.toUpperCase() ?? "Wait for feedback"}
+                {eStopAction?.toUpperCase() ?? "Wait for feedback"}
               </Button>
             </span>
           </Stack>
