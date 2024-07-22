@@ -1,33 +1,29 @@
-# Listen on localhost on the specified port
-:{$UI_PORT} {
-	tls internal
-
-	root * /src
-
-	# Handle requests from Husarnet IPv6 clients
-	@ipv6Client {
-		expression {http.request.host}.startsWith("fc94")
-	}
-	handle @ipv6Client {
-		vars full_host [{http.request.host}]
-		redir /ui /?ds={$DS_TYPE}&ds.url=ws%3A%2F%2F%5B{http.request.host}%5D%3A{$DS_PORT}
+:8080 {
+	handle_path /ws {
+		reverse_proxy http://127.0.0.1:8765
 	}
 
-	# Handle all other requests (from non-IPv6 clients)
-	handle {
-		vars full_host {http.request.host}
-		redir /ui /?ds={$DS_TYPE}&ds.url=ws%3A%2F%2F{http.request.host}%3A{$DS_PORT}
-	}
+	handle_path /* {
+		root * /src
 
-	templates {
-		mime "application/json" "text/plain" "text/html"
-	}
+		# Handle IPv6 clients
+		@ipv6Client {
+			expression {http.request.host}.startsWith("fc94")
+		}
 
-	file_server browse
+		handle @ipv6Client {
+			redir /ui /?ds=foxglove-websocket&ds.url=ws%3A%2F%2F%5B{http.request.host}%5D%3A8765
+		}
 
-	@urdf path /*.urdf
+		# Handle all other requests (from non-IPv6 clients)
+		handle {
+			redir /ui /?ds=foxglove-websocket&ds.url=ws%3A%2F%2F{http.request.host}%3A8765
+		}
 
-	header @urdf {
-		Content-Type "text/plain"
+		templates {
+			mime "text/html"
+		}
+
+		file_server
 	}
 }

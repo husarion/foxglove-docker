@@ -1,23 +1,26 @@
+x-common-config: &common-config
+  network_mode: host
+  ipc: host
+  environment:
+    - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+    - ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-0}
+
 services:
   foxglove:
-    image: husarion/foxglove:studio-nightly
-    # build:
-    #   context: ..
-    #   dockerfile: Dockerfile
-    # runtime: nvidia
+    image: husarion/foxglove:improvements-nightly
+    <<: *common-config
     ports:
       - 8080:8080
-      - 8765:8765
     volumes:
       - ./foxglove-layout.json:/foxglove/default-layout.json
+      - ../Caddyfile:/etc/caddy/Caddyfile
     environment:
-      - ROBOT_NAMESPACE=panther
-      - DS_HOST=foxglove-ds
       - DISABLE_CACHE=true
       - DISABLE_INTERACTION=false
-      # - NVIDIA_VISIBLE_DEVICES=all
-      # - NVIDIA_DRIVER_CAPABILITIES=all
 
   foxglove-ds:
-    image: husarion/foxglove-bridge:humble-0.7.4-20240320
+    image: husarion/foxglove-bridge:humble-0.7.7-20240708
+    <<: *common-config
+    ports:
+      - 8765:8765
     command: ros2 launch foxglove_bridge foxglove_bridge_launch.xml port:=8765 capabilities:=[clientPublish,parameters,parametersSubscribe,services,connectionGraph,assets]

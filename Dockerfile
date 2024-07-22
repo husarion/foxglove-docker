@@ -1,12 +1,12 @@
 ARG ROS_DISTRO=humble
 
 # =========================== Foxglove builder ===============================
-FROM node:16 as foxglove_build
+FROM node:16 AS foxglove_build
 WORKDIR /src
 
 RUN apt-get update && \
     apt-get install -y git-lfs && \
-    git clone -b studio https://github.com/husarion/foxglove-docker . && \
+    git clone -b improvements https://github.com/husarion/foxglove-docker . && \
     git lfs pull
 
 RUN corepack enable
@@ -28,20 +28,12 @@ COPY disable_cache.js /
 COPY disable_interaction.js /
 
 COPY Caddyfile /etc/caddy/
-COPY Caddyfile_reverse_proxy /etc/caddy/
 COPY entrypoint.sh /
-COPY run.sh /
 
 EXPOSE 8080
 
-ENV DS_TYPE=foxglove-websocket
-ENV DS_PORT=8765
-ENV UI_PORT=8080
 ENV DISABLE_INTERACTION=false
 ENV DISABLE_CACHE=true
 
-# only for IPv6 -> IPv4 reverse proxy for foxglove-websocket datasource (that can listen only on IPv4)
-ENV DS_HOST=
-
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
-CMD /run.sh
+CMD caddy run --config /etc/caddy/Caddyfile --adapter caddyfile

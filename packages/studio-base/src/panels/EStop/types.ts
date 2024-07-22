@@ -3,7 +3,8 @@
 // file, You can obtain one at http://mozilla.org/MPL/2.0/
 
 export type Config = {
-  goServiceName?: string;
-  stopServiceName?: string;
+  goServiceName: string;
+  stopServiceName: string;
+  statusTopicName: string;
   requestPayload?: string;
 };

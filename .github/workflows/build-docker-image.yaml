@@ -37,9 +37,9 @@ jobs:
           platforms: linux/amd64, linux/arm64
           push: true
           tags: |
-            husarion/foxglove:studio-${{ env.SHORT_DATE }}
-            husarion/foxglove:studio
-            husarion/foxglove:studio-nightly
+            husarion/foxglove:${{ github.head_ref || github.ref_name }}-${{ env.SHORT_DATE }}
+            husarion/foxglove:${{ github.head_ref || github.ref_name }}
+            husarion/foxglove:${{ github.head_ref || github.ref_name }}-nightly
           cache-to: type=inline
 
       - name: Build and push (feature branch)
@@ -49,5 +49,5 @@ jobs:
           platforms: linux/amd64, linux/arm64
           push: true
           tags: |
-            husarion/foxglove:studio-nightly
+            husarion/foxglove:${{ github.head_ref || github.ref_name }}-nightly
           cache-to: type=inline

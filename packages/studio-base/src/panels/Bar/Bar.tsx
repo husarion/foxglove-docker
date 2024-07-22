@@ -17,6 +17,30 @@ import type { Config } from "./types";
 
 import "./styles.css";
 
+class MovingAverage {
+  #windowSize: number;
+  #values: number[];
+  #sum: number;
+
+  public constructor(windowSize: number) {
+    this.#windowSize = windowSize;
+    this.#values = [];
+    this.#sum = 0;
+  }
+
+  public addValue(value: number) {
+    this.#values.push(value);
+    this.#sum += value;
+    if (this.#values.length > this.#windowSize) {
+      this.#sum -= this.#values.shift() ?? 0;
+    }
+  }
+
+  public getMean() {
+    return this.#values.length === 0 ? 0 : this.#sum / this.#values.length;
+  }
+}
+
 type Props = {
   context: PanelExtensionContext;
 };
@@ -24,8 +48,7 @@ type Props = {
 const defaultConfig: Config = {
   path: "",
   maxValue: 1,
-  colorMode: "colormap",
-  gradient: ["#0000ff", "#ff00ff"],
+  // windowSize: 100,
   reverse: false,
 };
 
@@ -34,6 +57,7 @@ type State = {
   parsedPath: MessagePath | undefined;
   latestMessage: MessageEvent | undefined;
   latestMatchingQueriedData: unknown;
+  movingAverage: MovingAverage;
   error: Error | undefined;
   pathParseError: string | undefined;
 };
@@ -70,6 +94,9 @@ function reducer(state: State, action: Action): State {
             if (data != undefined) {
               latestMatchingQueriedData = data;
               latestMessage = message;
+              if (typeof data === "number") {
+                state.movingAverage.addValue(data);
+              }
             }
           }
         }
@@ -103,6 +130,7 @@ function reducer(state: State, action: Action): State {
           path: action.path,
           parsedPath: newPath,
           latestMatchingQueriedData,
+          movingAverage: new MovingAverage(100),
           error,
           pathParseError,
         };
@@ -112,6 +140,7 @@ function reducer(state: State, action: Action): State {
           ...state,
           latestMessage: undefined,
           latestMatchingQueriedData: undefined,
+          movingAverage: new MovingAverage(100),
           error: undefined,
         };
     }
@@ -138,6 +167,7 @@ export function Bar({ context }: Props): JSX.Element {
       parsedPath: parseMessagePath(path),
       latestMessage: undefined,
       latestMatchingQueriedData: undefined,
+      movingAverage: new MovingAverage(100),
       pathParseError: undefined,
       error: undefined,
     }),
@@ -201,20 +231,17 @@ export function Bar({ context }: Props): JSX.Element {
     renderDone();
   }, [renderDone]);
 
-  const rawValue =
-    typeof state.latestMatchingQueriedData === "number" ||
-      typeof state.latestMatchingQueriedData === "string"
-      ? Number(state.latestMatchingQueriedData)
-      : NaN;
+  const latestMovingAverage = state.movingAverage.getMean();
+  const rawValue = typeof latestMovingAverage === "number" ? latestMovingAverage : NaN;
 
   const { maxValue, reverse } = config;
-  const barPercentage = Math.round((100 * rawValue) / maxValue)
+  const barPercentage = Math.round((100 * rawValue) / maxValue);
   const percentage = reverse ? -barPercentage : barPercentage;
 
-  const levelHeight = Math.max(Math.min(Math.abs(barPercentage), 100), 0) / 2; // 50% is the max height
+  const levelHeight = Math.max(Math.min(Math.abs(barPercentage), 100), 0) / 2;  // 50% is the max height
   const isPositive = reverse ? rawValue < 0 : rawValue >= 0;
-  const top = isPositive ? `${50 - levelHeight}%` : '50%';
-  const bottom = isPositive ? '50%' : `${50 - levelHeight}%`;
+  const top = isPositive ? `${50 - levelHeight}%` : "50%";
+  const bottom = isPositive ? "50%" : `${50 - levelHeight}%`;
 
   return (
     <Stack
@@ -226,7 +253,7 @@ export function Bar({ context }: Props): JSX.Element {
     >
       <div className="bar">
         <div
-          className={`level ${isPositive ? 'positive' : 'negative'}`}
+          className={`level ${isPositive ? "positive" : "negative"}`}
           style={{ height: `${levelHeight}%`, top, bottom }}
         ></div>
       </div>
