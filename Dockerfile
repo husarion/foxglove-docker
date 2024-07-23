@@ -6,7 +6,7 @@ WORKDIR /src
 
 RUN apt-get update && \
     apt-get install -y git-lfs && \
-    git clone -b improvements https://github.com/husarion/foxglove-docker . && \
+    git clone -b studio https://github.com/husarion/foxglove-docker . && \
     git lfs pull
 
 RUN corepack enable
