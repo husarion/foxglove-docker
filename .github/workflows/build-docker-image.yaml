@@ -36,7 +36,7 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Build and push (production) v${{ inputs.foxglove_version }}
-      if: github.ref_name == 'main'
+      if: github.ref_name == 'main' || github.ref_name == 'studio'
       uses: docker/build-push-action@v3
       with:
         platforms: linux/amd64, linux/arm64
@@ -51,7 +51,7 @@ jobs:
         cache-to: type=inline
 
     - name: Build and push (feature branch) v${{ inputs.foxglove_version }}
-      if: github.ref_name != 'main'
+      if: github.ref_name != 'main' && github.ref_name != 'studio'
       uses: docker/build-push-action@v3
       with:
         platforms: linux/amd64, linux/arm64
